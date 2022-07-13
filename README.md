@@ -11,7 +11,7 @@ Make sure you've the following setup installed:
 Open your terminal, and type the following commands: 
 
 ```console
-git clone https://github.com/semester-orgarnizer-UFC/semester-organizer -recurse--submodules
+git clone --recurse-submodules https://github.com/semester-orgarnizer-UFC/semester-organizer 
 ```
 
 And then, on the root folder, run:
