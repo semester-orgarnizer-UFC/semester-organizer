@@ -1,0 +1,30 @@
+version: '3'
+
+services: 
+    backend: 
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.backend
+        image: backend
+        container_name: backend
+        volumes:
+            - ./backend/target:/app
+        ports:
+            - "8888:88"
+        networks: 
+                - semester-organizer-network
+
+    frontend: 
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.frontend
+        image: frontend
+        container_name: frontend
+        ports:
+            - "3000:3000"
+        networks: 
+                - semester-organizer-network
+
+networks:    
+    semester-organizer-network:
+        driver: bridge            
