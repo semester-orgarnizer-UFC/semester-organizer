@@ -10,10 +10,9 @@ services:
         volumes:
             - ./backend/target:/app
         ports:
-            - "8888:88"
+            - ${BACKEND_PORT}
         networks: 
                 - semester-organizer-network
-
     frontend: 
         build:
             context: .
@@ -21,10 +20,20 @@ services:
         image: frontend
         container_name: frontend
         ports:
-            - "3000:3000"
+            - ${FRONTEND_PORT}
         networks: 
                 - semester-organizer-network
-
+    mongodb:
+        image: mongo:latest # use the latest image.
+        container_name: mongodb
+        restart: unless-stopped
+        environment: # set required env variables to access mongo
+            - MONGO_USERNAME=${MONGO_USERNAME}
+            - MONGO_PASSWORD=${MONGO_PASSWORD}
+        ports:
+            - ${MONGODB_PORT}
+        volumes: # optional to preserve database after container is deleted.
+            - ./database-data:/data/db
 networks:    
     semester-organizer-network:
         driver: bridge            
