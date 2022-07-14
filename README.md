@@ -33,4 +33,12 @@ frontend    |   On Your Network:  http://172.20.0.3:3000
 
 Try to access http://localhost:3000
 
+# How to contribute 
+
+- Clone the repository 
+- Check if there's one issue that you could work on
+> If there's no issue, feel free to create one 
+- Grab the issue number, let's say (42) and then, create a branch called: `fix/#42`. 
+- Commit your changes and pushes your branch 
+
 
