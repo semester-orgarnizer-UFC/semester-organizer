@@ -1,39 +1,27 @@
 version: '3'
 
 services: 
+    mongo_db:
+        image: mongo:latest # use the latest image.
+        container_name: "mongo_db"
+        restart: unless-stopped
+        ports:
+            - 27017:27017
     backend: 
         build:
             context: .
             dockerfile: docker/Dockerfile.backend
-        image: backend
-        container_name: backend
-        volumes:
-            - ./backend/target:/app
+        image: semester/backend
+        container_name: semesterBackend
         ports:
-            - ${BACKEND_PORT}
-        networks: 
-                - semester-organizer-network
+            - 8080:8080
+        links:
+            - mongo_db
     frontend: 
         build:
             context: .
             dockerfile: docker/Dockerfile.frontend
-        image: frontend
-        container_name: frontend
+        image: semester/frontend
+        container_name: semesterFrontend
         ports:
-            - ${FRONTEND_PORT}
-        networks: 
-                - semester-organizer-network
-    mongodb:
-        image: mongo:latest # use the latest image.
-        container_name: mongodb
-        restart: unless-stopped
-        environment: # set required env variables to access mongo
-            - MONGO_USERNAME=${MONGO_USERNAME}
-            - MONGO_PASSWORD=${MONGO_PASSWORD}
-        ports:
-            - ${MONGODB_PORT}
-        volumes: # optional to preserve database after container is deleted.
-            - ./database-data:/data/db
-networks:    
-    semester-organizer-network:
-        driver: bridge            
+            - 3000:3000
