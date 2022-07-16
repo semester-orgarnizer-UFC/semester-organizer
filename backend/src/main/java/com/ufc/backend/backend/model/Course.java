@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +14,7 @@ import java.util.UUID;
 @Document
 public class Course {
     @Id
-    private UUID id;
+    private String id;
     private String name;
     private Set<Classes> mandatoryClasses;
     private Set<Classes> optionalClasses;
