@@ -2,6 +2,9 @@ package com.ufc.backend.backend.services;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufc.backend.backend.exceptions.IdAlreadyExists;
+import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
+import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Course;
 import com.ufc.backend.backend.repositories.ClassRepository;
 import com.ufc.backend.backend.repositories.CourseRepository;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -34,4 +39,23 @@ public class CourseService {
             throw new RuntimeException(e);
         }
     }
+
+    public Course findById(String id) {
+        Optional<Course> obj = courseRepository.findById(id);
+        if (obj.isEmpty()) throw new ObjectNotFoundException(id);
+        return obj.get();
+    }
+
+    public List<Course> findAll() {
+        return courseRepository.findAll();
+    }
+
+    public List<Classes> findMandatory(String id){
+        return findById(id).getMandatoryClasses();
+    }
+
+    public List<Classes> findOptional(String id){
+        return findById(id).getOptionalClasses();
+    }
+
 }

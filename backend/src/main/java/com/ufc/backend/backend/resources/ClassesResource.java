@@ -15,11 +15,6 @@ public class ClassesResource {
     @Autowired
     private ClassesService service;
 
-    @PostMapping("/class/create")
-    public ResponseEntity<Classes> insert(@RequestBody Classes obj) {
-        return ResponseEntity.ok().body(service.insert(obj));
-    }
-
     @GetMapping("/classes")
     public ResponseEntity<List<Classes>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
@@ -31,7 +26,7 @@ public class ClassesResource {
     }
 
     @GetMapping("/classes/pre/{id}")
-    public ResponseEntity<List<Classes>> preRequisites(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.preRequisites(id));
+    public ResponseEntity<Classes> preRequisite(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.preRequisite(id));
     }
 }

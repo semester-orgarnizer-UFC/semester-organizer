@@ -19,7 +19,7 @@ public class Classes {
     private String id;
     private String name;
     @DBRef
-    private List<Classes> preRequisites;
+    private Classes preRequisite;
     private Integer hours;
     private Integer semester;
 

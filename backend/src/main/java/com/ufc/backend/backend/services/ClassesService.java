@@ -19,16 +19,11 @@ public class ClassesService {
         if(obj.isEmpty()) throw new ObjectNotFoundException(id);
         return obj.get();
     }
-    public Classes insert(Classes classes){
-        if(findById(classes.getId()) != null) throw new IdAlreadyExists(classes.getId());
-        return repository.insert(classes);
-    }
-
     public List<Classes> findAll(){
         return repository.findAll();
     }
 
-    public List<Classes> preRequisites(String id){
-        return findById(id).getPreRequisites();
+    public Classes preRequisite(String id){
+        return findById(id).getPreRequisite();
     }
 }

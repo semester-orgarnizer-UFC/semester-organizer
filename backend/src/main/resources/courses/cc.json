@@ -1,5 +1,5 @@
 {
-  "id": "QXD_01",
+  "id": "QXD_CC",
   "name": "Ciência da computação",
   "shortName": "CC",
   "mandatoryClasses": [
@@ -38,48 +38,86 @@
       "name": "Programção orientada a objetos",
       "hours": 64,
       "semester": 2,
-      "preRequisites": [
-        {
-          "ref": "Classes",
-          "id": "QXD0001"
-        }
-      ]
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0001"
+      }
     },
     {
       "id": "QXD0010",
       "name": "Estrutura de dados",
       "hours": 64,
       "semester": 2,
-      "preRequisites": [
-        {
-          "ref": "Classes",
-          "id": "QXD0001"
-        }
-      ]
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0001"
+      }
     },
     {
       "id": "QXD0008",
       "name": "Matemática discreta",
       "hours": 64,
       "semester": 2,
-      "preRequisites": [
-        {
-          "ref": "Classes",
-          "id": "QXD0056"
-        }
-      ]
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0056"
+      }
     },
     {
       "id": "QXD0013",
       "name": "Sistemas operacionais",
       "hours": 64,
       "semester": 2,
-      "preRequisites": [
-        {
-          "ref": "Classes",
-          "id": "QXD005"
-        }
-      ]
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD005"
+      }
+    },
+    {
+      "id": "QXD0114",
+      "name": "Programação funcional",
+      "hours": 64,
+      "semester": 3
+    },
+    {
+      "id": "QXD0115",
+      "name": "Estrutura de dados avançada",
+      "hours": 64,
+      "semester": 3,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0010"
+      }
+    },
+    {
+      "id": "QXD0040",
+      "name": "Linguagens formais e automâtos",
+      "hours": 64,
+      "semester": 3,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0008"
+      }
+    },
+    {
+      "id": "QXD0014",
+      "name": "Lógica para computação",
+      "hours": 64,
+      "semester": 3,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0008"
+      }
+    },
+    {
+      "id": "QXD0012",
+      "name": "Probabilidade e estatística",
+      "hours": 64,
+      "semester": 3,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0056"
+      }
     }
   ]
 }
