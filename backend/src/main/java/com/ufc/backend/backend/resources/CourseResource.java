@@ -38,4 +38,9 @@ public class CourseResource {
         return ResponseEntity.ok().body(service.findOptional(id));
     }
 
+    @GetMapping("/courses/mandatory/{id}/{semester}")
+    public ResponseEntity<List<Classes>> findBySemester(@PathVariable String id, @PathVariable Integer semester) {
+        return ResponseEntity.ok().body(service.findBySemester(id, semester));
+    }
+
 }

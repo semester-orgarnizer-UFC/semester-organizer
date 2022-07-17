@@ -118,6 +118,94 @@
         "ref": "Classes",
         "id": "QXD0056"
       }
+    },
+    {
+      "id": "QXD0016",
+      "name": "Linguagens de programação",
+      "hours": 64,
+      "semester": 4,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0007"
+      }
+    },
+    {
+      "id": "QXD0041",
+      "name": "Projeto e análise de algoritmos",
+      "hours": 64,
+      "semester": 4,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0010"
+      }
+    },
+    {
+      "id": "QXD0011",
+      "name": "Fundamento de banco de dados",
+      "hours": 64,
+      "semester": 4
+    },
+    {
+      "id": "QXD0014",
+      "name": "Análise e projeto de sistemas",
+      "hours": 64,
+      "semester": 4,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0007"
+      }
+    },
+    {
+      "id": "QXD0116",
+      "name": "Álgrebra linear",
+      "hours": 64,
+      "semester": 4
+    },
+    {
+      "id": "QXD0020",
+      "name": "Desenvolvimento de software para web",
+      "hours": 64,
+      "semester": 5,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0007"
+      }
+    },
+    {
+      "id": "QXD0119",
+      "name": "Computação gráfica",
+      "hours": 64,
+      "semester": 5,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0116"
+      }
+    },
+    {
+      "id": "QXD0120",
+      "name": "Matemática computacional",
+      "hours": 64,
+      "semester": 5,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0116"
+      }
+    },
+    {
+      "id": "QXD0025",
+      "name": "Compiladores",
+      "hours": 64,
+      "semester": 5,
+      "preRequisite": {
+        "ref": "Classes",
+        "id": "QXD0040"
+      }
+    },
+    {
+      "id": "QXD0021",
+      "name": "Redes de computadores",
+      "hours": 64,
+      "semester": 5
     }
   ]
 }

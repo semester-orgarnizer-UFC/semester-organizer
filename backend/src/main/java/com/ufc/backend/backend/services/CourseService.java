@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -50,12 +51,16 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public List<Classes> findMandatory(String id){
+    public List<Classes> findMandatory(String id) {
         return findById(id).getMandatoryClasses();
     }
 
-    public List<Classes> findOptional(String id){
+    public List<Classes> findOptional(String id) {
         return findById(id).getOptionalClasses();
+    }
+
+    public List<Classes> findBySemester(String id, Integer semester) {
+        return findById(id).getMandatoryClasses().stream().filter(obj -> Objects.equals(obj.getSemester(), semester)).collect(Collectors.toList());
     }
 
 }
