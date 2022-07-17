@@ -25,4 +25,8 @@ public class ClassesService {
     public List<Classes> findAll(){
         return repository.findAll();
     }
+
+    public List<Classes> preRequisites(String id){
+        return findById(id).getPreRequisites();
+    }
 }

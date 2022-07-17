@@ -5,9 +5,7 @@ import com.ufc.backend.backend.services.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -30,5 +28,10 @@ public class ClassesResource {
     @GetMapping("/classes/{id}")
     public ResponseEntity<Classes> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping("/classes/pre/{id}")
+    public ResponseEntity<List<Classes>> preRequisites(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.preRequisites(id));
     }
 }

@@ -2,8 +2,10 @@ package com.ufc.backend.backend.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -20,9 +22,6 @@ public class Classes {
     /**
      * What classes you need to do before do this one in specific
      */
-    private Set<Classes> preRequisites;
-    /**
-     * What classes you can do after doing this class
-     */
-    private Set<Classes> postRequisites;
+    @DBRef
+    private List<Classes> preRequisites;
 }
