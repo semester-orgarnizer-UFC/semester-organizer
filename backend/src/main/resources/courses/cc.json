@@ -1,0 +1,85 @@
+{
+  "id": "QXD_01",
+  "name": "Ciência da computação",
+  "shortName": "CC",
+  "mandatoryClasses": [
+    {
+      "id": "QXD0001",
+      "name": "Fundamentos de programação",
+      "hours": 96,
+      "semester": 1
+    },
+    {
+      "id": "QXD0108",
+      "name": "Introdução à ciência da computação",
+      "hours": 64,
+      "semester": 1
+    },
+    {
+      "id": "QXD005",
+      "name": "Arquitetura de computadores",
+      "hours": 64,
+      "semester": 1
+    },
+    {
+      "id": "QXD0056",
+      "name": "Matemática básica",
+      "hours": 64,
+      "semester": 1
+    },
+    {
+      "id": "QXD0103",
+      "name": "Ética, direto e legislação",
+      "hours": 32,
+      "semester": 1
+    },
+    {
+      "id": "QXD0007",
+      "name": "Programção orientada a objetos",
+      "hours": 64,
+      "semester": 2,
+      "preRequisites": [
+        {
+          "ref": "Classes",
+          "id": "QXD0001"
+        }
+      ]
+    },
+    {
+      "id": "QXD0010",
+      "name": "Estrutura de dados",
+      "hours": 64,
+      "semester": 2,
+      "preRequisites": [
+        {
+          "ref": "Classes",
+          "id": "QXD0001"
+        }
+      ]
+    },
+    {
+      "id": "QXD0008",
+      "name": "Matemática discreta",
+      "hours": 64,
+      "semester": 2,
+      "preRequisites": [
+        {
+          "ref": "Classes",
+          "id": "QXD0056"
+        }
+      ]
+    },
+    {
+      "id": "QXD0013",
+      "name": "Sistemas operacionais",
+      "hours": 64,
+      "semester": 2,
+      "preRequisites": [
+        {
+          "ref": "Classes",
+          "id": "QXD005"
+        }
+      ]
+    }
+  ]
+}

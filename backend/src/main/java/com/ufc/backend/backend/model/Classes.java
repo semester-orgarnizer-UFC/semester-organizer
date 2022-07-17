@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-import java.util.Set;
 
 
 @AllArgsConstructor
@@ -19,9 +18,9 @@ public class Classes {
     @Id
     private String id;
     private String name;
-    /**
-     * What classes you need to do before do this one in specific
-     */
     @DBRef
     private List<Classes> preRequisites;
+    private Integer hours;
+    private Integer semester;
+
 }

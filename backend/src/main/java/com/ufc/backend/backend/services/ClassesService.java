@@ -1,5 +1,6 @@
 package com.ufc.backend.backend.services;
 
+import com.ufc.backend.backend.exceptions.IdAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.repositories.ClassRepository;
@@ -19,6 +20,7 @@ public class ClassesService {
         return obj.get();
     }
     public Classes insert(Classes classes){
+        if(findById(classes.getId()) != null) throw new IdAlreadyExists(classes.getId());
         return repository.insert(classes);
     }
 

@@ -17,6 +17,7 @@ public class Course {
     @Id
     private String id;
     private String name;
+    private String shortName;
     @DBRef
     private List<Classes> mandatoryClasses;
     @DBRef
