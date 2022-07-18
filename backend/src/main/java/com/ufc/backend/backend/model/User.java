@@ -1,5 +1,6 @@
 package com.ufc.backend.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -7,19 +8,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Document
-public class Course {
+@ToString
+public class User {
+
     @Id
     private String id;
     private String name;
-    private String shortName;
     @DBRef
-    private List<Classes> mandatoryClasses;
-    @DBRef
-    private List<Classes> optionalClasses;
+    @JsonIgnore
+    private Course course;
+    private List<Semester> semester;
+    private Integer currentSemester;
+
 }

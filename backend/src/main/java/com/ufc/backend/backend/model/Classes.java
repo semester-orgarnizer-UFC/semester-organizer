@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
+@ToString
 @Document
 public class Classes {
     @Id

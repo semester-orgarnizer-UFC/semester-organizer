@@ -1,5 +1,6 @@
 package com.ufc.backend.backend.resources.exceptions;
 
+import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
 import com.ufc.backend.backend.exceptions.IdAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,15 @@ public class ResourceExceptionHandler {
                 "Duplicate entry", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
+
+    @ExceptionHandler(ClassDontHaveThePreRequisiteException.class)
+    public ResponseEntity<GenericError> classDontHaveThePreRequisite(ClassDontHaveThePreRequisiteException e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Don't have the pre requisite", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 }
 
