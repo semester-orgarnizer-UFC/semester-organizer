@@ -8,7 +8,9 @@ import com.ufc.backend.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,7 +34,11 @@ public class UserResource {
 
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user) {
-        return ResponseEntity.ok().body(service.insert(user));
+        return ResponseEntity.created(ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/users")
+                .buildAndExpand(user.getId())
+                .toUri()).body(service.insert(user));
     }
 
 

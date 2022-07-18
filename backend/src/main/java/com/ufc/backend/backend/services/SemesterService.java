@@ -27,10 +27,37 @@ public class SemesterService {
     private ClassesService classesService;
 
 
-    public Semester getSemesterByIndex(String userId, Integer index) {
+    public Semester findSemesterByIndex(String userId, Integer index) {
         try {
             return userService.findById(userId).getSemester().get(index - 1);
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
+            throw new SemesterOutOfBoundsException(index);
+        }
+    }
+
+    public void deleteASemesterByIndex(String userId, Integer index) {
+        try {
+            User user = userService.findById(userId);
+            user.getSemester().remove(index - 1);
+            userRepository.save(user);
+        } catch (IndexOutOfBoundsException e) {
+            throw new SemesterOutOfBoundsException(index);
+        }
+    }
+
+    public Semester updateSemester(String userId, Integer index, Semester updatedSemester) {
+        try {
+            User user = userService.findById(userId);
+            List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
+            updatedSemester.getClasses().stream()
+                    .map(Classes::getId).collect(Collectors.toList()).
+                    forEach(id -> checkIfAClassCanBeDone(id, classesAlreadyDone));
+
+            user.getSemester().get(index - 1).getClasses().addAll(updatedSemester.getClasses());
+            user.getSemester().get(index - 1).setIndex(index);
+            userRepository.save(user);
+            return user.getSemester().get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
             throw new SemesterOutOfBoundsException(index);
         }
     }
