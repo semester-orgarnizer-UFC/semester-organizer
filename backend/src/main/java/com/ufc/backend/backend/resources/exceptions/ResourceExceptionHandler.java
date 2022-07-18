@@ -3,13 +3,12 @@ package com.ufc.backend.backend.resources.exceptions;
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
 import com.ufc.backend.backend.exceptions.IdAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
+import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import javax.servlet.http.HttpServletRequest;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +40,15 @@ public class ResourceExceptionHandler {
 
         GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
                 "Don't have the pre requisite", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(SemesterOutOfBoundsException.class)
+    public ResponseEntity<GenericError> semesterOutOfBounds(SemesterOutOfBoundsException e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Semester out of bounds", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }

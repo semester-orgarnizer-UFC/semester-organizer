@@ -45,49 +45,4 @@ public class UserService {
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
     }
-
-    public Semester getSemesterByIndex(String userId, Integer index) {
-        return findById(userId).getSemester().get(index - 1);
-    }
-
-    public User insertSemester(String userId, Semester semester) {
-        User user = findById(userId);
-        List<Classes> classesAlreadyDone = findAllClasses(userId);
-        semester.getClasses().stream()
-                .map(Classes::getId).collect(Collectors.toList()).
-                forEach(id -> checkIfAClassCanBeDone(id, classesAlreadyDone));
-
-        if (user.getSemester() == null) {
-            semester.setIndex(1);
-            user.setSemester(List.of(semester));
-            return repository.save(user);
-        }
-
-        semester.setIndex(user.getSemester().size() + 1);
-        user.getSemester().add(semester);
-        return repository.save(user);
-    }
-
-    private void checkIfAClassCanBeDone(String classId, List<Classes> classesAlreadyDone) {
-        Classes classes = classesService.findById(classId);
-        List<String> ids = new ArrayList<>();
-
-        if (classesAlreadyDone != null) {
-            ids = classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
-        }
-
-        if (!ids.isEmpty() && ids.contains(classId)) {
-            throw new IdAlreadyExists(classId);
-        }
-
-        if (ids.isEmpty() && classes.getPreRequisite() != null) {
-            throw new ClassDontHaveThePreRequisiteException(classes, classes.getPreRequisite());
-        }
-        if (
-                classesAlreadyDone != null
-                        && classes.getPreRequisite() != null
-                        && !ids.contains(classes.getPreRequisite().getId())
-        )
-            throw new ClassDontHaveThePreRequisiteException(classes, classes.getPreRequisite());
-    }
 }

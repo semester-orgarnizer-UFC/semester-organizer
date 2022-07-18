@@ -1,7 +1,9 @@
 package com.ufc.backend.backend.resources;
 
+import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.services.SemesterService;
 import com.ufc.backend.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class SemesterResource {
     @Autowired
-    private UserService service;
+    private SemesterService service;
 
     @GetMapping("/{id}/{index}")
     public ResponseEntity<Semester> getSemesterByIndex(@PathVariable String id, @PathVariable Integer index) {
