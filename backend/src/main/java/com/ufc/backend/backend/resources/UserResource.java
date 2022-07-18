@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/users")
 @CrossOrigin
 public class UserResource {
 
@@ -20,23 +20,20 @@ public class UserResource {
     private UserService service;
 
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping("/users/classes/{id}")
+    @GetMapping("/classes/{id}")
     public ResponseEntity<List<Classes>> findClasses(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findAllClasses(id));
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user) {
         return ResponseEntity.ok().body(service.insert(user));
     }
 
-    @PostMapping("/users/semester/{id}")
-    public ResponseEntity<User> insertSemester(@PathVariable String id, @RequestBody Semester semester) {
-        return ResponseEntity.ok().body(service.insertSemester(id, semester));
-    }
+
 }

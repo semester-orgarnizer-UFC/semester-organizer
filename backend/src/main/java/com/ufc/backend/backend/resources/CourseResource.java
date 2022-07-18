@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/courses")
 @CrossOrigin
 public class CourseResource {
 
     @Autowired
     private CourseService service;
 
-    @GetMapping("/courses/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Course> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping("/courses")
+    @GetMapping
     public ResponseEntity<List<Course>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
-    @GetMapping("/courses/mandatory/{id}")
+    @GetMapping("/mandatory/{id}")
     public ResponseEntity<List<Classes>> findMandatory(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findMandatory(id));
     }
 
-    @GetMapping("/courses/optional/{id}")
+    @GetMapping("/optional/{id}")
     public ResponseEntity<List<Classes>> findOptional(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findOptional(id));
     }
 
-    @GetMapping("/courses/mandatory/{id}/{semester}")
+    @GetMapping("/mandatory/{id}/{semester}")
     public ResponseEntity<List<Classes>> findBySemester(@PathVariable String id, @PathVariable Integer semester) {
         return ResponseEntity.ok().body(service.findBySemester(id, semester));
     }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,10 @@ public class UserService {
         List<Classes> listReturn = new ArrayList<>();
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
+    }
+
+    public Semester getSemesterByIndex(String userId, Integer index) {
+        return findById(userId).getSemester().get(index - 1);
     }
 
     public User insertSemester(String userId, Semester semester) {
