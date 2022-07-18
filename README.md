@@ -1,6 +1,8 @@
 # Semester organizer
 
-The umbrella project of the application
+It's really boring and stressing when you've to plan and decide what classes should we take and in which semester. To plan for just for only one semester (the next one) is a mess, so you don't even imagine and don't even try to plan the remaining semesters. 
+
+That's why you can use this software to help you out with this planning, here it goes the whole flow:
 
 # How to run the project locally
 
