@@ -2,7 +2,6 @@ package com.ufc.backend.backend.resources;
 
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Course;
-import com.ufc.backend.backend.services.ClassesService;
 import com.ufc.backend.backend.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,6 @@
 package com.ufc.backend.backend.resources.exceptions;
 
-import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
-import com.ufc.backend.backend.exceptions.IdAlreadyExists;
-import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
-import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException;
+import com.ufc.backend.backend.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -51,6 +48,15 @@ public class ResourceExceptionHandler {
                 "Semester out of bounds", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(ClassesAndPreRequisiteAtTheSameTimeException.class)
+    public ResponseEntity<GenericError> classesAndPreRequisiteAtTheSameTimeException(ClassesAndPreRequisiteAtTheSameTimeException e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Class and pre requisite at the same time", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
     }
 }
 

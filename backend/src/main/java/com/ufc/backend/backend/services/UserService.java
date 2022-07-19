@@ -27,6 +27,7 @@ public class UserService {
     private ClassesService classesService;
 
 
+
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
         if (obj.isEmpty()) throw new ObjectNotFoundException(id);
@@ -44,5 +45,10 @@ public class UserService {
         List<Classes> listReturn = new ArrayList<>();
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
+    }
+
+    public List<Classes> findAllUndoneClasses(String id){
+        User user = findById(id);
+        return null;
     }
 }

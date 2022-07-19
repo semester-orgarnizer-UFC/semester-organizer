@@ -1,6 +1,7 @@
 package com.ufc.backend.backend.services;
 
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
+import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException;
 import com.ufc.backend.backend.exceptions.IdAlreadyExists;
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException;
 import com.ufc.backend.backend.model.Classes;
@@ -49,9 +50,15 @@ public class SemesterService {
         try {
             User user = userService.findById(userId);
             List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
-            updatedSemester.getClasses().stream()
-                    .map(Classes::getId).collect(Collectors.toList()).
-                    forEach(id -> checkIfAClassCanBeDone(id, classesAlreadyDone));
+
+            updatedSemester.getClasses().forEach(obj -> {
+                Classes classes = classesService.findById(obj.getId());
+                List<String> ids = classesAlreadyDone == null ? null : classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
+                checkIfAClassCanBeDone(classes, ids);
+
+                if (classes.getPreRequisite() != null && ids != null && ids.contains(classes.getPreRequisite().getId()))
+                    throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
+            });
 
             user.getSemester().get(index - 1).getClasses().addAll(updatedSemester.getClasses());
             user.getSemester().get(index - 1).setIndex(index);
@@ -65,9 +72,11 @@ public class SemesterService {
     public User insertSemester(String userId, Semester semester) {
         User user = userService.findById(userId);
         List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
-        semester.getClasses().stream()
-                .map(Classes::getId).collect(Collectors.toList()).
-                forEach(id -> checkIfAClassCanBeDone(id, classesAlreadyDone));
+        
+        semester.getClasses().forEach(obj -> {
+            List<String> ids = classesAlreadyDone == null ? null : classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
+            checkIfAClassCanBeDone(classesService.findById(obj.getId()), ids);
+        });
 
         if (user.getSemester() == null) {
             semester.setIndex(1);
@@ -80,26 +89,17 @@ public class SemesterService {
         return userRepository.save(user);
     }
 
-    private void checkIfAClassCanBeDone(String classId, List<Classes> classesAlreadyDone) {
-        Classes classes = classesService.findById(classId);
-        List<String> ids = new ArrayList<>();
+    private void checkIfAClassCanBeDone(Classes classes, List<String> idsAlreadyDone) {
 
-        if (classesAlreadyDone != null) {
-            ids = classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
-        }
+        if (idsAlreadyDone == null) {
+            if (classes.getPreRequisite() != null)
+                throw new ClassDontHaveThePreRequisiteException(classes);
+        } else {
+            if (idsAlreadyDone.contains(classes.getId()))
+                throw new IdAlreadyExists(classes.getId());
 
-        if (!ids.isEmpty() && ids.contains(classId)) {
-            throw new IdAlreadyExists(classId);
+            if (classes.getPreRequisite() != null && !idsAlreadyDone.contains(classes.getPreRequisite().getId()))
+                throw new ClassDontHaveThePreRequisiteException(classes);
         }
-
-        if (ids.isEmpty() && classes.getPreRequisite() != null) {
-            throw new ClassDontHaveThePreRequisiteException(classes, classes.getPreRequisite());
-        }
-        if (
-                classesAlreadyDone != null
-                        && classes.getPreRequisite() != null
-                        && !ids.contains(classes.getPreRequisite().getId())
-        )
-            throw new ClassDontHaveThePreRequisiteException(classes, classes.getPreRequisite());
     }
 }
