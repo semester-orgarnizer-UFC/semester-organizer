@@ -1,8 +1,6 @@
 package com.ufc.backend.backend.resources;
 
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.Course;
-import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,7 +35,7 @@ public class UserResource {
                 .fromCurrentRequest()
                 .path("/users")
                 .buildAndExpand(user.getId())
-                .toUri()).body(service.insert(user));
+                .toUri()).body(service.save(user));
     }
 
 

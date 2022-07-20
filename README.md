@@ -39,11 +39,14 @@ Try to access http://localhost:3000
 # How to contribute
 
 - Clone the repository
+- `git checkout staging`
 - Check if there's one issue that you could work on
   > If there's no issue, feel free to create one
 - Grab the issue number, let's say (42) and then, create a branch called: `fix/#42`.
+- `git pull origin main`
+> Solve the possible conflicts
 - Commit your changes and pushes your branch
-
+> Don't forget to follow the good practices of a commit: (#$ISSUE_NUMBER - $TAG: $MESSAGE COMMIT) -> #142 - fix: remove the entity User
 ---
 
 ```json

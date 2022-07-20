@@ -53,10 +53,19 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(ClassesAndPreRequisiteAtTheSameTimeException.class)
     public ResponseEntity<GenericError> classesAndPreRequisiteAtTheSameTimeException(ClassesAndPreRequisiteAtTheSameTimeException e, HttpServletRequest request) {
 
-        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(),
                 "Class and pre requisite at the same time", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
+
+    @ExceptionHandler(ClassCantBeDoneAtTheFirstSemester.class)
+    public ResponseEntity<GenericError> classCantBeDoneAtTheFirstSemester(ClassCantBeDoneAtTheFirstSemester e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Class can't be done at the first semester", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 }
 
