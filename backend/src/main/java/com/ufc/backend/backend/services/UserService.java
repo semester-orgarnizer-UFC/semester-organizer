@@ -6,6 +6,7 @@ import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,12 +22,17 @@ public class UserService {
     @Autowired
     private ClassesService classesService;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
 
     public User findById(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
 
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
 

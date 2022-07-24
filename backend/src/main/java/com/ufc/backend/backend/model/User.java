@@ -1,6 +1,7 @@
 package com.ufc.backend.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -19,6 +20,8 @@ public class User {
     @Id
     private String id;
     private String name;
+    private String email;
+    private String password;
     @DBRef
     @JsonIgnore
     private Course course;
