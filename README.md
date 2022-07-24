@@ -4,13 +4,13 @@ It's really boring and stressing when you've to plan and decide what classes sho
 
 That's why you can use this software to help you out with this planning, here it goes the whole flow:
 
-# How to run the project locally
+## How to run the project locally
 
 Make sure you've the following setup installed:
 
--  Docker and Docker compose
+-   Docker and Docker compose
 
--  JDK 11
+-   JDK 11
 
 Open your terminal, and type the following commands:
 
@@ -37,7 +37,7 @@ frontend    |   On Your Network:  http://172.20.0.3:3000
 
 Try to access http://localhost:3000
 
-# [How to contribute](CONTRIBUTING.MD)
+### [How to contribute](CONTRIBUTING.MD)
 
 ```json
     {

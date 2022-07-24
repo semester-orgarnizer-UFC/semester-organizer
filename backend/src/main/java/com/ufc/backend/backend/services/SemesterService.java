@@ -4,7 +4,6 @@ import com.ufc.backend.backend.exceptions.*;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.User;
-import com.ufc.backend.backend.repositories.UserRepository;
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class SemesterService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -47,7 +43,6 @@ public class SemesterService {
         semester.getClasses().forEach(classes -> {
             handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
             handler.classesDontHaveThePreRequisite(classes.getId());
-            handler.classesAndPreRequisiteAtTheSameTime(semester, userService.findById(userId));
         });
 
 

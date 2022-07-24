@@ -33,9 +33,6 @@ public class HandlePossibleClassesException {
             throw new ClassDontHaveThePreRequisiteException(classes);
     }
 
-    public void classesAndPreRequisiteAtTheSameTime(Semester obj, User user) {
-    }
-
     public void classesCantBeDoneAtTheFirstSemester(String classesId, Semester semester) {
         Classes classes = this.classesService.findById(classesId);
 
