@@ -32,11 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private static final String[] PUBLIC_MATCHER = {
-             "/classes/**", "/users",
+             "/classes/**", "/users", "/courses/**",
     };
 
-    // Configure application: add auth filters, public endpoints
-    // and setting state (in this case, is STATELESS)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();

@@ -15,23 +15,23 @@ public class SemesterResource {
     @Autowired
     private SemesterService service;
 
-    @GetMapping("/{id}/{index}")
-    public ResponseEntity<Semester> getSemesterByIndex(@PathVariable String id, @PathVariable Integer index) {
-        return ResponseEntity.ok().body(service.findSemesterByIndex(id, index));
+    @GetMapping("/{index}")
+    public ResponseEntity<Semester> getSemesterByIndex(@PathVariable Integer index) {
+        return ResponseEntity.ok().body(service.findSemesterByIndex(index));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<User> createSemester(@PathVariable String id, @RequestBody Semester semester) {
+    @PostMapping
+    public ResponseEntity<User> createSemester(@RequestBody Semester semester) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(semester.getIndex())
-                .toUri()).body(service.createOrUpdateSemester(id, semester));
+                .toUri()).body(service.createOrUpdateSemester(semester));
     }
 
-    @DeleteMapping("/{id}/{index}")
-    public ResponseEntity<Void> deleteSemester(@PathVariable String id, @PathVariable Integer index) {
-        service.deleteASemesterByIndex(id, index);
+    @DeleteMapping("/{index}")
+    public ResponseEntity<Void> deleteSemester(@PathVariable Integer index) {
+        service.deleteASemesterByIndex(index);
         return ResponseEntity.noContent().build();
     }
 }

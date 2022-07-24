@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,30 +36,24 @@ public class UserService {
     }
 
     @Cacheable
-    public List<Classes> findAllDoneClasses(String id) {
-        User user = findById(id);
+    public List<Classes> findAllDoneClasses() {
+        User user = findById(AuthService.userAuthenticated().getId());
+
         if (user.getSemester() == null) return null;
         List<Classes> listReturn = new ArrayList<>();
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
     }
 
-    @Cacheable
-    public List<Classes> findAllDoneClasses(User user) {
-        if (user.getSemester() == null) return null;
-        List<Classes> listReturn = new ArrayList<>();
-        user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
-        return listReturn;
-    }
 
-    public List<Classes> findAllClassesThatHasTheGivenPreRequisite(String preRequisiteId, User user) {
-        return findAllDoneClasses(user).stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
+    public List<Classes> findAllClassesThatHasTheGivenPreRequisite(String preRequisiteId) {
+        return findAllDoneClasses().stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
     }
 
 
     @Cacheable
-    public List<Classes> findAllUndoneClasses(String id) {
-       List<Classes> classesDone = findAllDoneClasses(id);
+    public List<Classes> findAllUndoneClasses() {
+       List<Classes> classesDone = findAllDoneClasses();
        List<Classes> allClasses = classesService.findAll();
 
        if(classesDone == null) return allClasses;
@@ -74,8 +67,8 @@ public class UserService {
         user.getSemester().forEach(semester -> semester.getClasses().removeIf(classes -> classes.getId().equals(classId)));
         save(user);
 
-        if (findAllClassesThatHasTheGivenPreRequisite(classId, user) != null) {
-            findAllClassesThatHasTheGivenPreRequisite(classId, user).forEach(classes -> deleteAGivenClassesOfAGivenUser(user, classes.getId()));
+        if (findAllClassesThatHasTheGivenPreRequisite(classId) != null) {
+            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteAGivenClassesOfAGivenUser(user, classes.getId()));
         }
     }
 

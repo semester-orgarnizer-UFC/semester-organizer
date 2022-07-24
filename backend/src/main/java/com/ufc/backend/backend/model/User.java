@@ -21,6 +21,7 @@ public class User {
     private String id;
     private String name;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @DBRef
     @JsonIgnore

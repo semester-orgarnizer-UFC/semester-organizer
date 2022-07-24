@@ -24,13 +24,13 @@ public class UserResource {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping("/classes/{id}")
-    public ResponseEntity<List<Classes>> findClasses(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.findAllDoneClasses(id));
+    @GetMapping("/classes")
+    public ResponseEntity<List<Classes>> findClasses() {
+        return ResponseEntity.ok().body(service.findAllDoneClasses());
     }
     @GetMapping("/classes/undone/{id}")
-    public ResponseEntity<List<Classes>> findUndoneClasses(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.findAllUndoneClasses(id));
+    public ResponseEntity<List<Classes>> findUndoneClasses() {
+        return ResponseEntity.ok().body(service.findAllUndoneClasses());
     }
 
 

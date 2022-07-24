@@ -19,8 +19,10 @@ public class SemesterService {
     @Autowired
     private ClassesService classesService;
 
-    public Semester findSemesterByIndex(String userId, Integer index) {
-        return userService.findById(userId).getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
+    public Semester findSemesterByIndex(Integer index) {
+        User user = userService.findById(AuthService.userAuthenticated().getId());
+
+        return user.getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
@@ -29,19 +31,21 @@ public class SemesterService {
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
-    public void deleteASemesterByIndex(String userId, Integer index) {
-        User user = userService.findById(userId);
+    public void deleteASemesterByIndex(Integer index) {
+        User user = userService.findById(AuthService.userAuthenticated().getId());
         Semester semester = findSemesterByIndex(user, index);
         user.getSemester().removeIf(obj -> obj.getIndex().equals(semester.getIndex()));
         userService.save(user);
         semester.getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
     }
 
-    public User createOrUpdateSemester(String userId, Semester semester) {
-        User user = userService.findById(userId);
+    public User createOrUpdateSemester(Semester semester) {
+
+        User user = userService.findById(AuthService.userAuthenticated().getId());
+
         List<String> ids =
-                userService.findAllDoneClasses(userId) == null ? null :
-                        userService.findAllDoneClasses(userId).stream().map(Classes::getId).collect(Collectors.toList());
+                userService.findAllDoneClasses() == null ? null :
+                        userService.findAllDoneClasses().stream().map(Classes::getId).collect(Collectors.toList());
 
 
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);

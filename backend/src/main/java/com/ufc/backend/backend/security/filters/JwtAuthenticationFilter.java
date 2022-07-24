@@ -31,7 +31,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.jwtUtil = jwtUtil;
     }
 
-    // Try to authenticate
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException {
@@ -47,9 +46,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new RuntimeException(e);
         }
     }
-
-    // If authenticate sucess, search which user the Auth obj is, wheter is
-    // client or seller
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
@@ -57,14 +53,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String username = ((UserSecurity) auth.getPrincipal()).getUsername();
 
         String token = jwtUtil.generateToken(username);
-        res.addHeader("Authorization", "Bearer " + token);
+        res.addHeader("Authorization", token);
         res.addHeader("access-control-expose-headers", "Authorization");
         res.addHeader("Access-Control-Expose-Headers", "Authorization");
         res.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
 
     }
-
-    // If the authenticate fails, throw the json below
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
         @Override
