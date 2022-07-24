@@ -18,11 +18,11 @@ services:
             - 8080:8080
         links:
             - mongo_db
-    frontend: 
-        build:
-            context: .
-            dockerfile: docker/Dockerfile.frontend.dockerfile
-        image: semester/frontend
-        container_name: semesterFrontend
-        ports:
-            - 3000:3000
+    # frontend: 
+    #     build:
+    #         context: .
+    #         dockerfile: docker/Dockerfile.frontend
+    #     image: semester/frontend
+    #     container_name: semesterFrontend
+    #     ports:
+    #         - 3000:3000

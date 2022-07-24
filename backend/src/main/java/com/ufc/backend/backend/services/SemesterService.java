@@ -43,6 +43,7 @@ public class SemesterService {
         semester.getClasses().forEach(classes -> {
             handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
             handler.classesDontHaveThePreRequisite(classes.getId());
+            handler.classAndPreRequisiteAtTheSameTime(semester, user);
         });
 
 
