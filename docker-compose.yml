@@ -7,6 +7,7 @@ services:
         restart: unless-stopped
         ports:
             - 27017:27017
+        command: mongod --quiet --logpath /dev/null             
     backend: 
         build:
             context: .
