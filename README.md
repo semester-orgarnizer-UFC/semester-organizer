@@ -8,8 +8,9 @@ That's why you can use this software to help you out with this planning, here it
 
 Make sure you've the following setup installed:
 
-- Docker and Docker compose
-- JDK 11
+-  Docker and Docker compose
+
+-  JDK 11
 
 Open your terminal, and type the following commands:
 

@@ -2,8 +2,6 @@ package com.ufc.backend.backend.services.utils;
 
 import com.ufc.backend.backend.exceptions.ClassCantBeDoneAtTheFirstSemester;
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
-import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException;
-import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.User;
@@ -31,18 +29,11 @@ public class HandlePossibleClassesException {
         if (this.idsAlreadyDone == null && classes.getPreRequisite() != null)
             throw new ClassDontHaveThePreRequisiteException(classes);
 
-        if (this.idsAlreadyDone != null && classes.getPreRequisite() != null) {
-
-            if (!this.idsAlreadyDone.contains(classes.getPreRequisite().getId()))
-                throw new ClassDontHaveThePreRequisiteException(classes);
-        }
+        if (this.idsAlreadyDone != null && classes.getPreRequisite() != null && !this.idsAlreadyDone.contains(classes.getPreRequisite().getId()))
+            throw new ClassDontHaveThePreRequisiteException(classes);
     }
 
     public void classesAndPreRequisiteAtTheSameTime(Semester obj, User user) {
-        if (user.getSemester() != null) {
-
-          Semester currentSemester = user.getSemester().stream().filter(semester -> semester.getIndex().equals(obj.getIndex())).findFirst().orElseThrow(SemesterOutOfBoundsException::new);
-        }
     }
 
     public void classesCantBeDoneAtTheFirstSemester(String classesId, Semester semester) {

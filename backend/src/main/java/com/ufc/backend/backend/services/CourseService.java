@@ -2,7 +2,7 @@ package com.ufc.backend.backend.services;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ufc.backend.backend.exceptions.IdAlreadyExists;
+import com.ufc.backend.backend.exceptions.CouldNotLoadTheClassesException;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Course;
@@ -10,9 +10,7 @@ import com.ufc.backend.backend.repositories.ClassRepository;
 import com.ufc.backend.backend.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,7 +35,7 @@ public class CourseService {
             course.getMandatoryClasses().forEach(obj -> classRepository.save(obj));
             courseRepository.save(mapper.readValue(in, Course.class));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new CouldNotLoadTheClassesException();
         }
     }
 

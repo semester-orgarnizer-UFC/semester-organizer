@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:16
 COPY frontend /home/app/frontend
 WORKDIR /home/app/frontend
 RUN npm install
