@@ -5,6 +5,7 @@ import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.repositories.UserRepository;
+import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,57 +25,44 @@ public class SemesterService {
     private ClassesService classesService;
 
     public Semester findSemesterByIndex(String userId, Integer index) {
-        try {
-            return userService.findById(userId).getSemester().get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemesterOutOfBoundsException(index);
-        }
+        return userService.findById(userId).getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
+                findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
     public void deleteASemesterByIndex(String userId, Integer index) {
-        try {
-            User user = userService.findById(userId);
-            user.getSemester().remove(index - 1);
-            userService.save(user);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemesterOutOfBoundsException(index);
-        }
+        User user = userService.findById(userId);
+        user.getSemester().remove(findSemesterByIndex(userId, index));
+        userService.save(user);
     }
 
     public User createOrUpdateSemester(String userId, Semester semester) {
         User user = userService.findById(userId);
-        List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
+        List<String> ids =
+                userService.findAllClasses(userId) == null ? null :
+                        userService.findAllClasses(userId).stream().map(Classes::getId).collect(Collectors.toList());
 
-        semester.getClasses().forEach(obj -> {
-            List<String> ids = classesAlreadyDone == null ? null : classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
-            checkIfAClassCanBeDone(classesService.findById(obj.getId()), ids);
-            if (ids != null && ids.contains(obj.getId())) {
-                userService.deleteAGivenClassesOfAGivenUser(user, obj.getId());
-            }
+
+        HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
+
+        semester.getClasses().forEach(classes -> {
+            handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
+            handler.classesDontHaveThePreRequisite(classes.getId());
+            handler.classesAndPreRequisiteAtTheSameTime(semester, userService.findById(userId));
         });
+
 
         if (user.getSemester() == null) {
             user.setSemester(List.of(semester));
             return userService.save(user);
         }
 
-        if(user.getSemester().stream().map(Semester::getIndex).collect(Collectors.toList()).contains(semester.getIndex())){
-            user.getSemester().get(semester.getIndex() - 1).getClasses().addAll(semester.getClasses());
+        if (user.getSemester().stream().map(Semester::getIndex).collect(Collectors.toList()).contains(semester.getIndex())) {
+            user.getSemester().stream().filter(obj -> obj.getIndex().equals(semester.getIndex())).findFirst().
+                    get().getClasses().addAll(semester.getClasses());
             return userService.save(user);
         }
 
         user.getSemester().add(semester);
         return userService.save(user);
-    }
-
-    private void checkIfAClassCanBeDone(Classes classes, List<String> idsAlreadyDone) {
-
-        if (idsAlreadyDone == null) {
-            if (classes.getPreRequisite() != null)
-                throw new ClassDontHaveThePreRequisiteException(classes);
-        } else {
-            if (classes.getPreRequisite() != null && !idsAlreadyDone.contains(classes.getPreRequisite().getId()))
-                throw new ClassDontHaveThePreRequisiteException(classes);
-        }
     }
 }
