@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -37,6 +38,18 @@ public class UserService {
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
     }
+    @Cacheable
+    public List<Classes> findAllClasses(User user) {
+        if (user.getSemester() == null) return null;
+        List<Classes> listReturn = new ArrayList<>();
+        user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
+        return listReturn;
+    }
+
+    public List<Classes> findAllClassesThatHasTheGivenPreRequisite(String preRequisiteId, User user) {
+        return findAllClasses(user).stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
+    }
+
 
     public List<Classes> findAllUndoneClasses(String id) {
         List<Classes> allClasses = classesService.findAll();
@@ -44,8 +57,13 @@ public class UserService {
         return allClasses;
     }
 
+
     public void deleteAGivenClassesOfAGivenUser(User user, String classId) {
         user.getSemester().forEach(semester -> semester.getClasses().removeIf(classes -> classes.getId().equals(classId)));
         save(user);
+
+        if(findAllClassesThatHasTheGivenPreRequisite(classId, user) != null){
+            findAllClassesThatHasTheGivenPreRequisite(classId, user).forEach(classes -> deleteAGivenClassesOfAGivenUser(user, classes.getId()));
+        }
     }
 }

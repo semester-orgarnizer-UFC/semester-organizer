@@ -26,7 +26,7 @@ public class ClassesResource {
     }
 
     @GetMapping("/classes/pre/{id}")
-    public ResponseEntity<Classes> preRequisite(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.preRequisite(id));
+    public ResponseEntity<List<Classes>> findAllClassesThatHasTheGivenPreRequisite(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.findAllClassesThatHasTheGivenPreRequisite(id));
     }
 }

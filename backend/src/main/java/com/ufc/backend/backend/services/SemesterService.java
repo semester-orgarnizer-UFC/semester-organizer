@@ -32,7 +32,7 @@ public class SemesterService {
 
     public void deleteASemesterByIndex(String userId, Integer index) {
         User user = userService.findById(userId);
-        user.getSemester().removeIf(obj -> obj.getIndex().equals(findSemesterByIndex(userId, index).getIndex()));
+        findSemesterByIndex(user, index).getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
         userService.save(user);
     }
 
