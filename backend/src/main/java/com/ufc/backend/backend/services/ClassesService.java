@@ -5,7 +5,6 @@ import com.ufc.backend.backend.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClassesService {
@@ -13,9 +12,7 @@ public class ClassesService {
     private ClassRepository repository;
 
     public Classes findById(String id){
-        Optional<Classes> obj = repository.findById(id);
-        if(obj.isEmpty()) throw new ObjectNotFoundException(id);
-        return obj.get();
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
     public List<Classes> findAll(){
         return repository.findAll();

@@ -25,9 +25,14 @@ public class SemesterService {
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
+    public Semester findSemesterByIndex(User user, Integer index) {
+        return user.getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
+                findFirst().orElseThrow(SemesterOutOfBoundsException::new);
+    }
+
     public void deleteASemesterByIndex(String userId, Integer index) {
         User user = userService.findById(userId);
-        user.getSemester().remove(findSemesterByIndex(userId, index));
+        user.getSemester().removeIf(obj -> obj.getIndex().equals(findSemesterByIndex(userId, index).getIndex()));
         userService.save(user);
     }
 
@@ -39,7 +44,6 @@ public class SemesterService {
 
 
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
-
         semester.getClasses().forEach(classes -> {
             handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
             handler.classesDontHaveThePreRequisite(classes.getId());
@@ -52,13 +56,22 @@ public class SemesterService {
             return userService.save(user);
         }
 
+        deleteAClassesWhenInsertIfAlreadyExists(semester, ids, user);
+
         if (user.getSemester().stream().map(Semester::getIndex).collect(Collectors.toList()).contains(semester.getIndex())) {
-            user.getSemester().stream().filter(obj -> obj.getIndex().equals(semester.getIndex())).findFirst().
-                    get().getClasses().addAll(semester.getClasses());
+            findSemesterByIndex(user, semester.getIndex()).getClasses().addAll(semester.getClasses());
             return userService.save(user);
         }
 
         user.getSemester().add(semester);
         return userService.save(user);
+    }
+
+    private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, List<String> ids, User user) {
+        semester.getClasses().forEach(obj -> {
+            if (ids != null && ids.contains(obj.getId())) {
+                userService.deleteAGivenClassesOfAGivenUser(user, obj.getId());
+            }
+        });
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,9 +22,7 @@ public class UserService {
 
 
     public User findById(String id) {
-        Optional<User> obj = repository.findById(id);
-        if (obj.isEmpty()) throw new ObjectNotFoundException(id);
-        return obj.get();
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
 
     public User save(User user) {
