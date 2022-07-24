@@ -31,15 +31,16 @@ public class UserService {
     }
 
     @Cacheable
-    public List<Classes> findAllClasses(String id) {
+    public List<Classes> findAllDoneClasses(String id) {
         User user = findById(id);
         if (user.getSemester() == null) return null;
         List<Classes> listReturn = new ArrayList<>();
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
         return listReturn;
     }
+
     @Cacheable
-    public List<Classes> findAllClasses(User user) {
+    public List<Classes> findAllDoneClasses(User user) {
         if (user.getSemester() == null) return null;
         List<Classes> listReturn = new ArrayList<>();
         user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
@@ -47,14 +48,19 @@ public class UserService {
     }
 
     public List<Classes> findAllClassesThatHasTheGivenPreRequisite(String preRequisiteId, User user) {
-        return findAllClasses(user).stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
+        return findAllDoneClasses(user).stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
     }
 
 
+    @Cacheable
     public List<Classes> findAllUndoneClasses(String id) {
-        List<Classes> allClasses = classesService.findAll();
-        allClasses.removeAll(findAllClasses(id));
-        return allClasses;
+       List<Classes> classesDone = findAllDoneClasses(id);
+       List<Classes> allClasses = classesService.findAll();
+
+       if(classesDone == null) return allClasses;
+
+       classesDone.forEach(classes -> allClasses.removeIf(obj -> obj.getId().equals(classes.getId())));
+       return allClasses;
     }
 
 
@@ -62,8 +68,9 @@ public class UserService {
         user.getSemester().forEach(semester -> semester.getClasses().removeIf(classes -> classes.getId().equals(classId)));
         save(user);
 
-        if(findAllClassesThatHasTheGivenPreRequisite(classId, user) != null){
+        if (findAllClassesThatHasTheGivenPreRequisite(classId, user) != null) {
             findAllClassesThatHasTheGivenPreRequisite(classId, user).forEach(classes -> deleteAGivenClassesOfAGivenUser(user, classes.getId()));
         }
     }
+
 }

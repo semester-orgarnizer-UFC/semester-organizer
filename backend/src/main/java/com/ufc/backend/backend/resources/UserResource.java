@@ -26,8 +26,13 @@ public class UserResource {
 
     @GetMapping("/classes/{id}")
     public ResponseEntity<List<Classes>> findClasses(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.findAllClasses(id));
+        return ResponseEntity.ok().body(service.findAllDoneClasses(id));
     }
+    @GetMapping("/classes/undone/{id}")
+    public ResponseEntity<List<Classes>> findUndoneClasses(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.findAllUndoneClasses(id));
+    }
+
 
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user) {

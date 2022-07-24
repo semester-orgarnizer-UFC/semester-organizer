@@ -7,7 +7,6 @@ import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,15 +31,17 @@ public class SemesterService {
 
     public void deleteASemesterByIndex(String userId, Integer index) {
         User user = userService.findById(userId);
-        findSemesterByIndex(user, index).getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
+        Semester semester = findSemesterByIndex(user, index);
+        user.getSemester().removeIf(obj -> obj.getIndex().equals(semester.getIndex()));
         userService.save(user);
+        semester.getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
     }
 
     public User createOrUpdateSemester(String userId, Semester semester) {
         User user = userService.findById(userId);
         List<String> ids =
-                userService.findAllClasses(userId) == null ? null :
-                        userService.findAllClasses(userId).stream().map(Classes::getId).collect(Collectors.toList());
+                userService.findAllDoneClasses(userId) == null ? null :
+                        userService.findAllDoneClasses(userId).stream().map(Classes::getId).collect(Collectors.toList());
 
 
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
@@ -58,7 +59,7 @@ public class SemesterService {
 
         deleteAClassesWhenInsertIfAlreadyExists(semester, ids, user);
 
-        if (user.getSemester().stream().map(Semester::getIndex).collect(Collectors.toList()).contains(semester.getIndex())) {
+        if (user.getSemester().stream().anyMatch(obj -> obj.getIndex().equals(semester.getIndex()))) {
             findSemesterByIndex(user, semester.getIndex()).getClasses().addAll(semester.getClasses());
             return userService.save(user);
         }
