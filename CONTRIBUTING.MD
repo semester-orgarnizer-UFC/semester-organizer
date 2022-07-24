@@ -3,11 +3,11 @@ You can contribute in a lot of ways, it can be [coding](#how-to-contribute-with-
 
 ## How to report a bug
 
--  Access https://github.com/semester-orgarnizer-UFC/semester-organizer/issues
+-    Access https://github.com/semester-orgarnizer-UFC/semester-organizer/issues
 
--  Click on New Issue
+-    Click on New Issue
 
--  Put a detailed title and on the description, if you don't mind, put as much information as possible: expected behavior, screenshots.
+-    Put a detailed title and on the description, if you don't mind, put as much information as possible: expected behavior, screenshots.
 
 ## How to request a new feature
 
@@ -19,20 +19,18 @@ You can contribute in a lot of ways, it can be [coding](#how-to-contribute-with-
 
 -    Clone the repository
 
--   `git checkout staging`
+-    `git checkout staging`
 
--   Check if there's one issue that you could work on
-
+-    Check if there's one issue that you could work on
 
   > If there's no issue, feel free to create one
--   Grab the issue number, let's say (42) and then, create a branch called: `fix/#42`.
+  
+-    Grab the issue number, let's say (42) and then, create a branch called: `fix/#42`.
 
--   `git pull origin main`
+-    `git pull origin main`
 
 > Solve the possible conflicts
 
--   Commit your changes and pushes your branch
+-    Commit your changes and pushes your branch
 
 > Don't forget to follow the good practices of a commit: (#$ISSUE_NUMBER - $TAG: $MESSAGE COMMIT) -> #142 - fix: remove the entity User
----
-

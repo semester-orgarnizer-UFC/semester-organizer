@@ -4,7 +4,6 @@ import com.ufc.backend.backend.exceptions.ClassCantBeDoneAtTheFirstSemester;
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.ClassesService;
 import org.springframework.stereotype.Service;
 
