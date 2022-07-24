@@ -38,5 +38,9 @@ public class UserResource {
                 .toUri()).body(service.save(user));
     }
 
-
+    @DeleteMapping("/{id}/{classId}")
+    public ResponseEntity<Boolean> deleteClassFromSemester(@PathVariable String id, @PathVariable String classId) {
+        service.deleteAGivenClassesOfAGivenUser(service.findById(id), classId);
+        return ResponseEntity.noContent().build();
+    }
 }

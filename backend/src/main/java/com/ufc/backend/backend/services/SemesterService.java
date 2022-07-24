@@ -7,8 +7,8 @@ import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,60 +40,29 @@ public class SemesterService {
             throw new SemesterOutOfBoundsException(index);
         }
     }
-    public void deleteAGivenClassesOfAGivenSemester(String userId, Integer index, String classId){
-        User user = userService.findById(userId);
-        user.getSemester().get(index - 1).getClasses().removeIf( obj -> Objects.equals(obj.getId(), classId));
-        userService.save(user);
-    }
-    public Semester updateSemester(String userId, Integer index, Semester updatedSemester) {
-        try {
-            User user = userService.findById(userId);
-            List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
 
-            updatedSemester.getClasses().forEach(obj -> {
-                Classes classes = classesService.findById(obj.getId());
-                List<String> ids = classesAlreadyDone == null ? null : classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
-                checkIfAClassCanBeDone(classes, ids);
-
-                if (classes.getPreRequisite() != null && ids != null && ids.contains(classes.getPreRequisite().getId()))
-                    throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
-
-                if (ids != null && ids.contains(classes.getId())){
-                    deleteAGivenClassesOfAGivenSemester(userId, index, classes.getId());
-                }
-            });
-
-            user.getSemester().get(index - 1).getClasses().addAll(updatedSemester.getClasses());
-            user.getSemester().get(index - 1).setIndex(index);
-            userService.save(user);
-            return user.getSemester().get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemesterOutOfBoundsException(index);
-        }
-    }
-
-    public User insertSemester(String userId, Semester semester) {
+    public User createOrUpdateSemester(String userId, Semester semester) {
         User user = userService.findById(userId);
         List<Classes> classesAlreadyDone = userService.findAllClasses(userId);
 
         semester.getClasses().forEach(obj -> {
             List<String> ids = classesAlreadyDone == null ? null : classesAlreadyDone.stream().map(Classes::getId).collect(Collectors.toList());
             checkIfAClassCanBeDone(classesService.findById(obj.getId()), ids);
+            if (ids != null && ids.contains(obj.getId())) {
+                userService.deleteAGivenClassesOfAGivenUser(user, obj.getId());
+            }
         });
 
         if (user.getSemester() == null) {
-            semester.setIndex(1);
             user.setSemester(List.of(semester));
-
-            semester.getClasses().forEach(obj -> {
-                Classes classes = classesService.findById(obj.getId());
-                if (classes.getSemester() != 1)
-                    throw new ClassCantBeDoneAtTheFirstSemester(classes);
-            });
             return userService.save(user);
         }
 
-        semester.setIndex(user.getSemester().size() + 1);
+        if(user.getSemester().stream().map(Semester::getIndex).collect(Collectors.toList()).contains(semester.getIndex())){
+            user.getSemester().get(semester.getIndex() - 1).getClasses().addAll(semester.getClasses());
+            return userService.save(user);
+        }
+
         user.getSemester().add(semester);
         return userService.save(user);
     }

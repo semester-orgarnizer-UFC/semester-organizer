@@ -22,7 +22,6 @@ public class UserService {
     private ClassesService classesService;
 
 
-
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
         if (obj.isEmpty()) throw new ObjectNotFoundException(id);
@@ -42,8 +41,14 @@ public class UserService {
         return listReturn;
     }
 
-    public List<Classes> findAllUndoneClasses(String id){
-        User user = findById(id);
-        return null;
+    public List<Classes> findAllUndoneClasses(String id) {
+        List<Classes> allClasses = classesService.findAll();
+        allClasses.removeAll(findAllClasses(id));
+        return allClasses;
+    }
+
+    public void deleteAGivenClassesOfAGivenUser(User user, String classId) {
+        user.getSemester().forEach(semester -> semester.getClasses().removeIf(classes -> classes.getId().equals(classId)));
+        save(user);
     }
 }

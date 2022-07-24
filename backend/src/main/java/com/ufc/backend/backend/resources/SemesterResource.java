@@ -21,22 +21,17 @@ public class SemesterResource {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<User> insertSemester(@PathVariable String id, @RequestBody Semester semester) {
+    public ResponseEntity<User> createSemester(@PathVariable String id, @RequestBody Semester semester) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(semester.getIndex())
-                .toUri()).body(service.insertSemester(id, semester));
+                .toUri()).body(service.createOrUpdateSemester(id, semester));
     }
 
     @DeleteMapping("/{id}/{index}")
     public ResponseEntity<Void> deleteSemester(@PathVariable String id, @PathVariable Integer index) {
         service.deleteASemesterByIndex(id, index);
         return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{id}/{index}")
-    public ResponseEntity<Semester> updateSemester(@PathVariable String id, @PathVariable Integer index, @RequestBody Semester semester) {
-        return ResponseEntity.ok().body(service.updateSemester(id, index, semester));
     }
 }
