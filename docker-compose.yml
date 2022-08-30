@@ -21,7 +21,7 @@ services:
     frontend: 
         build:
             context: .
-            dockerfile: docker/Dockerfile.frontend
+            dockerfile: docker/Dockerfile.frontend.dockerfile
         image: semester/frontend
         container_name: semesterFrontend
         ports:
