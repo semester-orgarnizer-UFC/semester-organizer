@@ -40,19 +40,14 @@ Try to access http://localhost:3000
 ### Architeture 
 
 #### Backend
-```
-├── config // The configuration files
-├── exceptions // Where the exception are created
-├── model // Where the entities are stored
-├── repositories // The communication with the DB
-├── resources // Where the endpoints are stored
-│   └── exceptions // 
+```shell
+├── config
+├── exceptions
+├── model
+├── repositories
+├── resources
 ├── security
-│   └── filters
 └── services
-    ├── details
-    └── utils
-
 ```
 
 ### [How to contribute](CONTRIBUTING.MD)
