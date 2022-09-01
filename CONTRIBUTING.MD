@@ -45,6 +45,10 @@ You can contribute in a lot of ways, it can be [coding](#how-to-contribute-with-
 -    Access https://cc.quixada.ufc.br/estrutura-curricular/fluxograma-de-disciplinas/
 -    Check the classes and try to replicate the model using the following JSON structure: 
 
+<img src="assets/fluxogram-cc.jpg">
+
+> Try to replicate this image in the json
+
 ```json
 {
   "id": "QXD_CC",

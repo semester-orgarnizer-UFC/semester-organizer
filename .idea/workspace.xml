@@ -4,63 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fa9f6ac-89e0-407a-a5bc-c4db2fa9ef39" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/out/production/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/BackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/config/WebSecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/ClassCantBeDoneAtTheFirstSemester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/ClassDontHaveThePreRequisiteException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/ClassesAndPreRequisiteAtTheSameTimeException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/IdAlreadyExists.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/IdWithWrongSyntaxException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/ObjectNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/exceptions/SemesterOutOfBoundsException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/model/Classes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/model/Course.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/model/Semester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/repositories/ClassRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/repositories/CourseRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/repositories/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/resources/ClassesResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/resources/CourseResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/resources/SemesterResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/resources/UserResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/resources/exceptions/ResourceExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/services/ClassesService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/services/CourseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/services/SemesterService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/java/com/ufc/backend/backend/services/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/main/resources/courses/cc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/backend/src/test/java/com/ufc/backend/backend/BackendApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/frontend/src/setupTests.js" beforeDir="false" />
-    </list>
+    <list default="true" id="6fa9f6ac-89e0-407a-a5bc-c4db2fa9ef39" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,17 +39,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/rene/Desktop/semester-organizer/backend",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/rene/Desktop/semester-organizer/backend&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.BackendApplication">
     <configuration name="BackendApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ufc.backend.backend.BackendApplication" />
