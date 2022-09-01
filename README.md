@@ -1,8 +1,22 @@
 # Semester organizer
 
-It's really boring and stressing when you've to plan and decide what classes should we take and in which semester. To plan for just for only one semester (the next one) is a mess, so you don't even imagine and don't even try to plan the remaining semesters.
+It's really boring and stressing when you've to plan and decide what classes should we take and in which semester. To plan for just for only one semester (the next one) is really a mess, so you don't even imagine and don't even try to plan the remaining semesters.
 
-That's why you can use this software to help you out with this planning, here it goes the whole flow:
+That's why you can use this software to help you out with this planning.
+
+## The objective
+
+In this software you would be able: 
+
+-  To populate your semesters with classes that you've done already and classes that you want to do in the next semesters. 
+
+That's it! Very simple and straighfoward, we're planning also to study our data to collect some important informations: 
+
+-  Which teacher is the most choosed for given class.
+-  Which collection of classes is the most popular for the given semester of a given course.
+-  Collect feedback of a given class of a given teacher, and then we can base our choices on it.
+
+Regardless these tech objectives, the main goal of this project is to gather the most developers as possible and create a net around this open source project, if you're interested, please feel free to send me a massage. Also, take a look on the [how to contribute document](CONTRIBUTING.MD)
 
 ## How to run the project locally
 
@@ -52,22 +66,3 @@ Try to access http://localhost:3000
 ```
 
 ### [How to contribute](CONTRIBUTING.MD)
-
-```json
-{
-    "id": "QXD0001",
-    "name": "Fundamentos de programação",
-    "hours": 96,
-    "semester": 1
-},
-{
-    "id": "QXD0010",
-    "name": "Estrutura de dados",
-    "hours": 64,
-    "semester": 2,
-    "preRequisite": {
-        "ref": "Classes",
-        "id": "QXD0001"
-    }
-}
-```
