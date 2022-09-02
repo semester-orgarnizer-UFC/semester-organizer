@@ -1,14 +1,14 @@
 import React from "react";
-import "./login.css";
+import "./signup.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
-const Login = () => (
+const Signup = () => (
   <ThemeProvider theme={theme}>
     <Box
       sx={{
@@ -18,7 +18,26 @@ const Login = () => (
       }}
     >
       <div className="login-wrap">
-        <h2>Login</h2>
+        <h2>Cadastro</h2>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <TextField
+              sx={{ mt: 2 }}
+              variant="filled"
+              label="Nome"
+              color="primary"
+            ></TextField>
+          </Grid>
+          <Grid item xs={6}>
+            {" "}
+            <TextField
+              sx={{ mt: 2 }}
+              variant="filled"
+              label="Sobrenome"
+              color="primary"
+            ></TextField>
+          </Grid>
+        </Grid>
         <TextField
           fullWidth
           sx={{ mt: 2 }}
@@ -40,11 +59,11 @@ const Login = () => (
             flexDirection: "row",
           }}
         >
-          <h3>Esqueceu sua senha?</h3>
-          <h3>Cadastre-se aqui</h3>
+          <div></div>
+          <h3>Faça login</h3>
         </Box>
         <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
-          Entrar
+          Criar
         </Button>
         <Button
           type="button"
@@ -54,25 +73,15 @@ const Login = () => (
           startIcon={<FcGoogle />}
           sx={{ mt: 2, mb: 5 }}
         >
-          Entrar com google
+          Criar com google
         </Button>
-
-        <Box sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2
-        }}>
-          <FaGithub color="#161B33"/>
-          <FaLinkedin color="#161B33"/>
-        </Box>
       </div>
     </Box>
   </ThemeProvider>
 );
 
-Login.propTypes = {};
+Signup.propTypes = {};
 
-Login.defaultProps = {};
+Signup.defaultProps = {};
 
-export default Login;
+export default Signup;

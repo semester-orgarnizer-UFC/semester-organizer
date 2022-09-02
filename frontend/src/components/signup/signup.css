@@ -13,7 +13,7 @@ body {
 
 .login-wrap {
   background-color: var(--secondary);
-  width: 70%;
+  width: 50%;
   height: 500px;
   border-radius: 12px;
   padding: 10px 40px 10px;
