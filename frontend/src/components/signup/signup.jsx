@@ -6,77 +6,80 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 const Signup = () => (
   <ThemeProvider theme={theme}>
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <div className="login-wrap">
-        <h2>Cadastro</h2>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              sx={{ mt: 2 }}
-              variant="filled"
-              label="Nome"
-              color="primary"
-            ></TextField>
+    <Container className="body">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        className="body"
+      >
+        <div className="login-wrap">
+          <h2>Cadastro</h2>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                sx={{ mt: 2 }}
+                variant="filled"
+                label="Nome"
+                color="primary"
+              ></TextField>
+            </Grid>
+            <Grid item xs={6}>
+              {" "}
+              <TextField
+                sx={{ mt: 2 }}
+                variant="filled"
+                label="Sobrenome"
+                color="primary"
+              ></TextField>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            {" "}
-            <TextField
-              sx={{ mt: 2 }}
-              variant="filled"
-              label="Sobrenome"
-              color="primary"
-            ></TextField>
-          </Grid>
-        </Grid>
-        <TextField
-          fullWidth
-          sx={{ mt: 2 }}
-          variant="filled"
-          label="Email"
-          color="primary"
-        ></TextField>
-        <TextField
-          fullWidth
-          sx={{ mt: 2 }}
-          variant="filled"
-          label="Password"
-          color="primary"
-        ></TextField>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <div></div>
-          <h3>Faça login</h3>
-        </Box>
-        <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
-          Criar
-        </Button>
-        <Button
-          type="button"
-          color="primary"
-          fullWidth
-          variant="outlined"
-          startIcon={<FcGoogle />}
-          sx={{ mt: 2, mb: 5 }}
-        >
-          Criar com google
-        </Button>
-      </div>
-    </Box>
+          <TextField
+            fullWidth
+            sx={{ mt: 2 }}
+            variant="filled"
+            label="Email"
+            color="primary"
+          ></TextField>
+          <TextField
+            fullWidth
+            sx={{ mt: 2 }}
+            variant="filled"
+            label="Password"
+            color="primary"
+          ></TextField>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <div></div>
+            <h3>Faça login</h3>
+          </Box>
+          <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
+            Criar
+          </Button>
+          <Button
+            type="button"
+            color="primary"
+            fullWidth
+            variant="outlined"
+            startIcon={<FcGoogle />}
+            sx={{ mt: 2, mb: 5 }}
+          >
+            Criar com google
+          </Button>
+        </div>
+      </Box>
+    </Container>
   </ThemeProvider>
 );
 

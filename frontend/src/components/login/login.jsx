@@ -6,10 +6,11 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 const Login = () => (
   <ThemeProvider theme={theme}>
+  <Container className="body">
     <Box
       sx={{
         display: "flex",
@@ -68,6 +69,7 @@ const Login = () => (
         </Box>
       </div>
     </Box>
+    </Container>
   </ThemeProvider>
 );
 

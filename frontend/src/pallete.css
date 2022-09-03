@@ -5,3 +5,7 @@
     --dark:#161B33;
     --deepDark:#0D0C1D;
 }
+
+html, body {
+    background-color: var(--dark);
+}

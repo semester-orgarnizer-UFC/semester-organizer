@@ -18,7 +18,6 @@ const data = [
     hours: 64,
   },
 ];
-
 const listItems = data.map((item) => (
   <ClassCard name={item.name} id={item.id} hours={item.hours}></ClassCard>
 ));
@@ -41,6 +40,7 @@ export function CardWrap(props) {
           </Box>
         </CardContent>
       </Card>
+      
     </ThemeProvider>
   );
 }

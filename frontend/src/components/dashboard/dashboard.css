@@ -1,5 +1,8 @@
 @import "./../../pallete.css";
 
-body {
-    height: 100vh;
+.dashboard {
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--dark);
 }

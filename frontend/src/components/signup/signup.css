@@ -2,7 +2,7 @@
 @import '@fontsource/roboto/400.css';
 
 
-body {
+.body {
     background-color: var(--dark);
     margin: 0 auto;
     height: 100vh;
