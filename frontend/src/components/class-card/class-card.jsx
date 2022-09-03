@@ -1,55 +1,51 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { FcGoogle } from "react-icons/fc";
-import { FaClock } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { Box } from "@mui/material";
 import { Card, CardContent, Typography, CardActions } from "@mui/material";
 
-const ClassCard = () => (
-  <ThemeProvider theme={theme}>
-    <Card
-      sx={{
-        background: "#F1DAC4",
-      }}
-    >
-      <CardContent>
-        <Typography sx={{ fontSize: 20 }} color="primary">
-          Fundamentos de programação
-        </Typography>
-        <Typography variant="h5" component="div"></Typography>
-        <Typography color="secondary">CC - Ciência da computação</Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "end",
-            mt: 1,
-          }}
-        >
-          <FaClock size={14} color="#474973"></FaClock>
-          <Typography
-            variant="h5"
-            sx={{ fontSize: 14, ml: 0.5 }}
-            color="primary"
-          >
-            64h
+export function ClassCard(props) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Card
+        sx={{
+          background: "#F1DAC4",
+        }}
+      >
+        <CardContent>
+          <Typography sx={{ fontSize: 16 }} color="primary">
+            {props.name}
           </Typography>
-
-          <Typography
-            variant="h5"
-            sx={{ fontSize: 14, ml: 0.5 }}
-            color="primary"
-          ></Typography>
-        </Box>
-      </CardContent>
-    </Card>
-  </ThemeProvider>
-);
-
-ClassCard.propTypes = {};
-
-ClassCard.defaultProps = {};
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mt: 1,
+            }}
+          >
+            <Typography color="secondary" sx={{ fontSize: 14 }}>
+              COD: {props.id}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{ fontSize: 14, ml: 1 }}
+                color="secondary"
+              >
+                {props.hours}h
+              </Typography>
+            </Box>
+          </Box>
+        </CardContent>
+      </Card>
+    </ThemeProvider>
+  );
+}
 
 export default ClassCard;
