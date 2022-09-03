@@ -2,18 +2,8 @@
 @import '@fontsource/roboto/400.css';
 
 
-.body {
-    background-color: var(--dark);
-    margin: 0 auto;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .login-wrap {
   background-color: var(--secondary);
-  width: 70%;
   height: 500px;
   border-radius: 12px;
   padding: 10px 40px 10px;

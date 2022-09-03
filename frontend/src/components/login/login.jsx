@@ -6,11 +6,11 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Login = () => (
   <ThemeProvider theme={theme}>
-  <Container className="body">
     <Box
       sx={{
         display: "flex",
@@ -42,11 +42,16 @@ const Login = () => (
           }}
         >
           <h3>Esqueceu sua senha?</h3>
-          <h3>Cadastre-se aqui</h3>
+          <Link to="/signup">
+            <h3>Cadastre-se aqui</h3>
+          </Link>
         </Box>
-        <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
-          Entrar
-        </Button>
+        <Link to="/dashboard">
+          <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
+            Entrar
+          </Button>
+        </Link>
+
         <Button
           type="button"
           color="primary"
@@ -58,18 +63,19 @@ const Login = () => (
           Entrar com google
         </Button>
 
-        <Box sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2
-        }}>
-          <FaGithub color="#161B33"/>
-          <FaLinkedin color="#161B33"/>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 2,
+          }}
+        >
+          <FaGithub color="#161B33" />
+          <FaLinkedin color="#161B33" />
         </Box>
       </div>
     </Box>
-    </Container>
   </ThemeProvider>
 );
 
