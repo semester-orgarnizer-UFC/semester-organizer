@@ -1,9 +1,5 @@
 import React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Card, CardContent, Typography } from "@mui/material";
 import "./card-wrap.css";
 import ClassCard from "./../class-card/class-card.jsx";
 import { Box } from "@mui/material";
@@ -29,27 +25,22 @@ const listItems = data.map((item) => (
 export function CardWrap(props) {
   return (
     <ThemeProvider theme={theme}>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography color="primary">{props.index}º semestre</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
+      <Card sx={{ minWidth: 275 }}>
+        <CardContent>
+          <Typography sx={{ mb: 1.5 }} color="primary">
+            {props.index}º semestre
+          </Typography>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
               gap: "10px",
             }}
           >
             {listItems}
           </Box>
-        </AccordionDetails>
-      </Accordion>
+        </CardContent>
+      </Card>
     </ThemeProvider>
   );
 }

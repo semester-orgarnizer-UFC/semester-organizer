@@ -2,7 +2,7 @@ import React from "react";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { Box } from "@mui/material";
-import { Card, CardContent, Typography, CardActions } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 
 export function ClassCard(props) {
   return (

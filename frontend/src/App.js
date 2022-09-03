@@ -5,7 +5,7 @@ import Dashboard from './components/dashboard/dashboard.jsx';
 import CardWrap from './components/card-wrap/card-wrap.jsx';
 
 function App() {
-  return <CardWrap index={1}></CardWrap>;
+  return <Dashboard></Dashboard>;
 }
 
 export default App;
