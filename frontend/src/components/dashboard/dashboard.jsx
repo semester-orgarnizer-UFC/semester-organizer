@@ -2,7 +2,7 @@ import React from "react";
 import "./dashboard.css";
 import { Card, CardContent, Typography, Box, Container } from "@mui/material";
 import CardWrap from "./../card-wrap/card-wrap.jsx";
-import CssBaseline from "@mui/material/CssBaseline";
+import ClassesNotTaken from "../classes-not-taken/classes-not-taken";
 
 const data = [
     {
@@ -25,12 +25,8 @@ const Dashboard = () => (
       }}
     >
       <CardWrap index={1} data={data} />
-      <CardWrap index={3} />
-      <CardWrap index={4} />
-      <CardWrap index={5} />
-      <CardWrap index={6} />
-      <CardWrap index={7} />
-      <CardWrap index={8} />
+      <CardWrap index={2} data={data} />
+      <ClassesNotTaken />
     </Box>
   </Box>
 );

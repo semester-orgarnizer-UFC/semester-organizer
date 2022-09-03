@@ -12,13 +12,13 @@ import {
   MenuItem,
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 export function ClassCard(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    event.preventDefault() 
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -40,7 +40,9 @@ export function ClassCard(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Card>
+      <Card
+      onContextMenu={handleClick}
+      >
         <CardContent>
           <Box
             sx={{
@@ -93,6 +95,7 @@ export function ClassCard(props) {
           </Box>
         </CardContent>
       </Card>
+
     </ThemeProvider>
   );
 }

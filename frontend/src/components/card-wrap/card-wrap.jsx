@@ -18,13 +18,20 @@ const data = [
     hours: 64,
   },
 ];
-const listItems = data.map((item) => (
-  <ClassCard name={item.name} id={item.id} hours={item.hours}></ClassCard>
+const listItems = data.map((item, index) => (
+  <ClassCard name={item.name} id={item.id} hours={item.hours} key={index}></ClassCard>
 ));
 export function CardWrap(props) {
   return (
     <ThemeProvider theme={theme}>
-      <Card sx={{ minWidth: 275, background: "var(--card)" }}>
+      <Card
+        sx={{
+          minWidth: 275,
+          width: 350,
+          background: "var(--card)",
+          overflowY: "scroll",
+        }}
+      >
         <CardContent>
           <Typography sx={{ mb: 1.5 }} color="primary">
             {props.index}º semestre
