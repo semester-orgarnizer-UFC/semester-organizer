@@ -24,7 +24,7 @@ const listItems = data.map((item) => (
 export function CardWrap(props) {
   return (
     <ThemeProvider theme={theme}>
-      <Card sx={{ minWidth: 275 }}>
+      <Card sx={{ minWidth: 275, background: "var(--card)" }}>
         <CardContent>
           <Typography sx={{ mb: 1.5 }} color="primary">
             {props.index}º semestre
@@ -40,7 +40,6 @@ export function CardWrap(props) {
           </Box>
         </CardContent>
       </Card>
-      
     </ThemeProvider>
   );
 }

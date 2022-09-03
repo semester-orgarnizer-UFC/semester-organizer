@@ -2,10 +2,15 @@
     --primary:#474973;
     --secondary:#A69CAC;
     --light:#F1DAC4;
+    --card: #EBECF0;
     --dark:#161B33;
     --deepDark:#0D0C1D;
 }
 
 html, body {
     background-color: var(--dark);
+}
+
+* {
+    text-decoration: none;
 }

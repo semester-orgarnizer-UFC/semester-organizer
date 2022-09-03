@@ -8,9 +8,6 @@ export function ClassCard(props) {
   return (
     <ThemeProvider theme={theme}>
       <Card
-        sx={{
-          background: "#F1DAC4",
-        }}
       >
         <CardContent>
           <Typography sx={{ fontSize: 16 }} color="primary">

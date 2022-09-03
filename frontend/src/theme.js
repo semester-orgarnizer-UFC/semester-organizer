@@ -16,5 +16,8 @@ export const theme = createTheme({
     },
     light: {
       main: "#F1DAC4",
-    }}
+    }},
+    card: {
+      main: "#EBECF0"
+    }
 });
