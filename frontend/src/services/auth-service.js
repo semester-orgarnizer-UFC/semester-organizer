@@ -1,9 +1,9 @@
 import axios from "axios";
 
-  export async function createUser(data) {
+  export async function login(data) {
     let config = {
       method: "POST",
-      url: "http://localhost:8080/users",
+      url: "http://localhost:8080/login",
       data: JSON.stringify(data),
       responseType: "json",
       headers: { "content-type": "application/json" },
@@ -12,7 +12,7 @@ import axios from "axios";
     try {
       return await axios(config);
     } catch (error) {
-      console.log(error);
+      return error.response.data;
     }
 }
 

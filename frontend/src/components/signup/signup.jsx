@@ -18,7 +18,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { createUser } from "../services/user-service";
+import { createUser } from "../../services/user-service";
 
 function Signup() {
   const [firstName, setName] = useState("");
@@ -27,6 +27,7 @@ function Signup() {
   const [course, setCourse] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -54,7 +55,7 @@ function Signup() {
     setCourse(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     const data = {
       firstName: firstName,
       lastName: lastName,
@@ -67,16 +68,15 @@ function Signup() {
       currentSemester: 1,
     };
 
-    setErrorMessage("O email renejr.arraes286@gmail.com já existe");
+    const response = await createUser(data);
+
+    if (response.status === 201) {
+      setSuccessMessage("Seu usuário foi criado");
+    } else {
+      setErrorMessage(response.message);
+    }
     setOpen(true);
-    console.log(errorMessage);
-    // return <SnackbarError />;
-
-    // const response = await createUser(data);
-
-    // if(response.status !== 200){
-    // }
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -90,42 +90,42 @@ function Signup() {
         <div className="login-wrap">
           <h2>Cadastro</h2>
           <Box className="grid">
-          <TextField
-            variant="filled"
-            label="Nome"
-            color="primary"
-            fullWidth
-            value={firstName}
-            onChange={handleNameChange}
-            required
-          ></TextField>
-          <TextField
-            fullWidth
-            variant="filled"
-            label="Sobrenome"
-            color="primary"
-            value={lastName}
-            onChange={handleLastNameChange}
-            required
-          ></TextField>
-          <FormControl variant="filled" fullWidth>
-            <InputLabel id="demo-simple-select-label">Curso</InputLabel>
-            <Select
-              fullWidth
+            <TextField
+              variant="filled"
+              label="Nome"
               color="primary"
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={course}
-              label="Curso"
-              onChange={handleCourseChange}
+              fullWidth
+              value={firstName}
+              onChange={handleNameChange}
               required
-            >
-              <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
-              <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
-              <MenuItem value={"QXD-ES"}>Engenharia de software</MenuItem>
-            </Select>
-          </FormControl>
-          </Box>  
+            ></TextField>
+            <TextField
+              fullWidth
+              variant="filled"
+              label="Sobrenome"
+              color="primary"
+              value={lastName}
+              onChange={handleLastNameChange}
+              required
+            ></TextField>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel id="demo-simple-select-label">Curso</InputLabel>
+              <Select
+                fullWidth
+                color="primary"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={course}
+                label="Curso"
+                onChange={handleCourseChange}
+                required
+              >
+                <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
+                <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
+                <MenuItem value={"QXD-ES"}>Engenharia de software</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           <TextField
             fullWidth
             sx={{ mt: 2 }}
@@ -188,10 +188,10 @@ function Signup() {
               >
                 <Alert
                   onClose={handleClose}
-                  severity="error"
+                  severity={errorMessage ? "error" : "success"}
                   sx={{ width: "100%" }}
                 >
-                  {errorMessage}
+                  {errorMessage ? errorMessage : successMessage}
                 </Alert>
               </Snackbar>
             </Stack>

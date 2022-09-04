@@ -49,12 +49,13 @@ const Dashboard = () => (
         display: "flex",
         flexDirection: "row",
         alignItems: "start",
-        justifyContent: "center",
+        justifyContent: "start",
         gap: 2,
+        height: '90vh'
       }}
     >
-      {/* <CardWrap index={1} data={data} />
-      <CardWrap index={2} data={data2} /> */}
+      <CardWrap index={1} data={data} />
+      <CardWrap index={2} data={data2} />
       <AddSemester />
       <ClassesNotTaken />
     </Box>

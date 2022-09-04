@@ -1,14 +1,57 @@
 import React from "react";
+import { useState } from "react";
 import "./login.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { login } from "../../services/auth-service.js";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  async function handleSubmit() {
+    const data = {
+      email: email,
+      password: password,
+    };
+    const response = await login(data);
+
+    if (response.status === 200) {
+      return navigate("/dashboard");
+    }
+
+    setErrorMessage(response.message);
+    setOpen(true);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -26,13 +69,19 @@ function Login() {
             variant="filled"
             label="Email"
             color="primary"
+            value={email}
+            onChange={handleEmailChange}
+            required
           ></TextField>
           <TextField
             fullWidth
             sx={{ mt: 2 }}
             variant="filled"
-            label="Password"
+            label="Senha"
+            value={password}
+            onChange={handlePasswordChange}
             color="primary"
+            required
           ></TextField>
           <Box
             sx={{
@@ -46,17 +95,25 @@ function Login() {
               <h3>Cadastre-se aqui</h3>
             </Link>
           </Box>
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            sx={{ mt: 2 }}
+            onClick={handleSubmit}
+          >
+            Entrar
+          </Button>
           <Link to="/dashboard">
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              sx={{ mt: 2 }}
-            >
-              Entrar
-            </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            sx={{ mt: 2 }}
+          >
+            Entrar sem banco de dados
+          </Button>
           </Link>
-
           <Button
             type="button"
             color="primary"
@@ -79,6 +136,24 @@ function Login() {
             <FaGithub color="var(--primary)" />
             <FaLinkedin color="var(--primary)" />
           </Box>
+          {open && (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="error"
+                  sx={{ width: "100%" }}
+                >
+                  {errorMessage}
+                </Alert>
+              </Snackbar>
+            </Stack>
+          )}
         </div>
       </Box>
     </ThemeProvider>
