@@ -13,6 +13,9 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Snackbar,
+  Stack,
+  Alert,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { createUser } from "../services/user-service";
@@ -23,6 +26,15 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [course, setCourse] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -42,7 +54,7 @@ function Signup() {
     setCourse(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data = {
       firstName: firstName,
       lastName: lastName,
@@ -54,7 +66,16 @@ function Signup() {
       },
       currentSemester: 1,
     };
-    createUser(data);
+
+    setErrorMessage("O email renejr.arraes286@gmail.com já existe");
+    setOpen(true);
+    console.log(errorMessage);
+    // return <SnackbarError />;
+
+    // const response = await createUser(data);
+
+    // if(response.status !== 200){
+    // }
   };
 
   return (
@@ -68,50 +89,43 @@ function Signup() {
       >
         <div className="login-wrap">
           <h2>Cadastro</h2>
-          <Grid spacing={2} sx={{ mt: 2}} className="grid">
-            <Grid item xs={4}>
-              <TextField
-                variant="filled"
-                label="Nome"
-                color="primary"
-                fullWidth
-                value={firstName}
-                onChange={handleNameChange}
-                required
-              ></TextField>
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                fullWidth
-                variant="filled"
-                labelId="demo-simple-select-standard-label"
-                label="Sobrenome"
-                color="primary"
-                value={lastName}
-                onChange={handleLastNameChange}
-                required
-              ></TextField>
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl fullWidth variant="filled">
-                <InputLabel id="demo-simple-select-label">Curso</InputLabel>
-                <Select
-                fullWidth
-                  color="primary"
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={course}
-                  label="Curso"
-                  onChange={handleCourseChange}
-                  required
-                >
-                  <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
-                  <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
-                  <MenuItem value={"QXD-ES"}>Engenharia de software</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
+          <Box className="grid">
+          <TextField
+            variant="filled"
+            label="Nome"
+            color="primary"
+            fullWidth
+            value={firstName}
+            onChange={handleNameChange}
+            required
+          ></TextField>
+          <TextField
+            fullWidth
+            variant="filled"
+            label="Sobrenome"
+            color="primary"
+            value={lastName}
+            onChange={handleLastNameChange}
+            required
+          ></TextField>
+          <FormControl variant="filled" fullWidth>
+            <InputLabel id="demo-simple-select-label">Curso</InputLabel>
+            <Select
+              fullWidth
+              color="primary"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={course}
+              label="Curso"
+              onChange={handleCourseChange}
+              required
+            >
+              <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
+              <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
+              <MenuItem value={"QXD-ES"}>Engenharia de software</MenuItem>
+            </Select>
+          </FormControl>
+          </Box>  
           <TextField
             fullWidth
             sx={{ mt: 2 }}
@@ -164,6 +178,24 @@ function Signup() {
           >
             Criar com google
           </Button>
+          {open && (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="error"
+                  sx={{ width: "100%" }}
+                >
+                  {errorMessage}
+                </Alert>
+              </Snackbar>
+            </Stack>
+          )}
         </div>
       </Box>
     </ThemeProvider>

@@ -19,5 +19,8 @@ export const theme = createTheme({
     }},
     card: {
       main: "#EBECF0"
+    },
+    danger: {
+      main: "#D4452F"
     }
 });
