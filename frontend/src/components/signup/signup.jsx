@@ -7,6 +7,9 @@ import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { Box, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import { createUser } from "../services/user-service";
+import { get } from "../services/user-service";
+
 
 const Signup = () => (
   <ThemeProvider theme={theme}>
@@ -64,7 +67,7 @@ const Signup = () => (
             <h3>Faça login</h3>
           </Link>
         </Box>
-        <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }}>
+        <Button variant="contained" fullWidth color="primary" sx={{ mt: 2 }} onClick= { () => createUser() }>
           Criar
         </Button>
         <Button

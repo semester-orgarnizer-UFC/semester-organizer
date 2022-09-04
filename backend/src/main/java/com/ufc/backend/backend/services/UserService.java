@@ -1,5 +1,6 @@
 package com.ufc.backend.backend.services;
 
+import com.ufc.backend.backend.exceptions.EmailAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.User;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,12 +27,12 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
 
-
     public User findById(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
 
     public User save(User user) {
+        if (repository.findByEmail(user.getEmail()) != null) throw new EmailAlreadyExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
@@ -53,13 +55,13 @@ public class UserService {
 
     @Cacheable
     public List<Classes> findAllNotTakenClasses() {
-       List<Classes> classesDone = findAllDoneClasses();
-       List<Classes> allClasses = classesService.findAll();
+        List<Classes> classesDone = findAllDoneClasses();
+        List<Classes> allClasses = classesService.findAll();
 
-       if(classesDone == null) return allClasses;
+        if (classesDone == null) return allClasses;
 
-       classesDone.forEach(classes -> allClasses.removeIf(obj -> obj.getId().equals(classes.getId())));
-       return allClasses;
+        classesDone.forEach(classes -> allClasses.removeIf(obj -> obj.getId().equals(classes.getId())));
+        return allClasses;
     }
 
 

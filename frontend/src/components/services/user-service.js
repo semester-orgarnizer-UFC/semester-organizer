@@ -1,26 +1,12 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: `http://localhost:8080`,
-});
-
-  export async function createUser() {
+  export async function createUser(data) {
     let config = {
-      method: "post",
-      url: api + "/users",
+      method: "get",
+      url: "http://localhost:8080/users",
       responseType: "json",
       headers: { "content-type": "application/json" },
-      data: {
-        name: "Rene",
-        surname: "Junior",
-        email: "renejr.arraes286@gmail.com",
-        password: "rene",
-        course: {
-          ref: "Course",
-          id: "QXD_CC",
-        },
-        currentSemester: 1,
-      },
+      data: data
     };
 
     try {
@@ -32,4 +18,4 @@ const api = axios.create({
     }
 }
 
-export default api;
+
