@@ -1,12 +1,12 @@
 .add-semester {
   width: 350px;
-  background: var(--card);
+  background: var(--secondary);
   opacity: 0.5;
 }
 
 .add-semester:hover {
     opacity: 0.9;
-    transition: 0.2s;
     cursor: pointer;
+    background: var(--card);
   }
   
