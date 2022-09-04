@@ -40,22 +40,18 @@ export default function BottomBar() {
         onChange={handleChange}
       >
         <BottomNavigationAction
-          label="Semestre"
           value="/dashboard"
           icon={<SchoolIcon />}
         />
         <BottomNavigationAction
-          label="Github"
           value="github"
           icon={<GitHubIcon />}
         />
         <BottomNavigationAction
-          label="Perfil"
           value="profile"
           icon={<PersonIcon />}
         />
         <BottomNavigationAction
-          label="Logout"
           value="/login"
           icon={<LogoutIcon />}
         />

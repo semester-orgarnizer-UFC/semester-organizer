@@ -24,8 +24,6 @@ public class User {
     private String id;
     private String firstName;
     private String lastName;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String fullName = capitalize(firstName) + " " + capitalize(lastName);
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

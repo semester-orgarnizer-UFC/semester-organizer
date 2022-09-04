@@ -42,10 +42,11 @@ function Signup() {
     setCourse(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     const data = {
       firstName: firstName,
       lastName: lastName,
+      password: password,
       email: email,
       course: {
         ref: "Course",
@@ -53,8 +54,7 @@ function Signup() {
       },
       currentSemester: 1,
     };
-    event.preventDefault();
-    return createUser(data);
+    createUser(data);
   };
 
   return (
@@ -66,7 +66,7 @@ function Signup() {
           alignItems: "center",
         }}
       >
-        <form className="login-wrap" onSubmit={handleSubmit}>
+        <div className="login-wrap">
           <h2>Cadastro</h2>
           <Grid spacing={2} sx={{ mt: 2}} className="grid">
             <Grid item xs={4}>
@@ -77,6 +77,7 @@ function Signup() {
                 fullWidth
                 value={firstName}
                 onChange={handleNameChange}
+                required
               ></TextField>
             </Grid>
             <Grid item xs={4}>
@@ -88,6 +89,7 @@ function Signup() {
                 color="primary"
                 value={lastName}
                 onChange={handleLastNameChange}
+                required
               ></TextField>
             </Grid>
             <Grid item xs={4}>
@@ -101,6 +103,7 @@ function Signup() {
                   value={course}
                   label="Curso"
                   onChange={handleCourseChange}
+                  required
                 >
                   <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
                   <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
@@ -117,6 +120,7 @@ function Signup() {
             color="primary"
             value={email}
             onChange={handleEmailChange}
+            required
           ></TextField>
           <TextField
             fullWidth
@@ -126,6 +130,7 @@ function Signup() {
             color="primary"
             value={password}
             onChange={handlePasswordChange}
+            required
           ></TextField>
           <Box
             sx={{
@@ -145,8 +150,7 @@ function Signup() {
             fullWidth
             color="primary"
             sx={{ mt: 2 }}
-            onClick={() => createUser()}
-            type="submit"
+            onClick={() => handleSubmit()}
           >
             Criar
           </Button>
@@ -160,7 +164,7 @@ function Signup() {
           >
             Criar com google
           </Button>
-        </form>
+        </div>
       </Box>
     </ThemeProvider>
   );
