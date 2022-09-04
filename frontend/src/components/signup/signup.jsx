@@ -22,9 +22,39 @@ function Signup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [course, setCourse] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const handleCourseChange = (event) => {
     setCourse(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      course: {
+        ref: "Course",
+        id: course,
+      },
+      currentSemester: 1,
+    };
+    event.preventDefault();
+    return createUser(data);
   };
 
   return (
@@ -36,15 +66,17 @@ function Signup() {
           alignItems: "center",
         }}
       >
-        <div className="login-wrap">
+        <form className="login-wrap" onSubmit={handleSubmit}>
           <h2>Cadastro</h2>
-          <Grid container spacing={2} sx={{ mt: 2 }}>
+          <Grid spacing={2} sx={{ mt: 2}} className="grid">
             <Grid item xs={4}>
               <TextField
                 variant="filled"
                 label="Nome"
                 color="primary"
                 fullWidth
+                value={firstName}
+                onChange={handleNameChange}
               ></TextField>
             </Grid>
             <Grid item xs={4}>
@@ -54,12 +86,15 @@ function Signup() {
                 labelId="demo-simple-select-standard-label"
                 label="Sobrenome"
                 color="primary"
+                value={lastName}
+                onChange={handleLastNameChange}
               ></TextField>
             </Grid>
             <Grid item xs={4}>
               <FormControl fullWidth variant="filled">
                 <InputLabel id="demo-simple-select-label">Curso</InputLabel>
                 <Select
+                fullWidth
                   color="primary"
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -80,6 +115,8 @@ function Signup() {
             variant="filled"
             label="Email"
             color="primary"
+            value={email}
+            onChange={handleEmailChange}
           ></TextField>
           <TextField
             fullWidth
@@ -87,6 +124,8 @@ function Signup() {
             variant="filled"
             label="Senha"
             color="primary"
+            value={password}
+            onChange={handlePasswordChange}
           ></TextField>
           <Box
             sx={{
@@ -107,6 +146,7 @@ function Signup() {
             color="primary"
             sx={{ mt: 2 }}
             onClick={() => createUser()}
+            type="submit"
           >
             Criar
           </Button>
@@ -120,7 +160,7 @@ function Signup() {
           >
             Criar com google
           </Button>
-        </div>
+        </form>
       </Box>
     </ThemeProvider>
   );

@@ -1,0 +1,14 @@
+.grid{
+    display: flex;
+    gap: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .grid{
+        display: block;
+        gap: 10px;
+    }
+    .grid * {
+        margin-top: 10px;
+    }
+  }

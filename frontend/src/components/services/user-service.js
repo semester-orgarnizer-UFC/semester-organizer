@@ -4,9 +4,9 @@ import axios from "axios";
     let config = {
       method: "get",
       url: "http://localhost:8080/users",
+      data: data,
       responseType: "json",
       headers: { "content-type": "application/json" },
-      data: data
     };
 
     try {

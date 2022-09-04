@@ -1,11 +1,10 @@
 @import "./../../pallete.css";
-@import '@fontsource/roboto/400.css';
-
+@import "@fontsource/roboto/400.css";
 
 .login-wrap {
+  margin-top: 5%;
   background-color: var(--secondary);
-  height: 500px;
-  width: 600px;
+  width: 50%;
   border-radius: 12px;
   padding: 10px 40px 10px;
   gap: 100px;
@@ -18,8 +17,17 @@ h2 {
 }
 
 h3 {
-    color: var(--primary);
-    font-size: 0.8em;
-    font-family: Roboto;
+  color: var(--primary);
+  font-size: 0.8em;
+  font-family: Roboto;
+}
 
+@media only screen and (max-width: 600px) {
+  .login-wrap {
+    background-color: var(--secondary);
+    width: 70%;
+    border-radius: 12px;
+    padding: 10px 40px 10px;
+    gap: 100px;
+  }
 }
