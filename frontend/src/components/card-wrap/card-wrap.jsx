@@ -6,22 +6,11 @@ import { Box } from "@mui/material";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 
-const data = [
-  {
-    name: "Fundamentos de programação",
-    id: "QXD0001",
-    hours: 64,
-  },
-  {
-    name: "Programção orientada a objetos",
-    id: "QXD0007",
-    hours: 64,
-  },
-];
-const listItems = data.map((item, index) => (
-  <ClassCard name={item.name} id={item.id} hours={item.hours} key={index}></ClassCard>
-));
 export function CardWrap(props) {
+
+  const listItems = props.data.map((item, index) => (
+    <ClassCard name={item.name} id={item.id} hours={item.hours} key={index}></ClassCard>
+  ));
   return (
     <ThemeProvider theme={theme}>
       <Card
@@ -30,6 +19,7 @@ export function CardWrap(props) {
           width: 350,
           background: "var(--card)",
           overflowY: "scroll",
+          height: 500,
         }}
       >
         <CardContent>
