@@ -76,8 +76,8 @@ function Login() {
               gap: 2,
             }}
           >
-            <FaGithub color="#161B33" />
-            <FaLinkedin color="#161B33" />
+            <FaGithub color="var(--primary)" />
+            <FaLinkedin color="var(--primary)" />
           </Box>
         </div>
       </Box>

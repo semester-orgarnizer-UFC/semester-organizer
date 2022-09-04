@@ -3,7 +3,7 @@
 
 .login-wrap {
   margin-top: 5%;
-  background-color: var(--secondary);
+  background-color: var(--card);
   width: 50%;
   border-radius: 12px;
   padding: 10px 40px 10px;
@@ -24,7 +24,7 @@ h3 {
 
 @media only screen and (max-width: 600px) {
   .login-wrap {
-    background-color: var(--secondary);
+    background-color: var(--card);
     width: 70%;
     border-radius: 12px;
     padding: 10px 40px 10px;
