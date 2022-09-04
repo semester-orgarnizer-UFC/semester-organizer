@@ -52,7 +52,7 @@ public class UserService {
 
 
     @Cacheable
-    public List<Classes> findAllUndoneClasses() {
+    public List<Classes> findAllNotTakenClasses() {
        List<Classes> classesDone = findAllDoneClasses();
        List<Classes> allClasses = classesService.findAll();
 
