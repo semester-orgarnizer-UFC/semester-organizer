@@ -5,6 +5,7 @@ import CardWrap from "./../card-wrap/card-wrap.jsx";
 import ClassesNotTaken from "../classes-not-taken/classes-not-taken";
 import { theme } from "./../../theme.js";
 import BottomBar from "../BottomBar/BottomBar";
+import AddSemester from "../add-semester/add-semester";
 
 const data = [
   {
@@ -47,13 +48,14 @@ const Dashboard = () => (
       sx={{
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "start",
         justifyContent: "center",
         gap: 2,
       }}
     >
-      <CardWrap index={1} data={data} />
-      <CardWrap index={2} data={data2} />
+      {/* <CardWrap index={1} data={data} />
+      <CardWrap index={2} data={data2} /> */}
+      <AddSemester />
       <ClassesNotTaken />
     </Box>
     <BottomBar></BottomBar>
