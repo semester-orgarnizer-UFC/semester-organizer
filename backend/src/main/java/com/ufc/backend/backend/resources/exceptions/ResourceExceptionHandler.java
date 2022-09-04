@@ -67,6 +67,15 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+
+    @ExceptionHandler(EmailAlreadyExists.class)
+    public ResponseEntity<GenericError> emailAlreadyExists(EmailAlreadyExists e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Email já existe", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 }
 
 @Getter

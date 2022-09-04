@@ -5,6 +5,7 @@
 .login-wrap {
   background-color: var(--secondary);
   height: 500px;
+  width: 600px;
   border-radius: 12px;
   padding: 10px 40px 10px;
   gap: 100px;

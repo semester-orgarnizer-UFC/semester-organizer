@@ -7,7 +7,6 @@ import static org.springframework.util.StringUtils.capitalize;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,10 +22,10 @@ public class User {
 
     @Id
     private String id;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String fullName = capitalize(name) + " " + capitalize(surname);
+    private String fullName = capitalize(firstName) + " " + capitalize(lastName);
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -34,6 +33,4 @@ public class User {
     @JsonIgnore
     private Course course;
     private List<Semester> semester;
-    private Integer currentSemester;
-
 }
