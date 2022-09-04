@@ -5,8 +5,28 @@
 }
 
 .add-semester:hover {
-    opacity: 0.9;
-    cursor: pointer;
-    background: var(--card);
+  opacity: 1;
+  cursor: pointer;
+  background: var(--card);
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box h5 {
+  font-size: 1em;
+}
+@media only screen and (max-width: 400px) {
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
+  .box h5 {
+    display: none;
+  }
+
+}

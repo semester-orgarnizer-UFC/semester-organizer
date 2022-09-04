@@ -15,13 +15,9 @@ const AddSemester = () => (
     <Card className="add-semester">
       <CardContent>
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
+          className="box"
         >
-          <Typography color="primary">Adicionar semestre</Typography>
+          <Typography color="primary" variant="h5">Adicionar semestre</Typography>
           <AddIcon color="secondary"/>
         </Box>
         <Box
