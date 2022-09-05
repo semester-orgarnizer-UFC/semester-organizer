@@ -49,18 +49,10 @@ const Dashboard = () => (
       flexDirection: "row",
       alignItems: "start",
       gap: 2,
-      overflowX: 'scroll',
-      height: '90vh',
+      overflowX: "scroll",
+      height: "90vh",
     }}
   >
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data2} />
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data} />
-    <CardWrap index={1} data={data} />
     <CardWrap index={1} data={data} />
     <AddSemester />
     <ClassesNotTaken />
