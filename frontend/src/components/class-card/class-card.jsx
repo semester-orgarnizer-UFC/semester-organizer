@@ -41,6 +41,7 @@ export function ClassCard(props) {
   return (
     <ThemeProvider theme={theme}>
       <Card
+      className="class-card"
       onContextMenu={handleClick}
       >
         <CardContent>

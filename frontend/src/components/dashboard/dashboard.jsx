@@ -1,6 +1,6 @@
 import React from "react";
 import "./dashboard.css";
-import { Box, SpeedDial, ThemeProvider, SpeedDialIcon } from "@mui/material";
+import { Box, Container, ThemeProvider, SpeedDialIcon } from "@mui/material";
 import CardWrap from "./../card-wrap/card-wrap.jsx";
 import ClassesNotTaken from "../classes-not-taken/classes-not-taken";
 import { theme } from "./../../theme.js";
@@ -43,24 +43,29 @@ const data2 = [
   },
 ];
 const Dashboard = () => (
-  <ThemeProvider theme={theme}>
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "start",
-        justifyContent: "start",
-        gap: 2,
-        height: '90vh'
-      }}
-    >
-      <CardWrap index={1} data={data} />
-      <CardWrap index={2} data={data2} />
-      <AddSemester />
-      <ClassesNotTaken />
-    </Box>
-    <BottomBar></BottomBar>
-  </ThemeProvider>
+  <Container
+    sx={{
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "start",
+      gap: 2,
+      overflowX: 'scroll',
+      height: '90vh',
+    }}
+  >
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data2} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <CardWrap index={1} data={data} />
+    <AddSemester />
+    <ClassesNotTaken />
+    <BottomBar />
+  </Container>
 );
 
 export default Dashboard;

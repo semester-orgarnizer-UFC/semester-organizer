@@ -2,6 +2,8 @@
   width: 350px;
   background: var(--secondary);
   opacity: 0.5;
+  min-width: 275,
+
 }
 
 .add-semester:hover {
@@ -17,16 +19,4 @@
 
 .box h5 {
   font-size: 1em;
-}
-@media only screen and (max-width: 400px) {
-  .box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .box h5 {
-    display: none;
-  }
-
 }

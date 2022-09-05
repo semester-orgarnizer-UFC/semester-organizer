@@ -14,12 +14,10 @@ export function CardWrap(props) {
   return (
     <ThemeProvider theme={theme}>
       <Card
+        className="card-wrap"
         sx={{
-          minWidth: 275,
-          width: 350,
           background: "var(--card)",
-          overflowY: "scroll",
-          height: 500,
+          overflowY: 'scroll'
         }}
       >
         <CardContent>

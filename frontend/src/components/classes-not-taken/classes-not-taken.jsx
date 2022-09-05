@@ -243,6 +243,7 @@ function ClassesNotTaken() {
           background: "var(--card)",
           overflowY: "scroll",
           height: 500,
+          maxHeight: 500
         }}
       >
         <CardContent>

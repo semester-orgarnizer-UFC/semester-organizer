@@ -34,7 +34,9 @@ export default function BottomBar() {
           bottom: 0,
           left: 0,
           right: 0,
+          width: '100%',
           background: "var(--card)",
+          height: '8vh'
         }}
         value={value}
         onChange={handleChange}

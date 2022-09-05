@@ -13,10 +13,34 @@ body {
   background-color: var(--dark);
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 5px;
+  height: 10px;
+  background-color: var(--card);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--primary);
+}
+
 * {
   text-decoration: none;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--light);
+  background: var(--primary);
+}
+
+::selection {
+  color: var(--light);
+  background: var(--primary);
 }

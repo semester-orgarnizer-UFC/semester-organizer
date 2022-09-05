@@ -6,19 +6,24 @@ import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
 
-const createNewSemester = () => {
-  
-};
+const createNewSemester = () => {};
 
 const AddSemester = () => (
   <ThemeProvider theme={theme}>
-    <Card className="add-semester">
+    <Card
+      sx={{
+        minWidth: 275,
+        width: 350,
+        background: "var(--card)",
+        opacity: '0.7'
+      }}
+    >
       <CardContent>
-        <Box
-          className="box"
-        >
-          <Typography color="primary" variant="h5">Adicionar semestre</Typography>
-          <AddIcon color="secondary"/>
+        <Box className="box">
+          <Typography color="primary" variant="h5">
+            Adicionar semestre
+          </Typography>
+          <AddIcon color="secondary" />
         </Box>
         <Box
           sx={{
