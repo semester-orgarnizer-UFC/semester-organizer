@@ -13,7 +13,7 @@ import {
 import "./classes-not-taken.css";
 import ClassCard from "../class-card/class-card.jsx";
 import SearchIcon from "@mui/icons-material/Search";
-import { findAllClasses } from "../../services/classes-service.js";
+import { findNotTakenClasses } from "../../services/user-service.js";
 
 function ClassesNotTaken() {
   const [searchInput, setSearchInput] = useState("");
@@ -21,7 +21,7 @@ function ClassesNotTaken() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    findAllClasses().then(({ data }) => {
+    findNotTakenClasses().then(({ data }) => {
       setClasses(data);
       setData(data);
     });

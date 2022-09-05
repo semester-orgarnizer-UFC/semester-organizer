@@ -28,7 +28,7 @@ public class UserResource {
     public ResponseEntity<List<Classes>> findClasses() {
         return ResponseEntity.ok().body(service.findAllDoneClasses());
     }
-    @GetMapping("/classes/nottaken/{id}")
+    @GetMapping("/classes/nottaken/")
     public ResponseEntity<List<Classes>> findClassesNotTaken() {
         return ResponseEntity.ok().body(service.findAllNotTakenClasses());
     }
