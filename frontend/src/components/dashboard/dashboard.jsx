@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./dashboard.css";
 import { Box, Container, ThemeProvider, SpeedDialIcon } from "@mui/material";
 import CardWrap from "./../card-wrap/card-wrap.jsx";
@@ -42,8 +42,8 @@ const data2 = [
     hours: 64,
   },
 ];
-const Dashboard = () => (
-  <Container
+function Dashboard() {
+  return <Container
     sx={{
       display: "flex",
       flexDirection: "row",
@@ -58,6 +58,6 @@ const Dashboard = () => (
     <ClassesNotTaken />
     <BottomBar />
   </Container>
-);
+} 
 
 export default Dashboard;

@@ -14,6 +14,7 @@ import { Box } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { login } from "../../services/auth-service.js";
 import { useNavigate } from "react-router-dom";
+import { saveToken } from "../../services/local-storage.js";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -45,6 +46,7 @@ function Login() {
     const response = await login(data);
 
     if (response.status === 200) {
+      saveToken(response.headers.authorization);
       return navigate("/dashboard");
     }
 

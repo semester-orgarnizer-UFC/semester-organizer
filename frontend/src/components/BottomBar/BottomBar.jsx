@@ -13,16 +13,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SchoolIcon from "@mui/icons-material/School";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../services/local-storage.js";
+
 
 export default function BottomBar() {
   const [value, setValue] = React.useState("/dashboard");
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
+    if(newValue === "/login") logout();
     if (newValue === "github")
       return window.open("https://github.com/semester-orgarnizer-UFC");
     setValue(newValue);
-
     navigate(newValue);
   };
 
