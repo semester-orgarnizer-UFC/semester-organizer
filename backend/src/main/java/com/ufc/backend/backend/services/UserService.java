@@ -32,10 +32,15 @@ public class UserService {
     }
 
     public User save(User user) {
+        return repository.save(user);
+    }
+
+    public User insert(User user) {
         if (repository.findByEmail(user.getEmail()) != null) throw new EmailAlreadyExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
+
 
     @Cacheable
     public List<Classes> findAllDoneClasses() {

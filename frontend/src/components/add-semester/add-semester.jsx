@@ -5,12 +5,16 @@ import { Box, Card, Typography, CardContent } from "@mui/material";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
+import { createOrUpdateSemester } from "../../services/semester-service";
 
-const createNewSemester = () => {};
+const createNewSemester = () => {
+  createOrUpdateSemester();
+};
 
 const AddSemester = () => (
   <ThemeProvider theme={theme}>
     <Card
+    onClick={createNewSemester}
       sx={{
         minWidth: 275,
         width: 350,

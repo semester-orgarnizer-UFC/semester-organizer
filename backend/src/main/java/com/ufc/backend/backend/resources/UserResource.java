@@ -40,7 +40,7 @@ public class UserResource {
                 .fromCurrentRequest()
                 .path("/users")
                 .buildAndExpand(user.getId())
-                .toUri()).body(service.save(user));
+                .toUri()).body(service.insert(user));
     }
 
     @DeleteMapping("/{id}/{classId}")

@@ -24,7 +24,6 @@ public class SemesterResource {
     public ResponseEntity<User> createSemester(@RequestBody Semester semester) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
                 .buildAndExpand(semester.getIndex())
                 .toUri()).body(service.createOrUpdateSemester(semester));
     }
