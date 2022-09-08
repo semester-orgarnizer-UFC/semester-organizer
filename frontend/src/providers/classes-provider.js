@@ -3,13 +3,12 @@ import { findNotTakenClasses } from "../services/user-service";
 
 export const ClassesContext = createContext({});
 
-export const SemesterProvider = (props) => {
+export const ClassesProvider = (props) => {
   const [classes, setClasses] = useState();
 
   useEffect(() => {
     findNotTakenClasses().then((data) => {
       setClasses(data.data);
-      console.log(classes);
     });
   }, []);
 

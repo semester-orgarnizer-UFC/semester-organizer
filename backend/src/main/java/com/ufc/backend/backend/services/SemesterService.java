@@ -92,18 +92,21 @@ public class SemesterService {
 
         if (user.getSemester() == null) {
             user.setSemester(List.of(semester));
-            return userService.save(user);
+            userService.save(user);
+            return userService.findById(user.getId());
         }
 
         deleteAClassesWhenInsertIfAlreadyExists(semester, ids, user);
 
         if (user.getSemester().stream().anyMatch(obj -> obj.getIndex().equals(semester.getIndex()))) {
             findSemesterByIndex(user, semester.getIndex()).getClasses().addAll(semester.getClasses());
-            return userService.save(user);
+            userService.save(user);
+            return userService.findById(user.getId());
         }
 
         user.getSemester().add(semester);
-        return userService.save(user);
+        userService.save(user);
+        return userService.findById(user.getId());
     }
 
     /**

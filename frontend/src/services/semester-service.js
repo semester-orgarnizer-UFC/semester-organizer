@@ -4,6 +4,24 @@ import { API_URL } from "./utils /api-constants";
 
 const URL = API_URL + "/semester";
 
+export async function findAll() {
+  let config = {
+    method: "GET",
+    url: URL,
+    responseType: "json",
+    headers: {
+      "content-type": "application/json",
+      Authorization: "Bearer " + getToken(),
+    },
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
 export async function createOrUpdateSemester() {
   let config = {
     method: "POST",
@@ -13,7 +31,7 @@ export async function createOrUpdateSemester() {
       classes: [
         {
           ref: "Classes",
-          id: "QXD0056",
+          id: "QXD0001",
         },
       ],
     },

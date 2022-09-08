@@ -9,12 +9,18 @@ import { createOrUpdateSemester } from "../../services/semester-service";
 import { useContext } from "react";
 import { ClassesContext } from "../../providers/classes-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
+import { SemesterContext } from "../../providers/semester-provider";
 
 function AddSemester() {
   const { setClasses } = useContext(ClassesContext);
+  const { setSemester } = useContext(SemesterContext);
+
 
   const createNewSemester = async () => {
-    await createOrUpdateSemester();
+    await createOrUpdateSemester().then((data) => {
+      console.log(data.data);
+      setSemester(data.data.semester);
+    });
     await findNotTakenClasses().then((data) => {
       setClasses(data.data);
     });

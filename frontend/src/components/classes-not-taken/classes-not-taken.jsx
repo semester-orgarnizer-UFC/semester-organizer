@@ -30,8 +30,7 @@ function ClassesNotTaken() {
 
   useEffect(() => {
     setClasses(classes);
-    console.log(classes);
-  }, [classes]);
+  }, []);
 
   const searchItems = (event) => {
     if (event.target.value === "") {
