@@ -4,7 +4,7 @@ import com.ufc.backend.backend.model.Classes;
 
 public class ClassesAndPreRequisiteAtTheSameTimeException extends RuntimeException {
     public ClassesAndPreRequisiteAtTheSameTimeException(Classes classes) {
-        super("You can't do: " + classes.getName() + " and " + classes.getPreRequisite().getName() + " at the same semester");
+        super("Você não pode cursar: " + classes.getName() + " e " + classes.getPreRequisite().getName() + " no mesmo semestre");
     }
 
     public ClassesAndPreRequisiteAtTheSameTimeException(String msg, Throwable cause) {
