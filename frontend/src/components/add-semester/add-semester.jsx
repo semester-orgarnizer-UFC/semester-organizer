@@ -10,19 +10,19 @@ import { useContext } from "react";
 import { ClassesContext } from "../../providers/classes-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
 import { SemesterContext } from "../../providers/semester-provider";
-import { useSnackbar } from "material-ui-snackbar-provider";
+import useCustomSnackbar from "../snackbar/use-custom-snackbar";
 
 function AddSemester() {
   const { setClasses } = useContext(ClassesContext);
   const { setSemester } = useContext(SemesterContext);
-  const snackbar = useSnackbar();
+  const snackbar = useCustomSnackbar();
 
   const createNewSemester = async () => {
     await createOrUpdateSemester().then((data) => {
       if (data.status == 201) {
         setSemester(data.data.semester);
       } else{
-        snackbar.showMessage(data.message);
+        snackbar.showError(data.message);
       }
     });
     await findNotTakenClasses().then((data) => {

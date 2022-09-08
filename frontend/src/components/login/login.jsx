@@ -11,10 +11,10 @@ import { Box } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { login } from "../../services/auth-service.js";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from 'material-ui-snackbar-provider'
+import useCustomSnackbar from "../snackbar/use-custom-snackbar.js";
 
 function Login() {
-  const snackbar = useSnackbar();
+  const snackbar = useCustomSnackbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Login() {
     if (response.status === 200) {
       return navigate("/dashboard");
     }
-    snackbar.showMessage(response.message);
+    snackbar.showError(response.message);
   }
 
   return (
@@ -93,14 +93,14 @@ function Login() {
             Entrar
           </Button>
           <Link to="/dashboard">
-          <Button
-            variant="contained"
-            fullWidth
-            color="primary"
-            sx={{ mt: 2 }}
-          >
-            Entrar sem banco de dados
-          </Button>
+            <Button
+              variant="contained"
+              fullWidth
+              color="primary"
+              sx={{ mt: 2 }}
+            >
+              Entrar sem banco de dados
+            </Button>
           </Link>
           <Button
             type="button"

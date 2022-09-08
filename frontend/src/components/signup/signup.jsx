@@ -16,12 +16,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { createUser } from "../../services/user-service";
-import { useSnackbar } from "material-ui-snackbar-provider";
+import useCustomSnackbar from "../snackbar/use-custom-snackbar.js";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const navigate = useNavigate();
-  const snackbar = useSnackbar();
+  const snackbar = useCustomSnackbar();
   const [firstName, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,10 +62,10 @@ function Signup() {
     const response = await createUser(data);
 
     if (response.status === 201) {
-      snackbar.showMessage("Seu usuário foi criado");
+      snackbar.showSuccess("Seu usuário foi criado");
       navigate("/login");
     } else {
-      snackbar.showMessage(response.message);
+      snackbar.showError(response.message);
     }
   }
 
