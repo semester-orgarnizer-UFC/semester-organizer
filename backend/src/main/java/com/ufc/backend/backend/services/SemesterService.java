@@ -7,6 +7,7 @@ import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class SemesterService {
 
     /**
      * Return a {@link Semester} from the logged {@link User}
+     *
      * @param index the index of the semesters
      * @return {@link Semester}
      */
@@ -32,8 +34,18 @@ public class SemesterService {
     }
 
     /**
+     * Return a list containing all {@link Semester}
+     *
+     * @return a list of {@link Semester}
+     */
+    public List<Semester> findAll() {
+        return userService.findById(AuthService.userAuthenticated().getId()).getSemester();
+    }
+
+    /**
      * Return a {@link Semester} from a given {@link User}
-     * @param user the given user
+     *
+     * @param user  the given user
      * @param index the index of the semester
      * @return {@link Semester}
      */
@@ -44,6 +56,7 @@ public class SemesterService {
 
     /**
      * Delete a {@link Semester} by its index
+     *
      * @param index the index of the semesters that should be deleted
      */
     public void deleteASemesterByIndex(Integer index) {
@@ -56,6 +69,7 @@ public class SemesterService {
 
     /**
      * Create or update a {@link Semester}
+     *
      * @param semester a given {@link Semester}
      * @return {@link User} with a new or updated {@link Semester}
      */
@@ -94,9 +108,10 @@ public class SemesterService {
 
     /**
      * When you change a {@link Classes} from a {@link Semester} to another, delete it from the current {@link Semester}
+     *
      * @param semester a given {@link Semester}
-     * @param ids a list of IDS of the {@link Classes} that the {@link User} already did
-     * @param user a give {@link User}
+     * @param ids      a list of IDS of the {@link Classes} that the {@link User} already did
+     * @param user     a give {@link User}
      */
     private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, List<String> ids, User user) {
         semester.getClasses().forEach(obj -> {

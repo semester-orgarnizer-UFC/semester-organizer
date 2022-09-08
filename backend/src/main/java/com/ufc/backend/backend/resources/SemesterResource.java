@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/semester")
 @CrossOrigin
@@ -18,6 +20,11 @@ public class SemesterResource {
     @GetMapping("/{index}")
     public ResponseEntity<Semester> getSemesterByIndex(@PathVariable Integer index) {
         return ResponseEntity.ok().body(service.findSemesterByIndex(index));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Semester>> findAllSemester() {
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @PostMapping
