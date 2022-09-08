@@ -13,29 +13,20 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Snackbar,
-  Stack,
-  Alert,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { createUser } from "../../services/user-service";
+import { useSnackbar } from "material-ui-snackbar-provider";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+  const snackbar = useSnackbar();
   const [firstName, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [course, setCourse] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -71,11 +62,11 @@ function Signup() {
     const response = await createUser(data);
 
     if (response.status === 201) {
-      setSuccessMessage("Seu usuário foi criado");
+      snackbar.showMessage("Seu usuário foi criado");
+      navigate("/login");
     } else {
-      setErrorMessage(response.message);
+      snackbar.showMessage(response.message);
     }
-    setOpen(true);
   }
 
   return (
@@ -178,24 +169,6 @@ function Signup() {
           >
             Criar com google
           </Button>
-          {open && (
-            <Stack spacing={2} sx={{ width: "100%" }}>
-              <Snackbar
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity={errorMessage ? "error" : "success"}
-                  sx={{ width: "100%" }}
-                >
-                  {errorMessage ? errorMessage : successMessage}
-                </Alert>
-              </Snackbar>
-            </Stack>
-          )}
         </div>
       </Box>
     </ThemeProvider>

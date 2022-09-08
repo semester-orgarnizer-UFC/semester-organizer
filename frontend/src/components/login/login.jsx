@@ -3,9 +3,6 @@ import { useState } from "react";
 import "./login.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { theme } from "./../../theme.js";
@@ -14,14 +11,13 @@ import { Box } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { login } from "../../services/auth-service.js";
 import { useNavigate } from "react-router-dom";
-import { saveToken } from "../../services/local-storage.js";
+import { useSnackbar } from 'material-ui-snackbar-provider'
 
 function Login() {
+  const snackbar = useSnackbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [open, setOpen] = React.useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -29,13 +25,6 @@ function Login() {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
   };
 
   async function handleSubmit() {
@@ -48,9 +37,7 @@ function Login() {
     if (response.status === 200) {
       return navigate("/dashboard");
     }
-
-    setErrorMessage(response.message);
-    setOpen(true);
+    snackbar.showMessage(response.message);
   }
 
   return (
@@ -137,24 +124,6 @@ function Login() {
             <FaGithub color="var(--primary)" />
             <FaLinkedin color="var(--primary)" />
           </Box>
-          {open && (
-            <Stack spacing={2} sx={{ width: "100%" }}>
-              <Snackbar
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity="error"
-                  sx={{ width: "100%" }}
-                >
-                  {errorMessage}
-                </Alert>
-              </Snackbar>
-            </Stack>
-          )}
         </div>
       </Box>
     </ThemeProvider>

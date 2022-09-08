@@ -71,7 +71,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         private String json() {
             long date = new Date().getTime();
             return "{\"timestamp\": " + date + ", " + "\"status\": 401, " + "\"error\": \"Not authorized\", "
-                    + "\"message\": \"Email or password incorrects\", " + "\"path\": \"/login\"}";
+                    + "\"message\": \"Email ou senha incorretos\", " + "\"path\": \"/login\"}";
         }
     }
 

@@ -33,6 +33,10 @@ export async function createOrUpdateSemester() {
           ref: "Classes",
           id: "QXD0001",
         },
+        {
+          ref: "Classes",
+          id: "QXD0007",
+        },
       ],
     },
     responseType: "json",

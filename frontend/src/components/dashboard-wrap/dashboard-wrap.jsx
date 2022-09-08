@@ -1,11 +1,8 @@
-import React, { useEffect, useContext } from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import "./dashboard-wrap.css";
 import { Container } from "@mui/system";
 import { SemesterContext } from "../../providers/semester-provider";
 import CardWrap from "../card-wrap/card-wrap";
-import { findAll } from "../../services/semester-service";
-import ClassCard from "../class-card/class-card";
 
 function DashboardWrap(props) {
   const { semester } = useContext(SemesterContext);
