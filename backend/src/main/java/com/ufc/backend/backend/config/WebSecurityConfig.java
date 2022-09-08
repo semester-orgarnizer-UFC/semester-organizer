@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
+import java.util.List;
 
 @EnableWebSecurity
 @Configuration
@@ -52,10 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
 
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowedOriginPatterns(Arrays.asList("*"));
-        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedMethods(List.of("*"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedOrigins(List.of("*"));
         source.registerCorsConfiguration("/**", config);
         return source;
     }

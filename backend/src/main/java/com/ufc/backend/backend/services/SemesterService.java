@@ -19,6 +19,11 @@ public class SemesterService {
     @Autowired
     private ClassesService classesService;
 
+    /**
+     * Return a {@link Semester} from the logged {@link User}
+     * @param index the index of the semesters
+     * @return {@link Semester}
+     */
     public Semester findSemesterByIndex(Integer index) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
 
@@ -26,11 +31,21 @@ public class SemesterService {
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
+    /**
+     * Return a {@link Semester} from a given {@link User}
+     * @param user the given user
+     * @param index the index of the semester
+     * @return {@link Semester}
+     */
     public Semester findSemesterByIndex(User user, Integer index) {
         return user.getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
 
+    /**
+     * Delete a {@link Semester} by its index
+     * @param index the index of the semesters that should be deleted
+     */
     public void deleteASemesterByIndex(Integer index) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
         Semester semester = findSemesterByIndex(user, index);
@@ -39,6 +54,11 @@ public class SemesterService {
         semester.getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
     }
 
+    /**
+     * Create or update a {@link Semester}
+     * @param semester a given {@link Semester}
+     * @return {@link User} with a new or updated {@link Semester}
+     */
     public User createOrUpdateSemester(Semester semester) {
 
         User user = userService.findById(AuthService.userAuthenticated().getId());
@@ -72,6 +92,12 @@ public class SemesterService {
         return userService.save(user);
     }
 
+    /**
+     * When you change a {@link Classes} from a {@link Semester} to another, delete it from the current {@link Semester}
+     * @param semester a given {@link Semester}
+     * @param ids a list of IDS of the {@link Classes} that the {@link User} already did
+     * @param user a give {@link User}
+     */
     private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, List<String> ids, User user) {
         semester.getClasses().forEach(obj -> {
             if (ids != null && ids.contains(obj.getId())) {
