@@ -13,30 +13,35 @@ import {
 import "./classes-not-taken.css";
 import ClassCard from "../class-card/class-card.jsx";
 import SearchIcon from "@mui/icons-material/Search";
+import { useContext } from "react";
+import { SemesterContext } from "../../providers/semester-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
+
 
 function ClassesNotTaken() {
   const [searchInput, setSearchInput] = useState("");
-  const [classes, setClasses] = useState();
-  const [data, setData] = useState();
+  const { classes, setClasses } = useContext(SemesterContext);
+
+  function getClassesNotTaken() {
+    findNotTakenClasses().then((data) => {
+      setClasses(data.data);
+    });
+  }
 
   useEffect(() => {
-    findNotTakenClasses().then(({ data }) => {
-      setClasses(data);
-      setData(data);
-    });
-  }, []);
+    setClasses(classes);
+    console.log(classes);
+  }, [classes]);
 
   const searchItems = (event) => {
-    if(event.target.value === "") {
-      setData(classes);
-      return; 
-    };
+    if (event.target.value === "") {
+      setClasses(getClassesNotTaken());
+    }
     setSearchInput(event.target.value);
     const filteredItems = classes.filter(({ name }) =>
       name.toLowerCase().includes(searchInput.toLowerCase())
     );
-    setData(filteredItems);
+    setClasses(filteredItems);
   };
 
   return (
@@ -76,8 +81,8 @@ function ClassesNotTaken() {
               mt: 2,
             }}
           >
-            {data ? (
-              data.map((item, index) => (
+            {classes ? (
+              classes.map((item, index) => (
                 <ClassCard
                   name={item.name}
                   id={item.id}

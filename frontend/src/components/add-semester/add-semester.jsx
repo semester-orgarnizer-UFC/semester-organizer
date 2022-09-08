@@ -6,40 +6,50 @@ import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
 import { createOrUpdateSemester } from "../../services/semester-service";
+import { useContext } from "react";
+import { SemesterContext } from "../../providers/semester-provider.js";
+import { findNotTakenClasses } from "../../services/user-service.js";
 
-const createNewSemester = () => {
-  createOrUpdateSemester();
-};
+function AddSemester() {
+  const { setClasses } = useContext(SemesterContext);
 
-const AddSemester = () => (
-  <ThemeProvider theme={theme}>
-    <Card
-    onClick={createNewSemester}
-      sx={{
-        minWidth: 275,
-        width: 350,
-        background: "var(--card)",
-        opacity: '0.7'
-      }}
-    >
-      <CardContent>
-        <Box className="box">
-          <Typography color="primary" variant="h5">
-            Adicionar semestre
-          </Typography>
-          <AddIcon color="secondary" />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-          }}
-        ></Box>
-      </CardContent>
-    </Card>
-  </ThemeProvider>
-);
+  const createNewSemester = async () => {
+    await createOrUpdateSemester();
+    await findNotTakenClasses().then((data) => {
+      setClasses(data.data);
+    });
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Card
+        onClick={createNewSemester}
+        sx={{
+          minWidth: 275,
+          width: 350,
+          background: "var(--card)",
+          opacity: "0.7",
+        }}
+      >
+        <CardContent>
+          <Box className="box">
+            <Typography color="primary" variant="h5">
+              Adicionar semestre
+            </Typography>
+            <AddIcon color="secondary" />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          ></Box>
+        </CardContent>
+      </Card>
+    </ThemeProvider>
+  );
+}
 
 AddSemester.propTypes = {};
 

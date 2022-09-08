@@ -13,7 +13,7 @@ export async function createOrUpdateSemester() {
       classes: [
         {
           ref: "Classes",
-          id: "QXD0001",
+          id: "QXD0056",
         },
       ],
     },

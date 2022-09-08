@@ -6,6 +6,10 @@ import ClassesNotTaken from "../classes-not-taken/classes-not-taken";
 import { theme } from "./../../theme.js";
 import BottomBar from "../BottomBar/BottomBar";
 import AddSemester from "../add-semester/add-semester";
+import {
+  SemesterContext,
+  SemesterProvider,
+} from "../../providers/semester-provider";
 
 const data = [
   {
@@ -43,21 +47,25 @@ const data2 = [
   },
 ];
 function Dashboard() {
-  return <Container
-    sx={{
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "start",
-      gap: 2,
-      overflowX: "scroll",
-      height: "90vh",
-    }}
-  >
-    <CardWrap index={1} data={data} />
-    <AddSemester />
-    <ClassesNotTaken />
-    <BottomBar />
-  </Container>
-} 
+  return (
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "start",
+        gap: 2,
+        overflowX: "scroll",
+        height: "90vh",
+      }}
+    >
+      <CardWrap index={1} data={data} />
+      <SemesterProvider>
+        <AddSemester />
+        <ClassesNotTaken />
+      </SemesterProvider>
+      <BottomBar />
+    </Container>
+  );
+}
 
 export default Dashboard;
