@@ -7,11 +7,11 @@ import { ThemeProvider } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
 import { createOrUpdateSemester } from "../../services/semester-service";
 import { useContext } from "react";
-import { SemesterContext } from "../../providers/semester-provider.js";
+import { ClassesContext } from "../../providers/classes-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
 
 function AddSemester() {
-  const { setClasses } = useContext(SemesterContext);
+  const { setClasses } = useContext(ClassesContext);
 
   const createNewSemester = async () => {
     await createOrUpdateSemester();

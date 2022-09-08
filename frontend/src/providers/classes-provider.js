@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { findNotTakenClasses } from "../services/user-service";
 
-export const SemesterContext = createContext({});
+export const ClassesContext = createContext({});
 
 export const SemesterProvider = (props) => {
   const [classes, setClasses] = useState();
@@ -14,8 +14,8 @@ export const SemesterProvider = (props) => {
   }, []);
 
   return (
-    <SemesterContext.Provider value={{classes, setClasses}}>
+    <ClassesContext.Provider value={{classes, setClasses}}>
       {props.children}
-    </SemesterContext.Provider>
+    </ClassesContext.Provider>
   );
 };

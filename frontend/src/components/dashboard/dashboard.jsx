@@ -7,9 +7,9 @@ import { theme } from "./../../theme.js";
 import BottomBar from "../BottomBar/BottomBar";
 import AddSemester from "../add-semester/add-semester";
 import {
-  SemesterContext,
+  ClassesContext,
   SemesterProvider,
-} from "../../providers/semester-provider";
+} from "../../providers/classes-provider";
 
 const data = [
   {
