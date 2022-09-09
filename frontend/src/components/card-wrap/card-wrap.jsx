@@ -81,7 +81,7 @@ export function CardWrap(props) {
               gap: "10px",
             }}
           >
-            {classes ? classes : <p>Empty list</p>}
+            {classes ? classes : <div></div>}
           </Box>
         </CardContent>
       </Card>

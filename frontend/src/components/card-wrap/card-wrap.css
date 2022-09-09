@@ -3,7 +3,5 @@
 .card-wrap {
   min-width: 275px;
   background: var(--card);
-  min-height: 150px;
   max-height: 600px;
-  
 }

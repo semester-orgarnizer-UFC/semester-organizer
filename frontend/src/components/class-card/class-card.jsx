@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { Box } from "@mui/material";
@@ -18,6 +18,7 @@ import { InsertDriveFileRounded } from "@mui/icons-material";
 export function ClassCard(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [activeId, setActiveId] = useState();
   const [{isDragging}, drag] = useDrag(() => ({
     type: "Card",
     item: {id: props.id},

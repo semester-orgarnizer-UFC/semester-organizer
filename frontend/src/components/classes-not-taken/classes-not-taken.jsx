@@ -16,11 +16,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useContext } from "react";
 import { ClassesContext } from "../../providers/classes-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
+import { SemesterContext } from "../../providers/semester-provider.js";
 
 
 function ClassesNotTaken() {
   const [searchInput, setSearchInput] = useState("");
   const { classes, setClasses } = useContext(ClassesContext);
+  const {semester} = useContext(SemesterContext);
 
   function getClassesNotTaken() {
     findNotTakenClasses().then((data) => {
@@ -29,8 +31,8 @@ function ClassesNotTaken() {
   }
 
   useEffect(() => {
-    setClasses(classes);
-  }, []);
+    getClassesNotTaken();
+  }, [semester]);
 
   const searchItems = (event) => {
     if (event.target.value === "") {
