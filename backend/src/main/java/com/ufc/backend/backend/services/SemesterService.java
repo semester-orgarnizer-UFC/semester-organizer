@@ -28,9 +28,7 @@ public class SemesterService {
      */
     public Semester findSemesterByIndex(Integer index) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
-
-        return user.getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
-                findFirst().orElseThrow(SemesterOutOfBoundsException::new);
+        return user.getSemester().get(index - 1);
     }
 
     /**
@@ -86,21 +84,12 @@ public class SemesterService {
      * @return {@link User} with an updated {@link Semester}
      */
     public User updateSemester(Semester semester) {
-
         User user = userService.findById(AuthService.userAuthenticated().getId());
-
         List<String> ids =
                 userService.findAllDoneClasses() == null ? null :
                         userService.findAllDoneClasses().stream().map(Classes::getId).collect(Collectors.toList());
-
-
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
 
-        if (semester.getClasses() == null) {
-            semester.setIndex(user.getSemester().size());
-            user.setSemester(List.of(semester));
-            userService.save(user);
-        }
 
         semester.getClasses().forEach(classes -> {
             handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
@@ -108,25 +97,13 @@ public class SemesterService {
             handler.classAndPreRequisiteAtTheSameTime(semester, user);
         });
 
-
-        if (user.getSemester() == null) {
-            user.setSemester(List.of(semester));
-            userService.save(user);
-            return userService.findById(user.getId());
-        }
-
         deleteAClassesWhenInsertIfAlreadyExists(semester, ids, user);
 
-        if (user.getSemester().stream().anyMatch(obj -> obj.getIndex().equals(semester.getIndex()))) {
-            findSemesterByIndex(user, semester.getIndex()).getClasses().addAll(semester.getClasses());
-            userService.save(user);
-            return userService.findById(user.getId());
-        }
-
-        user.getSemester().add(semester);
+        user.updateSemester(semester);
         userService.save(user);
         return userService.findById(user.getId());
     }
+
 
     /**
      * When you change a {@link Classes} from a {@link Semester} to another, delete it from the current {@link Semester}

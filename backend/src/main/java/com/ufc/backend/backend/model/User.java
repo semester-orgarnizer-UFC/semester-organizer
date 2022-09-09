@@ -32,9 +32,16 @@ public class User {
     public void addEmptySemester() {
         if (this.getSemester() == null) {
             this.setSemester(List.of(new Semester(1, null)));
-        }
-        else {
+        } else {
             this.getSemester().add(new Semester(this.getSemester().size() + 1, null));
         }
+    }
+
+    public void updateSemester(Semester newSemester) {
+        Semester oldSemester = this.getSemester().get(newSemester.getIndex() - 1);
+
+        if (oldSemester.getClasses() == null) {
+            oldSemester.setClasses(newSemester.getClasses());
+        } else oldSemester.getClasses().addAll(newSemester.getClasses());
     }
 }

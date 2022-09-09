@@ -39,3 +39,22 @@ export async function createEmptySemester() {
     return error.response.data;
   }
 }
+
+export async function updateSemester(data) {
+  let config = {
+    method: "PUT",
+    url: URL,
+    responseType: "json",
+    headers: {
+      "content-type": "application/json",
+      Authorization: "Bearer " + getToken(),
+    },
+    data: JSON.stringify(data)
+  };
+
+  try {
+    return await axios(config);
+  } catch (error) {
+    return error.response.data;
+  }
+}

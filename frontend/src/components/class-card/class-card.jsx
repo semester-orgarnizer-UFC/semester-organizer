@@ -12,10 +12,21 @@ import {
   MenuItem,
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useDrag } from "react-dnd";
+import { InsertDriveFileRounded } from "@mui/icons-material";
 
 export function ClassCard(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [{isDragging}, drag] = useDrag(() => ({
+    type: "Card",
+    item: {id: props.id},
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    })
+  }));
+
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     event.preventDefault() 
@@ -41,6 +52,7 @@ export function ClassCard(props) {
   return (
     <ThemeProvider theme={theme}>
       <Card
+      ref={drag}
       className="class-card"
       onContextMenu={handleClick}
       >
@@ -50,6 +62,7 @@ export function ClassCard(props) {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              border: isDragging ? "5px solid pink" : "1px solid black"
             }}
           >
             <Typography sx={{ fontSize: 16 }} color="primary">

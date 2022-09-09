@@ -7,7 +7,9 @@ import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.ClassesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +23,12 @@ public class HandlePossibleClassesException {
     private final ClassesService classesService;
     private final List<String> idsAlreadyDone;
 
+
     public HandlePossibleClassesException(List<String> idsAlreadyDone, ClassesService classesService) {
         this.idsAlreadyDone = idsAlreadyDone;
         this.classesService = classesService;
     }
+
 
     public void classesDontHaveThePreRequisite(String classesId) {
         Classes classes = this.classesService.findById(classesId);
@@ -43,20 +47,29 @@ public class HandlePossibleClassesException {
     }
 
     public void classAndPreRequisiteAtTheSameTime(Semester semester, User user) {
+        List<String> listClasses = semester.getClasses().stream().map(Classes::getId).collect(Collectors.toList());
+        Semester updatedSemester = user.getSemester().get(semester.getIndex() - 1);
 
-        if (user.getSemester() != null) {
-            List<String> listClasses = semester.getClasses().stream().map(Classes::getId).collect(Collectors.toList());
-            Semester updatedSemester = user.getSemester().stream().filter(obj -> obj.getIndex().equals(semester.getIndex())).findFirst().orElse(null);
-
-            if (updatedSemester != null) {
-                List<String> listClassesUpdatedSemester = updatedSemester.getClasses().stream().map(Classes::getId).collect(Collectors.toList());
-                listClasses.forEach(obj -> {
-                    Classes classes = classesService.findById(obj);
-                    if (classes.getPreRequisite() != null && listClassesUpdatedSemester.contains(classes.getPreRequisite().getId())) {
-                        throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
-                    }
-                });
+        /*
+        You can't add a class and a pre requisite at the same Semester, in the same json
+         */
+        semester.getClasses().forEach(obj -> {
+            if (obj.getPreRequisite() != null && listClasses.contains(obj.getPreRequisite().getId())) {
+                throw new ClassesAndPreRequisiteAtTheSameTimeException(obj);
             }
+        });
+
+        /*
+        If already exists classes in the updatedSemester, and you try to place a Class and its pre requisite at the same time
+         */
+        if (updatedSemester.getClasses() != null) {
+            List<String> listClassesUpdatedSemester = updatedSemester.getClasses().stream().map(Classes::getId).collect(Collectors.toList());
+            listClasses.forEach(obj -> {
+                Classes classes = classesService.findById(obj);
+                if (classes.getPreRequisite() != null && listClassesUpdatedSemester.contains(classes.getPreRequisite().getId())) {
+                    throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
+                }
+            });
         }
     }
 }

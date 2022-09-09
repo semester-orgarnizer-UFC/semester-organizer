@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,7 +79,7 @@ public class UserService {
     }
 
     /**
-     * Find all {@link Classes} that has the given pre requisite
+     * Find all {@link Classes} that has the given pre-requisite
      *
      * @param preRequisiteId the id
      * @return a list of {@link Classes}
@@ -113,7 +111,10 @@ public class UserService {
      * @param classId the id that should be deleted
      */
     public void deleteAGivenClassesOfAGivenUser(User user, String classId) {
-        user.getSemester().forEach(semester -> semester.getClasses().removeIf(classes -> classes.getId().equals(classId)));
+        user.getSemester().forEach(semester -> {
+            if (semester.getClasses() != null)
+                semester.getClasses().removeIf(classes -> classes.getId().equals(classId));
+        });
         save(user);
 
         if (findAllClassesThatHasTheGivenPreRequisite(classId) != null) {

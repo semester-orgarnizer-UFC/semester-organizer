@@ -6,10 +6,36 @@ import { Box } from "@mui/material";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { SemesterContext } from "../../providers/semester-provider";
+import { useDrop } from "react-dnd";
+import { updateSemester } from "../../services/semester-service";
 
 export function CardWrap(props) {
   const { semester } = useContext(SemesterContext);
   const [classes, setClasses] = useState();
+
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "Card",
+    drop: (item) => addClassesToTheSemester(item.id),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
+
+  const addClassesToTheSemester = (id) => {
+    console.log(id);
+    const semester = {
+      index: props.index,
+      classes: [
+        {
+          ref: "Classes",
+          id: id,
+        },
+      ],
+    };
+    updateSemester(semester).then((res) => {
+      console.log(res);
+    });
+  };
 
   useEffect(() => {
     if (props.data.classes) {
@@ -29,6 +55,7 @@ export function CardWrap(props) {
   return (
     <ThemeProvider theme={theme}>
       <Card
+        ref={drop}
         className="card-wrap"
         sx={{
           background: "var(--card)",
@@ -46,7 +73,7 @@ export function CardWrap(props) {
               gap: "10px",
             }}
           >
-            {classes ? classes : <p>teste</p>}
+            {classes ? classes : <p>Empty list</p>}
           </Box>
         </CardContent>
       </Card>
