@@ -62,7 +62,7 @@ public class SemesterService {
         Semester semester = findSemesterByIndex(user, index);
         user.getSemester().removeIf(obj -> obj.getIndex().equals(semester.getIndex()));
         userService.save(user);
-        semester.getClasses().forEach(classes -> userService.deleteAGivenClassesOfAGivenUser(user, classes.getId()));
+        semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId()));
     }
 
     /**
@@ -86,8 +86,8 @@ public class SemesterService {
     public User updateSemester(Semester semester) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
         List<String> ids =
-                userService.findAllDoneClasses() == null ? null :
-                        userService.findAllDoneClasses().stream().map(Classes::getId).collect(Collectors.toList());
+                userService.findAllTakenClasses() == null ? null :
+                        userService.findAllTakenClasses().stream().map(Classes::getId).collect(Collectors.toList());
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
 
 
@@ -97,8 +97,7 @@ public class SemesterService {
             handler.classAndPreRequisiteAtTheSameTime(semester, user);
         });
 
-        deleteAClassesWhenInsertIfAlreadyExists(semester, ids, user);
-
+        deleteAClassesWhenInsertIfAlreadyExists(semester);
         user.updateSemester(semester);
         userService.save(user);
         return userService.findById(user.getId());
@@ -109,14 +108,8 @@ public class SemesterService {
      * When you change a {@link Classes} from a {@link Semester} to another, delete it from the current {@link Semester}
      *
      * @param semester a given {@link Semester}
-     * @param ids      a list of IDS of the {@link Classes} that the {@link User} already did
-     * @param user     a give {@link User}
      */
-    private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, List<String> ids, User user) {
-        semester.getClasses().forEach(obj -> {
-            if (ids != null && ids.contains(obj.getId())) {
-                userService.deleteAGivenClassesOfAGivenUser(user, obj.getId());
-            }
-        });
+    private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester) {
+        semester.getClasses().forEach(obj -> userService.deleteClassFromSemester(obj.getId()));
     }
 }

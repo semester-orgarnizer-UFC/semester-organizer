@@ -1,9 +1,9 @@
 @import "./../../pallete.css";
 
 .card-wrap {
-  min-width: 150px;
+  min-width: 275px;
   background: var(--card);
-  min-height: 200px;
+  min-height: 150px;
   max-height: 600px;
   
 }

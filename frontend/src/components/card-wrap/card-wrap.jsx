@@ -10,7 +10,7 @@ import { useDrop } from "react-dnd";
 import { updateSemester } from "../../services/semester-service";
 
 export function CardWrap(props) {
-  const { semester } = useContext(SemesterContext);
+  const { semester, setSemester } = useContext(SemesterContext);
   const [classes, setClasses] = useState();
 
   const [{ isOver }, drop] = useDrop(() => ({
@@ -22,7 +22,6 @@ export function CardWrap(props) {
   }));
 
   const addClassesToTheSemester = (id) => {
-    console.log(id);
     const semester = {
       index: props.index,
       classes: [
@@ -33,7 +32,7 @@ export function CardWrap(props) {
       ],
     };
     updateSemester(semester).then((res) => {
-      console.log(res);
+      setSemester(res.data.semester);
     });
   };
 

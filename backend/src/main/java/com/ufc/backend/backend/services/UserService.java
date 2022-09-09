@@ -3,6 +3,7 @@ package com.ufc.backend.backend.services;
 import com.ufc.backend.backend.exceptions.EmailAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import com.ufc.backend.backend.model.Classes;
+import com.ufc.backend.backend.model.Course;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.repositories.UserRepository;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,9 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CourseService courseService;
 
 
     /**
@@ -57,25 +61,8 @@ public class UserService {
     public User insert(User user) {
         if (repository.findByEmail(user.getEmail()) != null) throw new EmailAlreadyExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setNotTakenClasses(courseService.findById(user.getCourse()).getMandatoryClasses());
         return repository.save(user);
-    }
-
-
-    /**
-     * Return all done {@link Classes} from the {@link User}
-     *
-     * @return a list of {@link Classes}
-     */
-    @Cacheable
-    public List<Classes> findAllDoneClasses() {
-        User user = findById(AuthService.userAuthenticated().getId());
-        if (user.getSemester() == null) return null;
-        List<Classes> listReturn = new ArrayList<>();
-        user.getSemester().forEach(obj -> {
-            if (obj.getClasses() != null)
-                listReturn.addAll(obj.getClasses());
-        });
-        return listReturn;
     }
 
     /**
@@ -85,8 +72,20 @@ public class UserService {
      * @return a list of {@link Classes}
      */
     public List<Classes> findAllClassesThatHasTheGivenPreRequisite(String preRequisiteId) {
-        return findAllDoneClasses().stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
+        if (findAllTakenClasses() == null) return null;
+        return findAllTakenClasses().stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
     }
+
+    /**
+     * Return all done {@link Classes} from the {@link User}
+     *
+     * @return a list of {@link Classes}
+     */
+    @Cacheable
+    public List<Classes> findAllTakenClasses() {
+        return findById(AuthService.userAuthenticated().getId()).getTakenClasses();
+    }
+
 
     /**
      * Return not taken {@link Classes} from the {@link User}
@@ -95,22 +94,17 @@ public class UserService {
      */
     @Cacheable
     public List<Classes> findAllNotTakenClasses() {
-        List<Classes> classesDone = findAllDoneClasses();
-        List<Classes> allClasses = classesService.findAll();
-
-        if (classesDone == null) return allClasses;
-
-        classesDone.forEach(classes -> allClasses.removeIf(obj -> obj.getId().equals(classes.getId())));
-        return allClasses;
+        return findById(AuthService.userAuthenticated().getId()).getNotTakenClasses();
     }
 
     /**
      * Delete a {@link Classes} from a {@link Semester}
      *
-     * @param user    a given {@link User}
      * @param classId the id that should be deleted
      */
-    public void deleteAGivenClassesOfAGivenUser(User user, String classId) {
+    public void deleteClassFromSemester(String classId) {
+        User user = findById(AuthService.userAuthenticated().getId());
+
         user.getSemester().forEach(semester -> {
             if (semester.getClasses() != null)
                 semester.getClasses().removeIf(classes -> classes.getId().equals(classId));
@@ -118,7 +112,7 @@ public class UserService {
         save(user);
 
         if (findAllClassesThatHasTheGivenPreRequisite(classId) != null) {
-            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteAGivenClassesOfAGivenUser(user, classes.getId()));
+            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteClassFromSemester(classes.getId()));
         }
     }
 }

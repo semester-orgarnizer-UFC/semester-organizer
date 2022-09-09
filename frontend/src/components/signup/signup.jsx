@@ -52,10 +52,7 @@ function Signup() {
       lastName: lastName,
       password: password,
       email: email,
-      course: {
-        ref: "Course",
-        id: course,
-      },
+      course: course,
       currentSemester: 1,
     };
 
@@ -111,9 +108,9 @@ function Signup() {
                 onChange={handleCourseChange}
                 required
               >
-                <MenuItem value={"QXD-CC"}>Ciência da computação</MenuItem>
-                <MenuItem value={"QXD-EC"}>Engenharia da computação</MenuItem>
-                <MenuItem value={"QXD-ES"}>Engenharia de software</MenuItem>
+                <MenuItem value={"QXD_CC"}>Ciência da computação</MenuItem>
+                <MenuItem value={"QXD_EC"}>Engenharia da computação</MenuItem>
+                <MenuItem value={"QXD_ES"}>Engenharia de software</MenuItem>
               </Select>
             </FormControl>
           </Box>

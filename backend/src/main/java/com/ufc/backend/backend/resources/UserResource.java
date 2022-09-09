@@ -26,7 +26,7 @@ public class UserResource {
 
     @GetMapping("/classes")
     public ResponseEntity<List<Classes>> findClasses() {
-        return ResponseEntity.ok().body(service.findAllDoneClasses());
+        return ResponseEntity.ok().body(service.findAllTakenClasses());
     }
     @GetMapping("/classes/nottaken/")
     public ResponseEntity<List<Classes>> findClassesNotTaken() {
@@ -43,9 +43,9 @@ public class UserResource {
                 .toUri()).body(service.insert(user));
     }
 
-    @DeleteMapping("/{id}/{classId}")
-    public ResponseEntity<Boolean> deleteClassFromSemester(@PathVariable String id, @PathVariable String classId) {
-        service.deleteAGivenClassesOfAGivenUser(service.findById(id), classId);
+    @DeleteMapping("/{classId}")
+    public ResponseEntity<Boolean> deleteClassFromSemester(@PathVariable String classId) {
+        service.deleteClassFromSemester(classId);
         return ResponseEntity.noContent().build();
     }
 }
