@@ -8,10 +8,14 @@ import { ThemeProvider } from "@emotion/react";
 import { SemesterContext } from "../../providers/semester-provider";
 import { useDrop } from "react-dnd";
 import { updateSemester } from "../../services/semester-service";
+import useCustomSnackbar from "../snackbar/use-custom-snackbar.js";
+
 
 export function CardWrap(props) {
   const { semester, setSemester } = useContext(SemesterContext);
   const [classes, setClasses] = useState();
+  const snackbar = useCustomSnackbar();
+
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "Card",
@@ -32,7 +36,11 @@ export function CardWrap(props) {
       ],
     };
     updateSemester(semester).then((res) => {
-      setSemester(res.data.semester);
+      if (res.status === 201) {
+        setSemester(res.data.semester);
+      } else {
+        snackbar.showError(res.message);
+      }
     });
   };
 
@@ -59,6 +67,7 @@ export function CardWrap(props) {
         sx={{
           background: "var(--card)",
           overflowY: "scroll",
+          opacity: isOver ? 0.7 : 1,
         }}
       >
         <CardContent>

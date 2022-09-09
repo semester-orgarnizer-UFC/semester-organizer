@@ -62,7 +62,6 @@ export function ClassCard(props) {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              border: isDragging ? "5px solid pink" : "1px solid black"
             }}
           >
             <Typography sx={{ fontSize: 16 }} color="primary">

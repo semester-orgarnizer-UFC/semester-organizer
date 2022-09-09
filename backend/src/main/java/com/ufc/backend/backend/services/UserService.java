@@ -102,17 +102,15 @@ public class UserService {
      *
      * @param classId the id that should be deleted
      */
-    public void deleteClassFromSemester(String classId) {
-        User user = findById(AuthService.userAuthenticated().getId());
-
+    public void deleteClassFromSemester(String classId, User user) {
         user.getSemester().forEach(semester -> {
-            if (semester.getClasses() != null)
+            if (semester.getClasses() != null) {
                 semester.getClasses().removeIf(classes -> classes.getId().equals(classId));
+            }
         });
-        save(user);
-
         if (findAllClassesThatHasTheGivenPreRequisite(classId) != null) {
-            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteClassFromSemester(classes.getId()));
+            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteClassFromSemester(classes.getId(), user));
         }
+        save(user);
     }
 }
