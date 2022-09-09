@@ -22,23 +22,10 @@ export async function findAll() {
   }
 }
 
-export async function createOrUpdateSemester() {
+export async function createEmptySemester() {
   let config = {
     method: "POST",
     url: URL,
-    data: {
-      index: 1,
-      classes: [
-        {
-          ref: "Classes",
-          id: "QXD0001",
-        },
-        {
-          ref: "Classes",
-          id: "QXD0007",
-        },
-      ],
-    },
     responseType: "json",
     headers: {
       "content-type": "application/json",

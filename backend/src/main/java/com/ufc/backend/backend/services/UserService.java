@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,9 +31,10 @@ public class UserService {
 
     /**
      * Find a {@link User} by id
-     * @exception ObjectNotFoundException if the id was not found in the database
+     *
      * @param id the id
      * @return {@link User}
+     * @throws ObjectNotFoundException if the id was not found in the database
      */
     public User findById(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
@@ -39,17 +42,19 @@ public class UserService {
 
     /**
      * Save a given {@link User}
+     *
      * @param user a given {@link User}
-     * @return {@link User}
      */
-    public User save(User user) {
-        return repository.save(user);
+    public void save(User user) {
+        repository.save(user);
     }
+
     /**
      * Save a given {@link User} into the database
-     * @exception EmailAlreadyExists if the email already exists in the database
+     *
      * @param user a given {@link User}
      * @return {@link User}
+     * @throws EmailAlreadyExists if the email already exists in the database
      */
     public User insert(User user) {
         if (repository.findByEmail(user.getEmail()) != null) throw new EmailAlreadyExists(user.getEmail());
@@ -60,20 +65,24 @@ public class UserService {
 
     /**
      * Return all done {@link Classes} from the {@link User}
+     *
      * @return a list of {@link Classes}
      */
     @Cacheable
     public List<Classes> findAllDoneClasses() {
         User user = findById(AuthService.userAuthenticated().getId());
-
         if (user.getSemester() == null) return null;
         List<Classes> listReturn = new ArrayList<>();
-        user.getSemester().forEach(obj -> listReturn.addAll(obj.getClasses()));
+        user.getSemester().forEach(obj -> {
+            if (obj.getClasses() != null)
+                listReturn.addAll(obj.getClasses());
+        });
         return listReturn;
     }
 
     /**
      * Find all {@link Classes} that has the given pre requisite
+     *
      * @param preRequisiteId the id
      * @return a list of {@link Classes}
      */
@@ -83,6 +92,7 @@ public class UserService {
 
     /**
      * Return not taken {@link Classes} from the {@link User}
+     *
      * @return a list of {@link Classes}
      */
     @Cacheable
@@ -98,7 +108,8 @@ public class UserService {
 
     /**
      * Delete a {@link Classes} from a {@link Semester}
-     * @param user a given {@link User}
+     *
+     * @param user    a given {@link User}
      * @param classId the id that should be deleted
      */
     public void deleteAGivenClassesOfAGivenUser(User user, String classId) {

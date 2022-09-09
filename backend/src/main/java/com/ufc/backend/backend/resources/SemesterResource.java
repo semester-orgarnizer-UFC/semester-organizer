@@ -28,11 +28,20 @@ public class SemesterResource {
     }
 
     @PostMapping
-    public ResponseEntity<User> createSemester(@RequestBody Semester semester) {
+    public ResponseEntity<User> createEmptySemester() {
+        User user = service.createEmptySemester();
+        return ResponseEntity.created(ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .buildAndExpand(user.getId())
+                .toUri()).body(user);
+    }
+
+    @PutMapping
+    public ResponseEntity<User> updateSemester(@RequestBody Semester semester) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .buildAndExpand(semester.getIndex())
-                .toUri()).body(service.createOrUpdateSemester(semester));
+                .toUri()).body(service.updateSemester(semester));
     }
 
     @DeleteMapping("/{index}")

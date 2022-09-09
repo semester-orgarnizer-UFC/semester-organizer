@@ -2,9 +2,6 @@ package com.ufc.backend.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import static org.springframework.util.StringUtils.capitalize;
-
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -31,4 +28,13 @@ public class User {
     @JsonIgnore
     private Course course;
     private List<Semester> semester;
+
+    public void addEmptySemester() {
+        if (this.getSemester() == null) {
+            this.setSemester(List.of(new Semester(1, null)));
+        }
+        else {
+            this.getSemester().add(new Semester(this.getSemester().size() + 1, null));
+        }
+    }
 }

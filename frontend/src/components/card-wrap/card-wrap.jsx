@@ -11,18 +11,19 @@ export function CardWrap(props) {
   const { semester } = useContext(SemesterContext);
   const [classes, setClasses] = useState();
 
-
   useEffect(() => {
-    setClasses(
-      props.data.classes.map((item, index) => (
-        <ClassCard
-          name={item.name}
-          id={item.id}
-          hours={item.hours}
-          key={index}
-        ></ClassCard>
-      ))
-    );
+    if (props.data.classes) {
+      setClasses(
+        props.data.classes.map((item, index) => (
+          <ClassCard
+            name={item.name}
+            id={item.id}
+            hours={item.hours}
+            key={index}
+          ></ClassCard>
+        ))
+      );
+    }
   }, [semester]);
 
   return (
@@ -45,7 +46,7 @@ export function CardWrap(props) {
               gap: "10px",
             }}
           >
-            {classes}
+            {classes ? classes : <p>teste</p>}
           </Box>
         </CardContent>
       </Card>

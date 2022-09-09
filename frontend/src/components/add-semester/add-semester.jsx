@@ -5,7 +5,7 @@ import { Box, Card, Typography, CardContent } from "@mui/material";
 import { theme } from "./../../theme.js";
 import { ThemeProvider } from "@emotion/react";
 import AddIcon from "@mui/icons-material/Add";
-import { createOrUpdateSemester } from "../../services/semester-service";
+import { createEmptySemester } from "../../services/semester-service";
 import { useContext } from "react";
 import { ClassesContext } from "../../providers/classes-provider.js";
 import { findNotTakenClasses } from "../../services/user-service.js";
@@ -18,10 +18,10 @@ function AddSemester() {
   const snackbar = useCustomSnackbar();
 
   const createNewSemester = async () => {
-    await createOrUpdateSemester().then((data) => {
+    await createEmptySemester().then((data) => {
       if (data.status == 201) {
         setSemester(data.data.semester);
-      } else{
+      } else {
         snackbar.showError(data.message);
       }
     });

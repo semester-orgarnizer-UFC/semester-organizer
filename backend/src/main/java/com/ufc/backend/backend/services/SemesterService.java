@@ -68,12 +68,24 @@ public class SemesterService {
     }
 
     /**
-     * Create or update a {@link Semester}
+     * Create a empty {@link Semester}
+     *
+     * @return {@link User}
+     */
+    public User createEmptySemester() {
+        User user = userService.findById(AuthService.userAuthenticated().getId());
+        user.addEmptySemester();
+        userService.save(user);
+        return userService.findById(user.getId());
+    }
+
+    /**
+     * Update a {@link Semester}
      *
      * @param semester a given {@link Semester}
-     * @return {@link User} with a new or updated {@link Semester}
+     * @return {@link User} with an updated {@link Semester}
      */
-    public User createOrUpdateSemester(Semester semester) {
+    public User updateSemester(Semester semester) {
 
         User user = userService.findById(AuthService.userAuthenticated().getId());
 
@@ -83,6 +95,13 @@ public class SemesterService {
 
 
         HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
+
+        if (semester.getClasses() == null) {
+            semester.setIndex(user.getSemester().size());
+            user.setSemester(List.of(semester));
+            userService.save(user);
+        }
+
         semester.getClasses().forEach(classes -> {
             handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
             handler.classesDontHaveThePreRequisite(classes.getId());
