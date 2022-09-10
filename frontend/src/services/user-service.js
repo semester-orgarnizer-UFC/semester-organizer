@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getToken } from "./local-storage";
 import { API_URL } from "./utils /api-constants";
-import { AUTHORIZATION_HEADERS } from "./utils /api-constants";
 
 
 const URL = API_URL + "/users"

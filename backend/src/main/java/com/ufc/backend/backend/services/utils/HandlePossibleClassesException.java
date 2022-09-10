@@ -7,8 +7,6 @@ import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.User;
 import com.ufc.backend.backend.services.ClassesService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,21 +14,30 @@ import java.util.stream.Collectors;
 /**
  * Class responsible to throw possible exceptions when you try to create a {@link Semester} with invalid {@link Classes}
  */
-@Service
 public class HandlePossibleClassesException {
 
 
     private final ClassesService classesService;
     private final List<String> idsAlreadyDone;
+    private final Semester semester;
+    private final User user;
 
-
-    public HandlePossibleClassesException(List<String> idsAlreadyDone, ClassesService classesService) {
-        this.idsAlreadyDone = idsAlreadyDone;
+    public HandlePossibleClassesException(ClassesService classesService, List<String> idsAlreadyDone, Semester semester, User user) {
         this.classesService = classesService;
+        this.idsAlreadyDone = idsAlreadyDone;
+        this.semester = semester;
+        this.user = user;
     }
 
+    public void run() {
+        semester.getClasses().forEach(classes -> {
+            this.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
+            this.classesDontHaveThePreRequisite(classes.getId());
+            this.classAndPreRequisiteAtTheSameTime(semester, user);
+        });
+    }
 
-    public void classesDontHaveThePreRequisite(String classesId) {
+    private void classesDontHaveThePreRequisite(String classesId) {
         Classes classes = this.classesService.findById(classesId);
         if (this.idsAlreadyDone == null && classes.getPreRequisite() != null)
             throw new ClassDontHaveThePreRequisiteException(classes);
@@ -39,14 +46,14 @@ public class HandlePossibleClassesException {
             throw new ClassDontHaveThePreRequisiteException(classes);
     }
 
-    public void classesCantBeDoneAtTheFirstSemester(String classesId, Semester semester) {
+    private void classesCantBeDoneAtTheFirstSemester(String classesId, Semester semester) {
         Classes classes = this.classesService.findById(classesId);
 
         if (semester.getIndex() == 1 && classes.getSemester() != 1)
             throw new ClassCantBeDoneAtTheFirstSemester(classes);
     }
 
-    public void classAndPreRequisiteAtTheSameTime(Semester semester, User user) {
+    private void classAndPreRequisiteAtTheSameTime(Semester semester, User user) {
         List<String> listClasses = semester.getClasses().stream().map(Classes::getId).collect(Collectors.toList());
         Semester updatedSemester = user.getSemester().get(semester.getIndex() - 1);
 

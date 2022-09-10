@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -42,7 +39,6 @@ public class User {
 
     public void updateSemester(Semester newSemester) {
         Semester oldSemester = this.getSemester().get(newSemester.getIndex() - 1);
-        newSemester.getClasses().forEach(classes -> this.getNotTakenClasses().removeIf(obj -> obj.getId().equals(classes.getId())));
         if (oldSemester.getClasses() == null) {
             oldSemester.setClasses(newSemester.getClasses());
             this.setTakenClasses(newSemester.getClasses());

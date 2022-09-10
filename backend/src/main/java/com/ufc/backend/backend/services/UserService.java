@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -112,5 +113,9 @@ public class UserService {
             findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteClassFromSemester(classes.getId(), user));
         }
         save(user);
+    }
+    public List<String> idsOfTheTakenClasses(){
+        if(findAllTakenClasses() == null) return null;
+        return findAllTakenClasses().stream().map(Classes::getId).collect(Collectors.toList());
     }
 }

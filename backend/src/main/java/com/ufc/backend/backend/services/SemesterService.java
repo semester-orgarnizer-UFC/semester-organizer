@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class SemesterService {
@@ -85,17 +85,7 @@ public class SemesterService {
      */
     public User updateSemester(Semester semester) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
-        List<String> ids =
-                userService.findAllTakenClasses() == null ? null :
-                        userService.findAllTakenClasses().stream().map(Classes::getId).collect(Collectors.toList());
-        HandlePossibleClassesException handler = new HandlePossibleClassesException(ids, classesService);
-
-
-        semester.getClasses().forEach(classes -> {
-            handler.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
-            handler.classesDontHaveThePreRequisite(classes.getId());
-            handler.classAndPreRequisiteAtTheSameTime(semester, user);
-        });
+        new HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(), semester, user).run();
 
         deleteAClassesWhenInsertIfAlreadyExists(semester, user);
         user.updateSemester(semester);
