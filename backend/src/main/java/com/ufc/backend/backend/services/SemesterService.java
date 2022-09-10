@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -87,7 +88,7 @@ public class SemesterService {
         User user = userService.findById(AuthService.userAuthenticated().getId());
         new HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(), semester, user).run();
 
-        deleteAClassesWhenInsertIfAlreadyExists(semester, user);
+        deleteAClassesWhenInsertIfAlreadyExists(semester.getClasses(), user);
         user.updateSemester(semester);
         userService.save(user);
         return userService.findById(user.getId());
@@ -97,12 +98,12 @@ public class SemesterService {
     /**
      * When you change a {@link Classes} from a {@link Semester} to another, delete it from the current {@link Semester}
      *
-     * @param semester a given {@link Semester}
+     * @param classesThatShouldBeDeleted a given list of {@link Classes}
      */
-    private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, User user) {
+    private void deleteAClassesWhenInsertIfAlreadyExists(Set<Classes> classesThatShouldBeDeleted, User user) {
         user.getSemester().forEach(userSemesters -> {
-            if(userSemesters.getClasses() != null){
-                semester.getClasses().forEach(classesObj-> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));
+            if (userSemesters.getClasses() != null) {
+                classesThatShouldBeDeleted.forEach(classesObj -> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));
             }
         });
     }
