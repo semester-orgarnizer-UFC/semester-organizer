@@ -20,4 +20,13 @@ public class Classes {
     private Classes preRequisite;
     private Integer hours;
     private Integer semester;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    public boolean equals(Classes obj) {
+        return this.getId().equals(obj.getId());
+    }
 }

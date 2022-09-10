@@ -97,23 +97,6 @@ public class UserService {
     public List<Classes> findAllNotTakenClasses() {
         return findById(AuthService.userAuthenticated().getId()).getNotTakenClasses();
     }
-
-    /**
-     * Delete a {@link Classes} from a {@link Semester}
-     *
-     * @param classId the id that should be deleted
-     */
-    public void deleteClassFromSemester(String classId, User user) {
-        user.getSemester().forEach(semester -> {
-            if (semester.getClasses() != null) {
-                semester.getClasses().removeIf(classes -> classes.getId().equals(classId));
-            }
-        });
-        if (findAllClassesThatHasTheGivenPreRequisite(classId) != null) {
-            findAllClassesThatHasTheGivenPreRequisite(classId).forEach(classes -> deleteClassFromSemester(classes.getId(), user));
-        }
-        save(user);
-    }
     public List<String> idsOfTheTakenClasses(){
         if(findAllTakenClasses() == null) return null;
         return findAllTakenClasses().stream().map(Classes::getId).collect(Collectors.toList());

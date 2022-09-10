@@ -62,7 +62,7 @@ public class SemesterService {
         Semester semester = findSemesterByIndex(user, index);
         user.getSemester().removeIf(obj -> obj.getIndex().equals(semester.getIndex()));
         userService.save(user);
-        semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId(), user));
+        // semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId(), user));
     }
 
     /**
@@ -100,6 +100,10 @@ public class SemesterService {
      * @param semester a given {@link Semester}
      */
     private void deleteAClassesWhenInsertIfAlreadyExists(Semester semester, User user) {
-        semester.getClasses().forEach(obj -> userService.deleteClassFromSemester(obj.getId(), user));
+        user.getSemester().forEach(userSemesters -> {
+            if(userSemesters.getClasses() != null){
+                semester.getClasses().forEach(classesObj-> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));
+            }
+        });
     }
 }
