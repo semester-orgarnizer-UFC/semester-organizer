@@ -13,4 +13,7 @@ public class Semester {
     private Integer index;
     @DBRef
     private List<Classes> classes;
+    public boolean equals(Semester obj) {
+        return this.getIndex().equals(obj.getIndex());
+    }
 }

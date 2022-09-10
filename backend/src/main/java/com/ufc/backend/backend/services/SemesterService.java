@@ -60,7 +60,7 @@ public class SemesterService {
     public void deleteASemesterByIndex(Integer index) {
         User user = userService.findById(AuthService.userAuthenticated().getId());
         Semester semester = findSemesterByIndex(user, index);
-        user.getSemester().removeIf(obj -> obj.getIndex().equals(semester.getIndex()));
+        user.getSemester().removeIf(obj -> obj.equals(semester));
         userService.save(user);
         // semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId(), user));
     }

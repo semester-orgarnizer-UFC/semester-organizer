@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 @Getter
@@ -47,5 +48,22 @@ public class User {
             this.getTakenClasses().addAll(newSemester.getClasses());
             newSemester.getClasses().forEach(classes -> this.getNotTakenClasses().remove(classes));
         }
+        notifyTakenClasses(newSemester.getClasses());
+        notifyNotTakenClasses(newSemester.getClasses());
+    }
+
+    private void notifyTakenClasses(List<Classes> classes) {
+        if (getTakenClasses() == null) {
+            setTakenClasses(classes);
+            return;
+        }
+        classes.forEach(obj -> {
+            if (!getTakenClasses().contains(obj))
+                getTakenClasses().add(obj);
+        });
+    }
+
+    private void notifyNotTakenClasses(List<Classes> classes){
+        classes.forEach(classesLoop -> getNotTakenClasses().removeIf(obj -> obj.equals(classesLoop)));
     }
 }
