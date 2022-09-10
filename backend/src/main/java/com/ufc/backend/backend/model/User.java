@@ -42,11 +42,8 @@ public class User {
         Semester oldSemester = this.getSemester().get(newSemester.getIndex() - 1);
         if (oldSemester.getClasses() == null) {
             oldSemester.setClasses(newSemester.getClasses());
-            this.setTakenClasses(newSemester.getClasses());
         } else {
             oldSemester.getClasses().addAll(newSemester.getClasses());
-            this.getTakenClasses().addAll(newSemester.getClasses());
-            newSemester.getClasses().forEach(classes -> this.getNotTakenClasses().remove(classes));
         }
         notifyTakenClasses(newSemester.getClasses());
         notifyNotTakenClasses(newSemester.getClasses());
@@ -57,13 +54,11 @@ public class User {
             setTakenClasses(classes);
             return;
         }
-        classes.forEach(obj -> {
-            if (!getTakenClasses().contains(obj))
-                getTakenClasses().add(obj);
-        });
+        getTakenClasses().removeAll(classes);
+        getTakenClasses().addAll(classes);
     }
 
-    private void notifyNotTakenClasses(List<Classes> classes){
-        classes.forEach(classesLoop -> getNotTakenClasses().removeIf(obj -> obj.equals(classesLoop)));
+    private void notifyNotTakenClasses(List<Classes> classes) {
+        getNotTakenClasses().removeAll(classes);
     }
 }

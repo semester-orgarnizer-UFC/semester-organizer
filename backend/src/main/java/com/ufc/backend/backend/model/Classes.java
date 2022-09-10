@@ -26,7 +26,11 @@ public class Classes {
         return super.hashCode();
     }
 
-    public boolean equals(Classes obj) {
-        return this.getId().equals(obj.getId());
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass() != obj.getClass()){
+            return false;
+        }
+        return this.getId().equals(((Classes) obj).getId());
     }
 }

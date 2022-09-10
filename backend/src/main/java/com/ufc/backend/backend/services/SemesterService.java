@@ -100,7 +100,7 @@ public class SemesterService {
      *
      * @param classesThatShouldBeDeleted a given list of {@link Classes}
      */
-    private void deleteAClassesWhenInsertIfAlreadyExists(Set<Classes> classesThatShouldBeDeleted, User user) {
+    private void deleteAClassesWhenInsertIfAlreadyExists(List<Classes> classesThatShouldBeDeleted, User user) {
         user.getSemester().forEach(userSemesters -> {
             if (userSemesters.getClasses() != null) {
                 classesThatShouldBeDeleted.forEach(classesObj -> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));
