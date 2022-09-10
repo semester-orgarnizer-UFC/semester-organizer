@@ -19,23 +19,22 @@ export function CardWrap(props) {
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "Card",
-    drop: (item) => addClassesToTheSemester(item.id),
+    drop: (item) => addClassesToTheSemester(item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-  const addClassesToTheSemester = (id) => {
-    const semester = {
+  const addClassesToTheSemester = (item) => {
+    const data = {
       index: props.index,
       classes: [
-        {
-          ref: "Classes",
-          id: id,
-        },
-      ],
+        item
+      ]
     };
-    updateSemester(semester).then((res) => {
+    console.log(data);
+
+    updateSemester(data).then((res) => {
       if (res.status === 201) {
         setSemester(res.data.semester);
       } else {
@@ -49,9 +48,7 @@ export function CardWrap(props) {
       setClasses(
         props.data.classes.map((item, index) => (
           <ClassCard
-            name={item.name}
-            id={item.id}
-            hours={item.hours}
+            item={item}
             key={index}
           ></ClassCard>
         ))

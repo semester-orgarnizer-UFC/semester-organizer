@@ -32,7 +32,7 @@ public class CourseService {
             // Necessary to not fail when accessing the properties : ref, id. for MongoDB relation
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             Course course = mapper.readValue(in, Course.class);
-            course.getMandatoryClasses().forEach(obj -> classRepository.save(obj));
+            classRepository.saveAll(course.getMandatoryClasses());
             courseRepository.save(mapper.readValue(in, Course.class));
         } catch (Exception e) {
             throw new CouldNotLoadTheClassesException();

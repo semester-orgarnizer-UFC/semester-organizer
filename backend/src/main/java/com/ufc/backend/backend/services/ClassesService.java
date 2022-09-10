@@ -5,6 +5,7 @@ import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

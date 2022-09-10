@@ -85,9 +85,7 @@ function ClassesNotTaken() {
             {classes ? (
               classes.map((item, index) => (
                 <ClassCard
-                  name={item.name}
-                  id={item.id}
-                  hours={item.hours}
+                  item={item}
                   key={index}
                 ></ClassCard>
               ))

@@ -21,7 +21,7 @@ export function ClassCard(props) {
   const [activeId, setActiveId] = useState();
   const [{isDragging}, drag] = useDrag(() => ({
     type: "Card",
-    item: {id: props.id},
+    item: props.item,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     })
@@ -66,13 +66,13 @@ export function ClassCard(props) {
             }}
           >
             <Typography sx={{ fontSize: 16 }} color="primary">
-              {props.name}
+              {props.item.name}
             </Typography>
             <Tooltip title="Opções">
               <IconButton
                 onClick={handleClick}
                 size="small"
-                aria-controls={open ? `account-menu-${props.id}` : undefined}
+                aria-controls={open ? `account-menu-${props.item.id}` : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
@@ -90,7 +90,7 @@ export function ClassCard(props) {
             }}
           >
             <Typography color="secondary" sx={{ fontSize: 14 }}>
-              COD: {props.id}
+              COD: {props.item.id}
             </Typography>
             <Box
               sx={{
@@ -103,7 +103,7 @@ export function ClassCard(props) {
                 sx={{ fontSize: 14, ml: 1 }}
                 color="secondary"
               >
-                {props.hours}h
+                {props.item.hours}h
               </Typography>
             </Box>
           </Box>
