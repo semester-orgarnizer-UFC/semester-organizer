@@ -34,6 +34,7 @@ public class HandlePossibleClassesException {
             this.classesCantBeDoneAtTheFirstSemester(classes.getId(), semester);
             this.classesDontHaveThePreRequisite(classes.getId());
         });
+        classesAndItsPreRequisiteCantBeDoneAtTheSameTime(semester);
     }
 
     private void classesDontHaveThePreRequisite(String classesId) {
@@ -50,5 +51,17 @@ public class HandlePossibleClassesException {
 
         if (semester.getIndex() == 1 && classes.getSemester() != 1)
             throw new ClassCantBeDoneAtTheFirstSemester(classes);
+    }
+
+    private void classesAndItsPreRequisiteCantBeDoneAtTheSameTime(Semester semester) {
+        Semester currentSemester = user.getSemester().get(semester.getIndex() - 1);
+
+        semester.getClasses().forEach(classes -> {
+            if (semester.getClasses().contains(classes.getPreRequisite())) {
+                throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
+            }
+            if (currentSemester.getClasses() != null && currentSemester.getClasses().contains(classes.getPreRequisite()))
+                throw new ClassesAndPreRequisiteAtTheSameTimeException(classes);
+        });
     }
 }
