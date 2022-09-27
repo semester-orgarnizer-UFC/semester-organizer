@@ -1,9 +1,12 @@
 package com.ufc.backend.backend.model;
 
+import com.ufc.backend.backend.model.feedback.Feedback;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -20,6 +23,7 @@ public class Classes {
     private Classes preRequisite;
     private Integer hours;
     private Integer semester;
+    private List<Feedback> feedbacks;
 
     @Override
     public int hashCode() {
