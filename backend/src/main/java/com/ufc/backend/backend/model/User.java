@@ -61,4 +61,12 @@ public class User {
     private void notifyNotTakenClasses(List<Classes> classes) {
         getNotTakenClasses().removeAll(classes);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.getId().equals(((User) obj).getId());
+    }
 }

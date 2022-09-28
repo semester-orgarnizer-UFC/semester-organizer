@@ -23,6 +23,7 @@ public class Classes {
     private Classes preRequisite;
     private Integer hours;
     private Integer semester;
+    @DBRef
     private List<Feedback> feedbacks;
 
     @Override
@@ -32,9 +33,16 @@ public class Classes {
 
     @Override
     public boolean equals(Object obj) {
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         return this.getId().equals(((Classes) obj).getId());
+    }
+
+    public void addFeedback(Feedback feedback) {
+        if (this.feedbacks == null)
+            setFeedbacks(List.of(feedback));
+        else
+            this.getFeedbacks().add(feedback);
     }
 }

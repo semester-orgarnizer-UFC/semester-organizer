@@ -76,6 +76,15 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<GenericError> forbiddenException(ForbiddenException e, HttpServletRequest request) {
+
+        GenericError err = new GenericError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
+                "Nao autorizado", e.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+    }
 }
 
 @Getter
