@@ -5,6 +5,7 @@ import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.feedback.Feedback;
 import com.ufc.backend.backend.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ClassesService {
         repository.save(classes);
     }
 
+    @Cacheable("classes")
     public List<Classes> findAll() {
         return repository.findAll();
     }
