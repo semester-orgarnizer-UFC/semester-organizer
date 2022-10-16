@@ -9,7 +9,10 @@ import com.ufc.backend.backend.repositories.ClassRepository;
 import com.ufc.backend.backend.repositories.FeedbackRepository;
 import com.ufc.backend.backend.resources.ClassesResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FeedbackService {
@@ -23,6 +26,9 @@ public class FeedbackService {
     @Autowired
     private ClassesService classesService;
 
+    public List<Feedback> findAll(){
+        return repository.findAll();
+    }
     public Feedback findById(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }

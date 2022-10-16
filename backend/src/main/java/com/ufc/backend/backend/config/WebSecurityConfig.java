@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private static final String[] PUBLIC_MATCHER = {
-            "/classes/**", "/users", "/courses/**",
+            "/classes/**", "/users", "/courses/**", "/stats/**"
     };
 
     @Override

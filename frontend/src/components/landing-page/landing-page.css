@@ -1,0 +1,21 @@
+@import "./../../pallete.css";
+@import "@fontsource/roboto/400.css";
+
+
+.section {
+    background-color: var(--deepDark);
+    height: 80vh;
+    color: #fff;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Roboto;
+}
+
+.divider{
+    align-self: center;
+    height: 2px;
+    width: 95%;
+    background: var(--dark);
+}

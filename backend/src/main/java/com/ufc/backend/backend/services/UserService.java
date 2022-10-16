@@ -33,6 +33,12 @@ public class UserService {
 
 
     /**
+     * @return all users in the system
+     */
+    public List<User> findAll(){
+        return repository.findAll();
+    }
+    /**
      * Find a {@link User} by id
      *
      * @param id the id
