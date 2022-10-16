@@ -5,7 +5,17 @@ import { Box, Container } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./../../theme.js";
 
-const LandingPage = () => <Box class>TESTE</Box>;
+const LandingPage = () => 
+<div>
+
+    <h1>Organizer</h1>
+    <h2>Organizer - Tudo que você precisa da faculdade, em um lugar só</h2>
+
+    
+
+</div>
+
+;
 
 LandingPage.propTypes = {};
 

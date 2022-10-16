@@ -3,7 +3,7 @@ package com.ufc.backend.backend.model.feedback;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,11 +24,24 @@ public class Feedback {
     @DBRef
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Classes classes;
-    private User user;
+    private Student user;
     @JsonIgnore
-    private User actualUser;
+    private Student actualUser;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean isAnonymous;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.getId().equals(((Feedback) obj).getId());
+    }
 }
 
 @NoArgsConstructor

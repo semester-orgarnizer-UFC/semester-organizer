@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +34,7 @@ public class CourseService {
             classRepository.saveAll(course.getMandatoryClasses());
             courseRepository.save(mapper.readValue(in, Course.class));
         } catch (Exception e) {
-            throw new CouldNotLoadTheClassesException();
+            throw new CouldNotLoadTheClassesException(e.getMessage(), e.getCause());
         }
     }
 

@@ -3,9 +3,7 @@ package com.ufc.backend.backend.services;
 import com.ufc.backend.backend.exceptions.EmailAlreadyExists;
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException;
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.Course;
-import com.ufc.backend.backend.model.Semester;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,37 +32,37 @@ public class UserService {
     /**
      * @return all users in the system
      */
-    public List<User> findAll(){
+    public List<Student> findAll(){
         return repository.findAll();
     }
     /**
-     * Find a {@link User} by id
+     * Find a {@link Student} by id
      *
      * @param id the id
-     * @return {@link User}
+     * @return {@link Student}
      * @throws ObjectNotFoundException if the id was not found in the database
      */
-    public User findById(String id) {
+    public Student findById(String id) {
         return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
 
     /**
-     * Save a given {@link User}
+     * Save a given {@link Student}
      *
-     * @param user a given {@link User}
+     * @param user a given {@link Student}
      */
-    public void save(User user) {
+    public void save(Student user) {
         repository.save(user);
     }
 
     /**
-     * Save a given {@link User} into the database
+     * Save a given {@link Student} into the database
      *
-     * @param user a given {@link User}
-     * @return {@link User}
+     * @param user a given {@link Student}
+     * @return {@link Student}
      * @throws EmailAlreadyExists if the email already exists in the database
      */
-    public User insert(User user) {
+    public Student insert(Student user) {
         if (repository.findByEmail(user.getEmail()) != null) throw new EmailAlreadyExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setNotTakenClasses(courseService.findById(user.getCourse()).getMandatoryClasses());
@@ -84,18 +81,18 @@ public class UserService {
     }
 
     /**
-     * Return all done {@link Classes} from the {@link User}
+     * Return all done {@link Classes} from the {@link Student}
      *
      * @return a list of {@link Classes}
      */
     @Cacheable
     public List<Classes> findAllTakenClasses() {
-        return findById(AuthService.userAuthenticated().getId()).getTakenClasses();
+        return findById(AuthService.userAuthenticated().getId()).getClasses();
     }
 
 
     /**
-     * Return not taken {@link Classes} from the {@link User}
+     * Return not taken {@link Classes} from the {@link Student}
      *
      * @return a list of {@link Classes}
      */

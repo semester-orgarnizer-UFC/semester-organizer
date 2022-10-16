@@ -3,13 +3,11 @@ package com.ufc.backend.backend.services;
 import com.ufc.backend.backend.exceptions.*;
 import com.ufc.backend.backend.model.Classes;
 import com.ufc.backend.backend.model.Semester;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -22,13 +20,13 @@ public class SemesterService {
     private ClassesService classesService;
 
     /**
-     * Return a {@link Semester} from the logged {@link User}
+     * Return a {@link Semester} from the logged {@link Student}
      *
      * @param index the index of the semesters
      * @return {@link Semester}
      */
     public Semester findSemesterByIndex(Integer index) {
-        User user = userService.findById(AuthService.userAuthenticated().getId());
+        Student user = userService.findById(AuthService.userAuthenticated().getId());
         return user.getSemester().get(index - 1);
     }
 
@@ -42,13 +40,13 @@ public class SemesterService {
     }
 
     /**
-     * Return a {@link Semester} from a given {@link User}
+     * Return a {@link Semester} from a given {@link Student}
      *
      * @param user  the given user
      * @param index the index of the semester
      * @return {@link Semester}
      */
-    public Semester findSemesterByIndex(User user, Integer index) {
+    public Semester findSemesterByIndex(Student user, Integer index) {
         return user.getSemester().stream().filter(obj -> obj.getIndex().equals(index)).
                 findFirst().orElseThrow(SemesterOutOfBoundsException::new);
     }
@@ -59,7 +57,7 @@ public class SemesterService {
      * @param index the index of the semesters that should be deleted
      */
     public void deleteASemesterByIndex(Integer index) {
-        User user = userService.findById(AuthService.userAuthenticated().getId());
+        Student user = userService.findById(AuthService.userAuthenticated().getId());
         Semester semester = findSemesterByIndex(user, index);
         user.getSemester().removeIf(obj -> obj.equals(semester));
         userService.save(user);
@@ -69,10 +67,10 @@ public class SemesterService {
     /**
      * Create a empty {@link Semester}
      *
-     * @return {@link User}
+     * @return {@link Student}
      */
-    public User createEmptySemester() {
-        User user = userService.findById(AuthService.userAuthenticated().getId());
+    public Student createEmptySemester() {
+        Student user = userService.findById(AuthService.userAuthenticated().getId());
         user.addEmptySemester();
         userService.save(user);
         return userService.findById(user.getId());
@@ -82,10 +80,10 @@ public class SemesterService {
      * Update a {@link Semester}
      *
      * @param semester a given {@link Semester}
-     * @return {@link User} with an updated {@link Semester}
+     * @return {@link Student} with an updated {@link Semester}
      */
-    public User updateSemester(Semester semester) {
-        User user = userService.findById(AuthService.userAuthenticated().getId());
+    public Student updateSemester(Semester semester) {
+        Student user = userService.findById(AuthService.userAuthenticated().getId());
         new HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(), semester, user).run();
 
         deleteAClassesWhenInsertIfAlreadyExists(semester.getClasses(), user);
@@ -100,7 +98,7 @@ public class SemesterService {
      *
      * @param classesThatShouldBeDeleted a given list of {@link Classes}
      */
-    private void deleteAClassesWhenInsertIfAlreadyExists(List<Classes> classesThatShouldBeDeleted, User user) {
+    private void deleteAClassesWhenInsertIfAlreadyExists(List<Classes> classesThatShouldBeDeleted, Student user) {
         user.getSemester().forEach(userSemesters -> {
             if (userSemesters.getClasses() != null) {
                 classesThatShouldBeDeleted.forEach(classesObj -> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));

@@ -1,6 +1,6 @@
 package com.ufc.backend.backend.services.details;
 
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.repositories.UserRepository;
 import com.ufc.backend.backend.security.UserSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email);
+        Student user = repository.findByEmail(email);
         return new UserSecurity(user.getId(), user.getEmail(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("user")));
     }
 }

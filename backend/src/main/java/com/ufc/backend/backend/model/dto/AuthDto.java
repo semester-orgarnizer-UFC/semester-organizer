@@ -1,4 +1,4 @@
-package com.ufc.backend.backend.model;
+package com.ufc.backend.backend.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

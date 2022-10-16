@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.resources;
 
 import com.ufc.backend.backend.model.Semester;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.services.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class SemesterResource {
     }
 
     @PostMapping
-    public ResponseEntity<User> createEmptySemester() {
-        User user = service.createEmptySemester();
+    public ResponseEntity<Student> createEmptySemester() {
+        Student user = service.createEmptySemester();
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .buildAndExpand(user.getId())
@@ -37,7 +37,7 @@ public class SemesterResource {
     }
 
     @PutMapping
-    public ResponseEntity<User> updateSemester(@RequestBody Semester semester) {
+    public ResponseEntity<Student> updateSemester(@RequestBody Semester semester) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .buildAndExpand(semester.getIndex())

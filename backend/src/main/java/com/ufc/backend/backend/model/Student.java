@@ -2,8 +2,8 @@ package com.ufc.backend.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ufc.backend.backend.model.based.PersonBased;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -14,19 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @Document
 @ToString
-public class User {
-
-    @Id
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
+public class Student extends PersonBased {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String course;
     private List<Semester> semester;
-    @JsonIgnore
-    private List<Classes> takenClasses;
     @JsonIgnore
     private List<Classes> notTakenClasses;
 
@@ -49,12 +41,12 @@ public class User {
     }
 
     private void notifyTakenClasses(List<Classes> classes) {
-        if (getTakenClasses() == null) {
-            setTakenClasses(classes);
+        if (getClasses() == null) {
+            setClasses(classes);
             return;
         }
-        getTakenClasses().removeAll(classes);
-        getTakenClasses().addAll(classes);
+        getClasses().removeAll(classes);
+        getClasses().addAll(classes);
     }
 
     private void notifyNotTakenClasses(List<Classes> classes) {
@@ -66,6 +58,6 @@ public class User {
         if (getClass() != obj.getClass())
             return false;
 
-        return this.getId().equals(((User) obj).getId());
+        return this.getId().equals(((Student) obj).getId());
     }
 }

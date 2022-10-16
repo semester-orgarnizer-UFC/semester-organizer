@@ -5,11 +5,10 @@ import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException;
 import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException;
 import com.ufc.backend.backend.model.Semester;
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.services.ClassesService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Class responsible to throw possible exceptions when you try to create a {@link Semester} with invalid {@link Classes}
@@ -20,9 +19,9 @@ public class HandlePossibleClassesException {
     private final ClassesService classesService;
     private final List<String> idsAlreadyDone;
     private final Semester semester;
-    private final User user;
+    private final Student user;
 
-    public HandlePossibleClassesException(ClassesService classesService, List<String> idsAlreadyDone, Semester semester, User user) {
+    public HandlePossibleClassesException(ClassesService classesService, List<String> idsAlreadyDone, Semester semester, Student user) {
         this.classesService = classesService;
         this.idsAlreadyDone = idsAlreadyDone;
         this.semester = semester;

@@ -1,5 +1,6 @@
 package com.ufc.backend.backend.model;
 
+import com.ufc.backend.backend.model.based.FeedbackBased;
 import com.ufc.backend.backend.model.feedback.Feedback;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @ToString
 @Document
-public class Classes {
+public class Classes extends FeedbackBased {
     @Id
     private String id;
     private String name;
@@ -23,9 +24,6 @@ public class Classes {
     private Classes preRequisite;
     private Integer hours;
     private Integer semester;
-    @DBRef
-    private List<Feedback> feedbacks;
-
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -37,12 +35,5 @@ public class Classes {
             return false;
         }
         return this.getId().equals(((Classes) obj).getId());
-    }
-
-    public void addFeedback(Feedback feedback) {
-        if (this.feedbacks == null)
-            setFeedbacks(List.of(feedback));
-        else
-            this.getFeedbacks().add(feedback);
     }
 }

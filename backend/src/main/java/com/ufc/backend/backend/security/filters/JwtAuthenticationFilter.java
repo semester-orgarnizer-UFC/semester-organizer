@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.security.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ufc.backend.backend.model.AuthDto;
+import com.ufc.backend.backend.model.dto.AuthDto;
 import com.ufc.backend.backend.security.JwtUtil;
 import com.ufc.backend.backend.security.UserSecurity;
 import org.springframework.security.authentication.AuthenticationManager;

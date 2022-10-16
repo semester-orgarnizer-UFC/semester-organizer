@@ -33,6 +33,6 @@ public class ClassesService {
         return findAll().stream().filter(obj -> obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)).collect(Collectors.toList());
     }
     public List<Feedback> findFeedbacks(String id){
-        return findById(id).getFeedbacks();
+        return findById(id).findAllFeedbacks();
     }
 }

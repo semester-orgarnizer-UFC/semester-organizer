@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.resources;
 
 import com.ufc.backend.backend.model.Classes;
-import com.ufc.backend.backend.model.User;
+import com.ufc.backend.backend.model.Student;
 import com.ufc.backend.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -21,7 +20,7 @@ public class UserResource {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id) {
+    public ResponseEntity<Student> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
@@ -36,7 +35,7 @@ public class UserResource {
 
 
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody User user) {
+    public ResponseEntity<Student> insert(@RequestBody Student user) {
         return ResponseEntity.created(ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/users")
