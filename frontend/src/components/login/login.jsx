@@ -42,13 +42,8 @@ function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <Box className="blur-image" />
+      <Box className="content">
         <div className="login-wrap">
           <h2>Login</h2>
           <TextField
@@ -92,16 +87,6 @@ function Login() {
           >
             Entrar
           </Button>
-          <Link to="/dashboard">
-            <Button
-              variant="contained"
-              fullWidth
-              color="primary"
-              sx={{ mt: 2 }}
-            >
-              Entrar sem banco de dados
-            </Button>
-          </Link>
           <Button
             type="button"
             color="primary"

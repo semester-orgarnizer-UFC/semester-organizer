@@ -22,6 +22,33 @@ h3 {
   font-family: Roboto;
 }
 
+.blur-image {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
+  background-image: linear-gradient(rgba(22, 27, 51, 0.6), rgba(13, 12, 29, 0.7)), url("../../assets/quixada-background.jpeg");
+  width: 100vw;
+  height: 100vh;
+  filter: blur(4px);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.blur-image::before{
+  background-color: #cccccc;
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media only screen and (max-width: 600px) {
   .login-wrap {
     background-color: var(--card);

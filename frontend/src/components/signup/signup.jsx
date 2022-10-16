@@ -68,13 +68,8 @@ function Signup() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <Box className="blur-image" />
+      <Box className="content">
         <div className="login-wrap">
           <h2>Cadastro</h2>
           <Box className="grid">

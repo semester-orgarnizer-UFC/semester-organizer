@@ -30,3 +30,15 @@ public class Feedback {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean isAnonymous;
 }
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+class Rating {
+
+    private double howDifficultItWasToLearn;
+    private double isThereALotOfWorksToDo;
+    private int howManyExams;
+}
+

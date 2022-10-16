@@ -31,20 +31,19 @@ public class User {
     private List<Classes> notTakenClasses;
 
     public void addEmptySemester() {
-        if (this.getSemester() == null) {
+        if (this.getSemester() == null)
             this.setSemester(List.of(new Semester(1, null)));
-        } else {
+         else
             this.getSemester().add(new Semester(this.getSemester().size() + 1, null));
-        }
     }
 
     public void updateSemester(Semester newSemester) {
         Semester oldSemester = this.getSemester().get(newSemester.getIndex() - 1);
-        if (oldSemester.getClasses() == null) {
+        if (oldSemester.getClasses() == null)
             oldSemester.setClasses(newSemester.getClasses());
-        } else {
+        else
             oldSemester.getClasses().addAll(newSemester.getClasses());
-        }
+
         notifyTakenClasses(newSemester.getClasses());
         notifyNotTakenClasses(newSemester.getClasses());
     }
@@ -64,9 +63,9 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
+
         return this.getId().equals(((User) obj).getId());
     }
 }
