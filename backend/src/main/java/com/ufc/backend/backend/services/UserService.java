@@ -96,7 +96,6 @@ public class UserService {
      *
      * @return a list of {@link Classes}
      */
-    @Cacheable
     public List<Classes> findAllNotTakenClasses() {
         return findById(AuthService.userAuthenticated().getId()).getNotTakenClasses();
     }

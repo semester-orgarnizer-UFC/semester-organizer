@@ -42,7 +42,6 @@ function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className="blur-image" />
       <Box className="content">
         <div className="login-wrap">
           <h2>Login</h2>
