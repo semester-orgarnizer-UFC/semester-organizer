@@ -46,10 +46,10 @@ export function CardWrap(props) {
   useEffect(() => {
     if (props.data.classes) {
       setClasses(
-        props.data.classes.map((item, index) => (
+        props.data.classes.map((item) => (
           <ClassCard
             item={item}
-            key={index}
+            key={item.id}
           ></ClassCard>
         ))
       );

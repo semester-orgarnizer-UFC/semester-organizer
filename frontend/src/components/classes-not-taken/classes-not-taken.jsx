@@ -83,7 +83,7 @@ function ClassesNotTaken() {
             }}
           >
             {classes ? (
-              classes.map((item, index) => (
+              classes.map((item) => (
                 <ClassCard
                   item={item}
                   key={item.id}
