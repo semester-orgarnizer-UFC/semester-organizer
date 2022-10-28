@@ -1,3 +1,5 @@
+@import "@fontsource/roboto/400.css";
+
 :root {
   --primary: #474973;
   --secondary: #a69cac;
@@ -6,8 +8,9 @@
   --dark: #161b33;
   --deepDark: #0d0c1d;
   --danger: #d4452f;
+  --success: "#22bb33";
+  font-family: Roboto;
 }
-
 
 html,
 body {

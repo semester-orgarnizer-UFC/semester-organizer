@@ -1,7 +1,6 @@
 package com.ufc.backend.backend.model;
 
 import com.ufc.backend.backend.model.based.FeedbackBased;
-import com.ufc.backend.backend.model.feedback.Feedback;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -24,6 +23,9 @@ public class Classes extends FeedbackBased {
     private Classes preRequisite;
     private Integer hours;
     private Integer semester;
+    @DBRef
+    private List<Teacher> teachers;
+
     @Override
     public int hashCode() {
         return super.hashCode();
