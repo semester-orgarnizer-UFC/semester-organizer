@@ -6,7 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -24,7 +26,7 @@ public class Classes extends FeedbackBased {
     private Integer hours;
     private Integer semester;
     @DBRef
-    private List<Teacher> teachers;
+    private Set<Teacher> teachers = new HashSet<>();
 
     @Override
     public int hashCode() {

@@ -1,0 +1,89 @@
+.classes-wrap {
+  width: 60vw;
+  padding: 15px;
+  margin: 10px auto;
+  background: var(--card);
+  border-radius: 12px;
+}
+
+.classes-wrap .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.classes-wrap .title {
+  font-size: 3vh;
+}
+
+.classes-wrap h3 {
+    font-size: 2.2vh;
+    color: var(--secondary);
+}
+
+.classes-wrap .teachers {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    overflow-x: scroll;
+    gap: 10px;
+}
+.classes-wrap .teachers a {
+    font-size: 2.2vh;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
+
+.classes-wrap .teachers a:hover {
+    cursor: pointer;
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.classes-wrap .feedback-wrap {
+    width: 95%;
+    height: 50vh;
+    border-radius: 12px;
+    opacity: 0.9;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+    .classes-wrap {
+        width: 85vw;
+        padding: 15px;
+        margin: 10px auto;
+        background: var(--card);
+        border-radius: 12px;
+      }
+
+      .classes-wrap .teachers {
+        display: flex;
+        align-items: flex-start;
+        justify-content: start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .classes-wrap .feedback-wrap {
+        border-radius: 12px;
+        opacity: 0.9;
+        overflow-y: scroll;
+    }   
+
+    .classes-wrap .title {
+        font-size: 2vh;
+      }
+      
+      .classes-wrap h3 {
+          font-size: 1.7vh;
+          color: var(--secondary);
+      }
+    
+
+  }

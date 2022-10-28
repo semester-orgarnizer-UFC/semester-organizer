@@ -20,7 +20,7 @@ public class Feedback {
     @Id
     private String id;
     private String commentary;
-    private Rating rating;
+    private Double rating;
     @DBRef
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Classes classes;
@@ -42,16 +42,5 @@ public class Feedback {
         }
         return this.getId().equals(((Feedback) obj).getId());
     }
-}
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class Rating {
-
-    private double howDifficultItWasToLearn;
-    private double isThereALotOfWorksToDo;
-    private int howManyExams;
 }
 

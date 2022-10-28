@@ -1,0 +1,26 @@
+.feedback{
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    width: 40%;
+    text-align: justify;
+}
+
+.feedback-name {
+    font-size: 2vh;
+    color: var(--dark);
+}
+
+.feedback-course {
+    font-size: 1.8vh;
+    color: var(--secondary);
+}
+
+@media only screen and (max-width: 600px) {
+    .feedback{
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 12px;
+        width: 90%;
+    }
+}
