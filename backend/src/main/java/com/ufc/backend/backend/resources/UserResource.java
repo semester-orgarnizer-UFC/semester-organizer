@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -25,11 +26,11 @@ public class UserResource {
     }
 
     @GetMapping("/classes")
-    public ResponseEntity<List<Classes>> findClasses() {
+    public ResponseEntity<Set<Classes>> findClasses() {
         return ResponseEntity.ok().body(service.findAllTakenClasses());
     }
     @GetMapping("/classes/nottaken/")
-    public ResponseEntity<List<Classes>> findClassesNotTaken() {
+    public ResponseEntity<Set<Classes>> findClassesNotTaken() {
         return ResponseEntity.ok().body(service.findAllNotTakenClasses());
     }
 

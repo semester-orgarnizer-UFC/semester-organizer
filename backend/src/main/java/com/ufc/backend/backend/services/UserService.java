@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,8 +86,7 @@ public class UserService {
      *
      * @return a list of {@link Classes}
      */
-    @Cacheable
-    public List<Classes> findAllTakenClasses() {
+    public Set<Classes> findAllTakenClasses() {
         return findById(AuthService.userAuthenticated().getId()).getClasses();
     }
 
@@ -96,7 +96,7 @@ public class UserService {
      *
      * @return a list of {@link Classes}
      */
-    public List<Classes> findAllNotTakenClasses() {
+    public Set<Classes> findAllNotTakenClasses() {
         return findById(AuthService.userAuthenticated().getId()).getNotTakenClasses();
     }
     public List<String> idsOfTheTakenClasses(){

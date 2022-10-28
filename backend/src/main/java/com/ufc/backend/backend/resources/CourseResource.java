@@ -29,12 +29,12 @@ public class CourseResource {
     }
 
     @GetMapping("/mandatory/{id}")
-    public ResponseEntity<List<Classes>> findMandatory(@PathVariable String id) {
+    public ResponseEntity<Set<Classes>> findMandatory(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findMandatory(id));
     }
 
     @GetMapping("/optional/{id}")
-    public ResponseEntity<List<Classes>> findOptional(@PathVariable String id) {
+    public ResponseEntity<Set<Classes>> findOptional(@PathVariable String id) {
         return ResponseEntity.ok().body(service.findOptional(id));
     }
 

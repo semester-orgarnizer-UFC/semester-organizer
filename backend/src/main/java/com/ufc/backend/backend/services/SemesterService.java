@@ -8,6 +8,7 @@ import com.ufc.backend.backend.services.utils.HandlePossibleClassesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -98,7 +99,7 @@ public class SemesterService {
      *
      * @param classesThatShouldBeDeleted a given list of {@link Classes}
      */
-    private void deleteAClassesWhenInsertIfAlreadyExists(List<Classes> classesThatShouldBeDeleted, Student user) {
+    private void deleteAClassesWhenInsertIfAlreadyExists(Set<Classes> classesThatShouldBeDeleted, Student user) {
         user.getSemester().forEach(userSemesters -> {
             if (userSemesters.getClasses() != null) {
                 classesThatShouldBeDeleted.forEach(classesObj -> userSemesters.getClasses().removeIf(classes -> classes.equals(classesObj)));

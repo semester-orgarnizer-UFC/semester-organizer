@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,11 +47,11 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public List<Classes> findMandatory(String id) {
+    public Set<Classes> findMandatory(String id) {
         return findById(id).getMandatoryClasses();
     }
 
-    public List<Classes> findOptional(String id) {
+    public Set<Classes> findOptional(String id) {
         return findById(id).getOptionalClasses();
     }
 
