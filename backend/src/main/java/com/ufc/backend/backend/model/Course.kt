@@ -1,18 +1,9 @@
 package com.ufc.backend.backend.model
 
-import com.ufc.backend.backend.commos.Identifiable
-import com.ufc.backend.backend.model.based.FeedbackBased
-import lombok.*
+import com.ufc.backend.backend.commons.model.Identifiable
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@Document
 class Course(
     @Id
     override val id: String,

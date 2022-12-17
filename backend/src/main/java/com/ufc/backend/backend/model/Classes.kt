@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.model
 
-import com.ufc.backend.backend.commos.Identifiable
-import lombok.*
+import com.ufc.backend.backend.commons.model.Identifiable
+import com.ufc.backend.backend.commons.model.FeedbackBased
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
@@ -17,10 +17,7 @@ class Classes(
     var semester: Int? = null,
     @DBRef
     var teachers: Set<Teacher> = HashSet()
-) : Identifiable<String> {
-    companion object {
-        const val serialVersionUID = 1L
-    }
+) : Identifiable<String>, FeedbackBased() {
 
     override fun equals(other: Any?): Boolean {
         return if (javaClass != other!!.javaClass) {
@@ -30,5 +27,9 @@ class Classes(
 
     override fun toString(): String {
         return "Classes[id=$id, name=$name]"
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
     }
 }

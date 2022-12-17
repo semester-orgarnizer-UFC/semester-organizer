@@ -1,6 +1,5 @@
-package com.ufc.backend.backend.model.based
+package com.ufc.backend.backend.commons.model
 
-import com.ufc.backend.backend.commos.Identifiable
 import com.ufc.backend.backend.model.Classes
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef

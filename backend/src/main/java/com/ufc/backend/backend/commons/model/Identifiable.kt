@@ -1,4 +1,4 @@
-package com.ufc.backend.backend.commos
+package com.ufc.backend.backend.commons.model
 
 import java.io.Serializable
 

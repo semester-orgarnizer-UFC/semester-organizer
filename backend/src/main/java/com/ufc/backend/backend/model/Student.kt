@@ -2,11 +2,9 @@ package com.ufc.backend.backend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.ufc.backend.backend.commos.PersonBased
+import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
-import com.ufc.backend.backend.model.based.Person
-import lombok.*
-import org.springframework.data.mongodb.core.mapping.Document
+import com.ufc.backend.backend.commons.model.Person
 
 class Student(
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
