@@ -5,16 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class StatsService {
-    @Autowired
-    private val userService: UserService? = null
+class StatsService (
+    private val userService: UserService
+){
 
     /**
      *
      * @return number of semesters in the system
      */
     fun numberOfSemesters(): Int {
-        return userService!!.findAll().stream().filter { user: Student? -> user.getSemester() != null }
-            .mapToInt { user: Student? -> user.getSemester().size() }.sum()
+        null
     }
 }

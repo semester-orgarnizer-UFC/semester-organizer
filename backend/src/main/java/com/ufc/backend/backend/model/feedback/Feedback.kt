@@ -11,14 +11,14 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 class Feedback(
     @Id
     override val id: String,
-    private var commentary: String,
-    private var rating: Double,
+    var commentary: String,
+    var rating: Double,
     @DBRef
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private val classes: Classes,
-    private val user: Student,
+    var classes: Classes,
+    var user: Student,
     @JsonIgnore
-    private val actualUser: Student? = null,
+    var actualUser: Student? = null,
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    val isAnonymous: Boolean = false,
+    var isAnonymous: Boolean = false,
 ) : Identifiable<String>

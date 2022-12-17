@@ -2,6 +2,7 @@ package com.ufc.backend.backend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.ufc.backend.backend.commons.model.FeedbackBased
 import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.commons.model.Person
@@ -10,10 +11,10 @@ class Student(
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password: String,
     var course: String,
-    var semester: List<Semester>? = null,
+    var semester: MutableList<Semester>? = null,
     @JsonIgnore
     var notTakenClasses: MutableSet<Classes>? = null,
-) : PersonBased {
+) : PersonBased, FeedbackBased() {
     override val person: Person = Person()
 
     private val newSemesterIndex = semester?.size?.minus(1) ?: 1

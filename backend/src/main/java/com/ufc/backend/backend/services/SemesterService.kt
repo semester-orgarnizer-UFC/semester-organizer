@@ -1,19 +1,17 @@
 package com.ufc.backend.backend.services
 
+import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.model.Classes
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class SemesterService {
-    @Autowired
-    private val userService: UserService? = null
-
-    @Autowired
-    private val classesService: ClassesService? = null
+class SemesterService(
+    private val userService: UserService,
+    private val classesService: ClassesService
+) {
 
     /**
      * Return a [Semester] from the logged [Student]
@@ -21,9 +19,9 @@ class SemesterService {
      * @param index the index of the semesters
      * @return [Semester]
      */
-    fun findSemesterByIndex(index: Int): Semester {
-        val user = userService!!.findById(AuthService.userAuthenticated().id)
-        return user.getSemester().get(index - 1)
+    fun findSemesterByIndex(index: Int, id: String): Semester {
+        val user = userService.findById(id)
+        return user.getSemester(index)
     }
 
     /**
@@ -31,8 +29,8 @@ class SemesterService {
      *
      * @return a list of [Semester]
      */
-    fun findAll(): List<Semester> {
-        return userService!!.findById(AuthService.userAuthenticated().id).getSemester()
+    fun findAll(id: String): Collection<Semester>? {
+        return userService.findById(id).semester
     }
 
     /**
@@ -42,9 +40,8 @@ class SemesterService {
      * @param index the index of the semester
      * @return [Semester]
      */
-    fun findSemesterByIndex(user: Student?, index: Int?): Semester {
-        return user.getSemester().stream().filter { obj -> obj.getIndex().equals(index) }.findFirst()
-            .orElseThrow { SemesterOutOfBoundsException() }
+    fun findSemesterByIndex(user: Student, index: Int): Semester {
+        return user.semester.firstOrNull { it.index == index } ?: throw SemesterOutOfBoundsException()
     }
 
     /**
@@ -52,10 +49,10 @@ class SemesterService {
      *
      * @param index the index of the semesters that should be deleted
      */
-    fun deleteASemesterByIndex(index: Int?) {
-        val user = userService!!.findById(AuthService.userAuthenticated().id)
+    fun deleteASemesterByIndex(index: Int, id: String) {
+        val user = userService.findById(id)
         val semester = findSemesterByIndex(user, index)
-        user.getSemester().remove(semester)
+        user.semester?.remove(semester)
         userService.save(user)
         // semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId(), user));
     }
@@ -65,11 +62,11 @@ class SemesterService {
      *
      * @return [Student]
      */
-    fun createEmptySemester(): Student? {
-        val user = userService!!.findById(AuthService.userAuthenticated().id)
-        user!!.addEmptySemester()
+    fun createEmptySemester(id: String): Student {
+        val user = userService.findById(id)
+        user.addEmptySemester()
         userService.save(user)
-        return userService.findById(user.getId())
+        return userService.findById(id)
     }
 
     /**
@@ -78,13 +75,13 @@ class SemesterService {
      * @param semester a given [Semester]
      * @return [Student] with an updated [Semester]
      */
-    fun updateSemester(semester: Semester): Student? {
-        val user = userService!!.findById(AuthService.userAuthenticated().id)
+    fun updateSemester(semester: Semester, id: String): Student? {
+        val user = userService.findById(id)
         HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(), semester, user).run()
-        deleteAClassesWhenInsertIfAlreadyExists(semester.getClasses(), user)
-        user!!.updateSemester(semester)
+        semester.classes?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
+        user.updateSemester(semester)
         userService.save(user)
-        return userService.findById(user.getId())
+        return userService.findById(id)
     }
 
     /**
@@ -92,11 +89,7 @@ class SemesterService {
      *
      * @param classesThatShouldBeDeleted a given list of [Classes]
      */
-    private fun deleteAClassesWhenInsertIfAlreadyExists(classesThatShouldBeDeleted: Set<Classes>, user: Student?) {
-        user.getSemester().forEach { userSemesters ->
-            if (userSemesters.getClasses() != null) {
-                userSemesters.getClasses().removeAll(classesThatShouldBeDeleted)
-            }
-        }
+    private fun deleteAClassesWhenInsertIfAlreadyExists(classesThatShouldBeDeleted: Set<Classes>, user: Student) {
+        user.semester?.forEach{it.classes?.removeAll(classesThatShouldBeDeleted)}
     }
 }

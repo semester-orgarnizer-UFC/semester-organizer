@@ -26,7 +26,7 @@ class FeedbackResource {
 
     @PutMapping
     fun update(@RequestBody feedback: Feedback?): ResponseEntity<Feedback> {
-        return ResponseEntity.ok().body(service!!.update(feedback))
+        return ResponseEntity.ok().body(service!!.save(feedback))
     }
 
     @DeleteMapping("/{id}")
