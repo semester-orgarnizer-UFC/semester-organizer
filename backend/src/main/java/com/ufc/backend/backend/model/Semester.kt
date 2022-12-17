@@ -8,12 +8,19 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-class Semester {
-    private val index: Int? = null
-
+class Semester(
+    var index: Int,
     @DBRef
-    private val classes: Set<Classes> = HashSet()
-    fun equals(obj: Semester): Boolean {
-        return this.getIndex() == obj.getIndex()
+    var classes: MutableSet<Classes>? = null
+) {
+    val actualSemesterIndex = this.index - 1
+    override fun equals(other: Any?): Boolean {
+        return if (javaClass != other!!.javaClass) {
+            false
+        } else this.index == (other as Semester).index
+    }
+
+    override fun hashCode(): Int {
+        return index
     }
 }

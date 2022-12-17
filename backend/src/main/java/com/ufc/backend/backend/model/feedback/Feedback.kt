@@ -11,10 +11,6 @@ import lombok.Setter
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 class Feedback {
     @Id
     private val id: String? = null

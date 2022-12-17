@@ -1,37 +1,31 @@
 package com.ufc.backend.backend.model
 
-import com.ufc.backend.backend.model.based.FeedbackBased
+import com.ufc.backend.backend.commos.Identifiable
 import lombok.*
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Document
-class Classes : FeedbackBased() {
+class Classes(
     @Id
-    private val id: String? = null
-    private val name: String? = null
-
+    override var id: String,
+    var name: String,
     @DBRef
-    private val preRequisite: Classes? = null
-    private val hours: Int? = null
-    private val semester: Int? = null
-
+    var preRequisite: Classes? = null,
+    var hours: Int? = null,
+    var semester: Int? = null,
     @DBRef
-    private val teachers: Set<Teacher> = HashSet()
-    override fun hashCode(): Int {
-        return super.hashCode()
+    var teachers: Set<Teacher> = HashSet()
+) : Identifiable<String> {
+    companion object {
+        const val serialVersionUID = 1L
     }
 
-    override fun equals(obj: Any?): Boolean {
-        return if (javaClass != obj!!.javaClass) {
+    override fun equals(other: Any?): Boolean {
+        return if (javaClass != other!!.javaClass) {
             false
-        } else this.id == (obj as Classes).id
+        } else this.id == (other as Classes).id
     }
 
     override fun toString(): String {

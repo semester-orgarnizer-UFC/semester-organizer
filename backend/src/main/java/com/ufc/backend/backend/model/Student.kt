@@ -2,45 +2,56 @@ package com.ufc.backend.backend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.ufc.backend.backend.model.based.PersonBased
+import com.ufc.backend.backend.commos.PersonBased
+import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
+import com.ufc.backend.backend.model.based.Person
 import lombok.*
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Document
-@ToString
-class Student : PersonBased() {
+class Student(
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private val password: String? = null
-    private val course: String? = null
-    private val semester: List<Semester> = ArrayList()
-
+    var password: String,
+    var course: String,
+    var semester: List<Semester>? = null,
     @JsonIgnore
-    private val notTakenClasses: Set<Classes> = HashSet()
+    var notTakenClasses: MutableSet<Classes>? = null,
+) : PersonBased {
+    override val person: Person = Person()
+
+    private val newSemesterIndex = semester?.size?.minus(1) ?: 1
+
+    fun getSemester(index: Int): Semester = semester?.get(index) ?: throw SemesterOutOfBoundsException()
+
     fun addEmptySemester() {
-        val index = if (semester.isEmpty()) 1 else this.getSemester().size + 1
-        this.getSemester().add(Semester(index, null))
+        semester?.plus(Semester(newSemesterIndex, null))
     }
 
     fun updateSemester(newSemester: Semester) {
-        val oldSemester: Semester = this.getSemester().get(newSemester.getIndex() - 1)
-        oldSemester.getClasses().addAll(newSemester.getClasses())
-        notifyTakenClasses(newSemester.getClasses())
-        notifyNotTakenClasses(newSemester.getClasses())
+        val oldSemester = getSemester(newSemester.actualSemesterIndex)
+        newSemester.classes?.let { oldSemester.classes?.addAll(it) }
+        notifyTakenClasses(newSemester.classes)
+        notifyNotTakenClasses(newSemester.classes)
     }
 
-    private fun notifyTakenClasses(classes: Set<Classes>) {
-        getClasses().addAll(classes)
+    private fun notifyTakenClasses(classes: Collection<Classes>?) {
+        if (classes != null) {
+            person.classes?.addAll(classes)
+        }
     }
 
-    private fun notifyNotTakenClasses(classes: Set<Classes>) {
-        getNotTakenClasses().removeAll(classes)
+    private fun notifyNotTakenClasses(classes: Collection<Classes>?) {
+        if (classes != null) {
+            notTakenClasses?.removeAll(classes.toSet())
+        }
     }
 
     override fun equals(obj: Any?): Boolean {
-        return if (javaClass != obj!!.javaClass) false else id == (obj as Student?)!!.id
+        return if (javaClass != obj!!.javaClass)
+            false
+        else person.id == (obj as Student?)!!.person.id
+    }
+
+    override fun hashCode(): Int {
+        return person.id.hashCode()
     }
 }
