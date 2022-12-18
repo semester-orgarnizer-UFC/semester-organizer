@@ -3,7 +3,6 @@ package com.ufc.backend.backend.model
 import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.commons.model.FeedbackBased
 import org.hibernate.annotations.GenericGenerator
-import org.springframework.data.annotation.Id
 import javax.persistence.*
 
 @Entity(name = "SUBJECTS")
@@ -22,14 +21,13 @@ class Subject
     @Column
     var hours: Int,
     @Column
-    var semester: Int,
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    var teachers: Set<Teacher>? = null,
+    var semesterIndex: Int,
     @ManyToMany(mappedBy = "mandatoryClasses")
     var courses: Collection<Course>,
     @ManyToMany(mappedBy = "subjects")
-    var students: Collection<Student>
+    var students: Collection<Student>,
+    @ManyToMany(mappedBy = "subjects")
+    var userSemesters: Collection<Semester>
 ) : Identifiable<String>, FeedbackBased() {
 
     override fun equals(other: Any?): Boolean {

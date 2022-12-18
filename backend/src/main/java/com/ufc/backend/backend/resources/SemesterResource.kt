@@ -3,7 +3,6 @@ package com.ufc.backend.backend.resources
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.SemesterService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
@@ -40,7 +39,7 @@ class SemesterResource(
         return ResponseEntity.created(
             ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .buildAndExpand(semester.index)
+                .buildAndExpand(semester.semesterIndex)
                 .toUri()
         ).body(service.updateSemester(semester, id))
     }
