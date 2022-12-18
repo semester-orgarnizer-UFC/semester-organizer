@@ -58,3 +58,5 @@ yarn-error.log*
 
 /database-data
 .env
+/.m2
+/.temp
