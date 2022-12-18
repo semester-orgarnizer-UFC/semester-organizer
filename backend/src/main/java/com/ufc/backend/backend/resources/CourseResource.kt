@@ -10,31 +10,32 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(value = ["/courses"])
 @CrossOrigin
-class CourseResource {
-    @Autowired
-    private val service: CourseService? = null
+class CourseResource(
+    private val service: CourseService
+) {
+
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: String?): ResponseEntity<Course> {
-        return ResponseEntity.ok().body(service!!.findById(id))
+    fun findById(@PathVariable id: String): ResponseEntity<Course> {
+        return ResponseEntity.ok().body(service.findById(id))
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<List<Course>> {
-        return ResponseEntity.ok().body(service!!.findAll())
+    fun findAll(): ResponseEntity<Collection<Course>> {
+        return ResponseEntity.ok().body(service.findAll())
     }
 
     @GetMapping("/mandatory/{id}")
-    fun findMandatory(@PathVariable id: String?): ResponseEntity<Set<Classes>> {
-        return ResponseEntity.ok().body(service!!.findMandatory(id))
+    fun findMandatory(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findMandatory(id))
     }
 
     @GetMapping("/optional/{id}")
-    fun findOptional(@PathVariable id: String?): ResponseEntity<Set<Classes>> {
-        return ResponseEntity.ok().body(service!!.findOptional(id))
+    fun findOptional(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findOptional(id))
     }
 
     @GetMapping("/mandatory/{id}/{semester}")
-    fun findBySemester(@PathVariable id: String?, @PathVariable semester: Int?): ResponseEntity<List<Classes>> {
-        return ResponseEntity.ok().body(service!!.findBySemester(id, semester))
+    fun findBySemester(@PathVariable id: String, @PathVariable semester: Int): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findBySemester(id, semester))
     }
 }

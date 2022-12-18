@@ -7,8 +7,21 @@ import com.ufc.backend.backend.model.Classes
 import com.ufc.backend.backend.model.Student
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
+import java.beans.ConstructorProperties
 
-class Feedback(
+@Document
+class Feedback
+@ConstructorProperties(
+    "id",
+    "commentary",
+    "rating",
+    "classes",
+    "user",
+    "actualUser",
+    "isAnonymous",
+)
+constructor(
     @Id
     override val id: String,
     var commentary: String,

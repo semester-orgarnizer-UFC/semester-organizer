@@ -10,28 +10,29 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(value = ["/classes"])
 @CrossOrigin
-class ClassesResource {
-    @Autowired
-    private val service: ClassesService? = null
+class ClassesResource (
+    private val service: ClassesService
+){
+
     @GetMapping
-    fun findAll(): ResponseEntity<List<Classes>> {
-        return ResponseEntity.ok().body(service!!.findAll())
+    fun findAll(): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findAll())
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: String?): ResponseEntity<Classes> {
-        return ResponseEntity.ok().body(service!!.findById(id))
+    fun findById(@PathVariable id: String): ResponseEntity<Classes> {
+        return ResponseEntity.ok().body(service.findById(id))
     }
 
     @GetMapping("/pre/{id}")
-    fun findAllClassesThatHasTheGivenPreRequisite(@PathVariable id: String?): ResponseEntity<List<Classes>> {
-        return ResponseEntity.ok().body(service!!.findAllClassesThatHasTheGivenPreRequisite(id))
+    fun findAllClassesThatHasTheGivenPreRequisite(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findAllClassesThatHasTheGivenPreRequisite(id))
     }
 
     @GetMapping("/feedback/{id}")
-    fun findFeedbacks(@PathVariable id: String?): ResponseEntity<List<Feedback>> {
+    fun findFeedbacks(@PathVariable id: String): ResponseEntity<Collection<Feedback>> {
         return ResponseEntity.ok().body(
-            service!!.findFeedbacks(id)
+            service.findFeedbacks(id)
         )
     }
 }

@@ -5,30 +5,20 @@ import com.ufc.backend.backend.exceptions.ObjectNotFoundException
 import com.ufc.backend.backend.model.Classes
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.repositories.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
-class UserService {
-    @Autowired
-    private val repository: UserRepository? = null
+class UserService(
+    private val repository: UserRepository,
+    private val courseService: CourseService
+) {
 
-    @Autowired
-    private val classesService: ClassesService? = null
-
-    @Autowired
-    private val passwordEncoder: BCryptPasswordEncoder? = null
-
-    @Autowired
-    private val courseService: CourseService? = null
 
     /**
      * @return all users in the system
      */
-    fun findAll(): List<Student?> {
-        return repository!!.findAll()
+    fun findAll(): Collection<Student> {
+        return repository.findAll()
     }
 
     /**
@@ -39,7 +29,7 @@ class UserService {
      * @throws ObjectNotFoundException if the id was not found in the database
      */
     fun findById(id: String): Student {
-        return repository!!.findById(id).orElseThrow { ObjectNotFoundException(id) }!!
+        return repository.findById(id).orElseThrow { ObjectNotFoundException(id) }!!
     }
 
     /**
@@ -47,8 +37,8 @@ class UserService {
      *
      * @param user a given [Student]
      */
-    fun save(user: Student?) {
-        repository!!.save<Student>(user)
+    fun save(user: Student) {
+        repository.save(user)
     }
 
     /**
@@ -59,9 +49,9 @@ class UserService {
      * @throws EmailAlreadyExists if the email already exists in the database
      */
     fun insert(user: Student): Student {
-        if (repository!!.findByEmail(user.getEmail()) != null) throw EmailAlreadyExists(user.getEmail())
-        user.setPassword(passwordEncoder!!.encode(user.getPassword()))
-        user.setNotTakenClasses(courseService!!.findById(user.getCourse()).getMandatoryClasses())
+        if (repository.findByPersonEmail(user.person.email) != null)
+            throw EmailAlreadyExists(user.person.email)
+        user.notTakenClasses = courseService.findById(user.course).mandatoryClasses.toMutableSet()
         return repository.save(user)
     }
 
@@ -71,11 +61,8 @@ class UserService {
      * @param preRequisiteId the id
      * @return a list of [Classes]
      */
-    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String?): List<Classes>? {
-        return if (findAllTakenClasses() == null) null else findAllTakenClasses()!!.stream().filter { obj: Classes ->
-            obj.getPreRequisite() != null && obj.getPreRequisite().getId().equals(preRequisiteId)
-        }
-            .collect(Collectors.toList())
+    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Classes> {
+        return findAllTakenClasses(id)?.filter { it.preRequisite?.id == preRequisiteId } ?: throw ObjectNotFoundException(id)
     }
 
     /**
@@ -83,8 +70,8 @@ class UserService {
      *
      * @return a list of [Classes]
      */
-    fun findAllTakenClasses(): Set<Classes>? {
-        return findById(AuthService.userAuthenticated().id).getClasses()
+    fun findAllTakenClasses(id: String): Set<Classes> {
+        return findById(id).person.classes ?: setOf()
     }
 
     /**
@@ -92,13 +79,11 @@ class UserService {
      *
      * @return a list of [Classes]
      */
-    fun findAllNotTakenClasses(): Set<Classes> {
-        return findById(AuthService.userAuthenticated().id).getNotTakenClasses()
+    fun findAllNotTakenClasses(id: String): Collection<Classes> {
+        return findById(id).person.classes ?: listOf()
     }
 
-    fun idsOfTheTakenClasses(): List<String>? {
-        return if (findAllTakenClasses() == null) null else findAllTakenClasses()!!.stream()
-            .map<Any>(Classes::getId)
-            .collect(Collectors.toList<Any>())
+    fun idsOfTheTakenClasses(id: String): Collection<String> {
+        return findAllTakenClasses(id).map { it.id }
     }
 }

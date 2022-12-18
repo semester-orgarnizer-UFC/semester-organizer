@@ -23,15 +23,14 @@ class ClassesService
         LOGGER.info("Saving the given class in the database: $classes")
     }
 
-    @Cacheable("classes")
-    fun findAll(): List<Classes?> {
+    fun findAll(): Collection<Classes> {
         LOGGER.info("Finding all classes")
         return repository.findAll()
     }
 
-    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String): Collection<Classes?> {
+    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String): Collection<Classes> {
         LOGGER.info("Finding classes that has the given pre-requisite: $preRequisiteId")
-        return findAll().filter { it?.preRequisite?.id ==  preRequisiteId}
+        return findAll().filter { it.preRequisite?.id ==  preRequisiteId}
     }
 
     fun findFeedbacks(id: String): Collection<Feedback> {

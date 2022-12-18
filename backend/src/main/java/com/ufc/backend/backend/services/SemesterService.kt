@@ -41,7 +41,7 @@ class SemesterService(
      * @return [Semester]
      */
     fun findSemesterByIndex(user: Student, index: Int): Semester {
-        return user.semester.firstOrNull { it.index == index } ?: throw SemesterOutOfBoundsException()
+        return user.semester?.firstOrNull { it.index == index } ?: throw SemesterOutOfBoundsException()
     }
 
     /**
@@ -77,7 +77,7 @@ class SemesterService(
      */
     fun updateSemester(semester: Semester, id: String): Student? {
         val user = userService.findById(id)
-        HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(), semester, user).run()
+        HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(id), semester, user).run()
         semester.classes?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
         user.updateSemester(semester)
         userService.save(user)

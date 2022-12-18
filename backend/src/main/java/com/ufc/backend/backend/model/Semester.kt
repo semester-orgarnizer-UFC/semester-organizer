@@ -1,9 +1,15 @@
 package com.ufc.backend.backend.model
 
-import lombok.*
 import org.springframework.data.mongodb.core.mapping.DBRef
+import java.beans.ConstructorProperties
 
-class Semester(
+data class Semester
+@ConstructorProperties
+    (
+    "index",
+    "classes"
+)
+constructor(
     var index: Int,
     @DBRef
     var classes: MutableSet<Classes>? = null

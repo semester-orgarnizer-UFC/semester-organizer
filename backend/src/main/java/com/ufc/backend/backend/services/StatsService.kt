@@ -13,7 +13,7 @@ class StatsService (
      *
      * @return number of semesters in the system
      */
-    fun numberOfSemesters(): Int {
-        null
+    fun numberOfSemesters(): Int? {
+        return null
     }
 }

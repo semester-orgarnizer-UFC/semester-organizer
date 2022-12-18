@@ -6,16 +6,33 @@ import com.ufc.backend.backend.commons.model.FeedbackBased
 import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.commons.model.Person
+import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
+import java.beans.ConstructorProperties
+import javax.persistence.Embedded
 
-class Student(
+@Document
+class Student
+@ConstructorProperties
+    (
+    "person",
+    "password",
+    "course",
+    "semester",
+    "notTakenClasses",
+)
+constructor(
+    @Embedded
+    override val person: Person = Person(),
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password: String,
-    var course: String,
+    @JsonIgnore
+    @DBRef
+    var course: Course,
     var semester: MutableList<Semester>? = null,
     @JsonIgnore
     var notTakenClasses: MutableSet<Classes>? = null,
 ) : PersonBased, FeedbackBased() {
-    override val person: Person = Person()
 
     private val newSemesterIndex = semester?.size?.minus(1) ?: 1
 
@@ -44,10 +61,10 @@ class Student(
         }
     }
 
-    override fun equals(obj: Any?): Boolean {
-        return if (javaClass != obj!!.javaClass)
+    override fun equals(other: Any?): Boolean {
+        return if (javaClass != other!!.javaClass)
             false
-        else person.id == (obj as Student?)!!.person.id
+        else person.id == (other as Student?)!!.person.id
     }
 
     override fun hashCode(): Int {

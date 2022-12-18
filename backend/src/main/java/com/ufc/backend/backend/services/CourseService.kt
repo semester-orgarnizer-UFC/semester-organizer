@@ -34,7 +34,7 @@ class CourseService(
         return courseRepository.findById(id).orElseThrow { ObjectNotFoundException(id) }!!
     }
 
-    fun findAll(): List<Course> {
+    fun findAll(): Collection<Course> {
         return courseRepository.findAll()
     }
 
@@ -46,7 +46,7 @@ class CourseService(
         return findById(id).optionalClasses
     }
 
-    fun findBySemester(id: String, semester: Int): List<Classes> {
+    fun findBySemester(id: String, semester: Int): Collection<Classes> {
         return findById(id).mandatoryClasses.filter { it.semester == semester }
     }
 }

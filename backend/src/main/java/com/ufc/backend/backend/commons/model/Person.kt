@@ -6,15 +6,15 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 import javax.persistence.Embeddable
 
 @Embeddable
-class Person : Identifiable<String> {
+data class Person  (
     @Id
-    override var id: String = ""
-    var firstName: String = ""
-    var lastName: String = ""
-    var email: String = ""
+    override var id: String = "",
+    var firstName: String = "",
+    var lastName: String = "",
+    var email: String = "",
     @DBRef
     var classes: MutableSet<Classes>? = null
-}
+) : Identifiable<String>
 
 
 

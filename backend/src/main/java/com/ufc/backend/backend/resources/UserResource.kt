@@ -11,22 +11,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 @RestController
 @RequestMapping(value = ["/users"])
 @CrossOrigin
-class UserResource {
-    @Autowired
-    private val service: UserService? = null
+class UserResource(
+    private val service: UserService
+
+) {
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: String?): ResponseEntity<Student> {
-        return ResponseEntity.ok().body(service!!.findById(id))
+    fun findById(@PathVariable id: String): ResponseEntity<Student> {
+        return ResponseEntity.ok().body(service.findById(id))
     }
 
-    @GetMapping("/classes")
-    fun findClasses(): ResponseEntity<Set<Classes>> {
-        return ResponseEntity.ok().body(service!!.findAllTakenClasses())
+    @GetMapping("/classes/{id}")
+    fun findClasses(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findAllTakenClasses(id))
     }
 
-    @GetMapping("/classes/nottaken/")
-    fun findClassesNotTaken(): ResponseEntity<Set<Classes>> {
-        return ResponseEntity.ok().body(service!!.findAllNotTakenClasses())
+    @GetMapping("/classes/nottaken/{id}")
+    fun findClassesNotTaken(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+        return ResponseEntity.ok().body(service.findAllNotTakenClasses(id))
     }
 
     @PostMapping
@@ -35,10 +36,11 @@ class UserResource {
             ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/users")
-                .buildAndExpand(user.getId())
+                .buildAndExpand(user.person.id)
                 .toUri()
-        ).body(service!!.insert(user))
-    } /*  @DeleteMapping("/{classId}")
+        ).body(service.insert(user))
+    }
+/*  @DeleteMapping("/{classId}")
     public ResponseEntity<Boolean> deleteClassFromSemester(@PathVariable String classId) {
         service.deleteClassFromSemester(classId, null);
         return ResponseEntity.noContent().build();

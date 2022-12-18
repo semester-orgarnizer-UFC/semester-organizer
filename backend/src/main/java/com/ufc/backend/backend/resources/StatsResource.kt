@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(value = ["/stats"])
 @CrossOrigin
 class StatsResource {
-    @Autowired
+   /* @Autowired
     private val service: StatsService? = null
 
     @Autowired
@@ -35,5 +35,5 @@ class StatsResource {
     @GetMapping("/feedbacks")
     fun numberOfFeedbacks(): ResponseEntity<Int> {
         return ResponseEntity.ok().body(feedbackService!!.findAll().size)
-    }
+    }*/
 }
