@@ -3,14 +3,14 @@ package com.ufc.backend.backend.services.utils
 import com.ufc.backend.backend.exceptions.ClassCantBeDoneAtTheFirstSemester
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException
 import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.ClassesService
 import java.util.function.Consumer
 
 /**
- * Class responsible to throw possible exceptions when you try to create a [Semester] with invalid [Classes]
+ * Class responsible to throw possible exceptions when you try to create a [Semester] with invalid [Subject]
  */
 class HandlePossibleClassesException(
     private val classesService: ClassesService,
@@ -19,7 +19,7 @@ class HandlePossibleClassesException(
     private val user: Student
 ) {
     fun run() {
-        semester.classes?.forEach {
+        semester.subject?.forEach {
             classesCantBeDoneAtTheFirstSemester(it.id, semester)
             classesDontHaveThePreRequisite(it.id)
         }
@@ -41,12 +41,12 @@ class HandlePossibleClassesException(
 
     private fun classesAndItsPreRequisiteCantBeDoneAtTheSameTime(semester: Semester) {
         val currentSemester = user.getSemester(semester.index)
-        semester.classes!!.forEach(Consumer { classes: Classes ->
-            if (semester.classes!!.contains(classes.preRequisite!!)) {
-                throw ClassesAndPreRequisiteAtTheSameTimeException(classes)
+        semester.subject!!.forEach(Consumer { subject: Subject ->
+            if (semester.subject!!.contains(subject.preRequisite!!)) {
+                throw ClassesAndPreRequisiteAtTheSameTimeException(subject)
             }
-            if (currentSemester.classes != null && currentSemester.classes!!.contains(classes.preRequisite)) throw ClassesAndPreRequisiteAtTheSameTimeException(
-                classes
+            if (currentSemester.subject != null && currentSemester.subject!!.contains(subject.preRequisite)) throw ClassesAndPreRequisiteAtTheSameTimeException(
+                subject
             )
         })
     }

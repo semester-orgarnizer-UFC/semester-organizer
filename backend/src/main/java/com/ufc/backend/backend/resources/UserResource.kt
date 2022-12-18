@@ -1,9 +1,8 @@
 package com.ufc.backend.backend.resources
 
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
@@ -20,14 +19,9 @@ class UserResource(
         return ResponseEntity.ok().body(service.findById(id))
     }
 
-    @GetMapping("/classes/{id}")
-    fun findClasses(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+    @GetMapping("/subject/{id}")
+    fun findClasses(@PathVariable id: String): ResponseEntity<Collection<Subject>> {
         return ResponseEntity.ok().body(service.findAllTakenClasses(id))
-    }
-
-    @GetMapping("/classes/nottaken/{id}")
-    fun findClassesNotTaken(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
-        return ResponseEntity.ok().body(service.findAllNotTakenClasses(id))
     }
 
     @PostMapping

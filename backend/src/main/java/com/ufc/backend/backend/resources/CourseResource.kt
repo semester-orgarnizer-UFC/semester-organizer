@@ -1,9 +1,8 @@
 package com.ufc.backend.backend.resources
 
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Course
 import com.ufc.backend.backend.services.CourseService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -25,17 +24,13 @@ class CourseResource(
     }
 
     @GetMapping("/mandatory/{id}")
-    fun findMandatory(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
+    fun findMandatory(@PathVariable id: String): ResponseEntity<Collection<Subject>> {
         return ResponseEntity.ok().body(service.findMandatory(id))
     }
 
-    @GetMapping("/optional/{id}")
-    fun findOptional(@PathVariable id: String): ResponseEntity<Collection<Classes>> {
-        return ResponseEntity.ok().body(service.findOptional(id))
-    }
 
     @GetMapping("/mandatory/{id}/{semester}")
-    fun findBySemester(@PathVariable id: String, @PathVariable semester: Int): ResponseEntity<Collection<Classes>> {
+    fun findBySemester(@PathVariable id: String, @PathVariable semester: Int): ResponseEntity<Collection<Subject>> {
         return ResponseEntity.ok().body(service.findBySemester(id, semester))
     }
 }

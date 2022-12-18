@@ -1,6 +1,6 @@
 package com.ufc.backend.backend.repositories
 
 import com.ufc.backend.backend.model.Course
-import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface CourseRepository : MongoRepository<Course, String>
+interface CourseRepository : JpaRepository<Course, String>

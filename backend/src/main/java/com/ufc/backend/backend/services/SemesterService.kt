@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.services
 
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException
@@ -54,7 +54,7 @@ class SemesterService(
         val semester = findSemesterByIndex(user, index)
         user.semester?.remove(semester)
         userService.save(user)
-        // semester.getClasses().forEach(classes -> userService.deleteClassFromSemester(classes.getId(), user));
+        // semester.getSubject().forEach(subject -> userService.deleteClassFromSemester(subject.getId(), user));
     }
 
     /**
@@ -78,18 +78,18 @@ class SemesterService(
     fun updateSemester(semester: Semester, id: String): Student? {
         val user = userService.findById(id)
         HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(id), semester, user).run()
-        semester.classes?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
+        semester.subject?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
         user.updateSemester(semester)
         userService.save(user)
         return userService.findById(id)
     }
 
     /**
-     * When you change a [Classes] from a [Semester] to another, delete it from the current [Semester]
+     * When you change a [Subject] from a [Semester] to another, delete it from the current [Semester]
      *
-     * @param classesThatShouldBeDeleted a given list of [Classes]
+     * @param subjectThatShouldBeDeleted a given list of [Subject]
      */
-    private fun deleteAClassesWhenInsertIfAlreadyExists(classesThatShouldBeDeleted: Set<Classes>, user: Student) {
-        user.semester?.forEach{it.classes?.removeAll(classesThatShouldBeDeleted)}
+    private fun deleteAClassesWhenInsertIfAlreadyExists(subjectThatShouldBeDeleted: Set<Subject>, user: Student) {
+        user.semester?.forEach{it.subject?.removeAll(subjectThatShouldBeDeleted)}
     }
 }

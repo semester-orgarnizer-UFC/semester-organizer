@@ -1,6 +1,6 @@
 package com.ufc.backend.backend.repositories
 
-import com.ufc.backend.backend.model.Classes
-import org.springframework.data.mongodb.repository.MongoRepository
+import com.ufc.backend.backend.model.Subject
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface ClassRepository : MongoRepository<Classes, String>
+interface ClassRepository : JpaRepository<Subject, String>

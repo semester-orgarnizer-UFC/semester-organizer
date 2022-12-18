@@ -1,6 +1,6 @@
 package com.ufc.backend.backend.repositories
 
 import com.ufc.backend.backend.model.feedback.Feedback
-import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface FeedbackRepository : MongoRepository<Feedback, String>
+interface FeedbackRepository : JpaRepository<Feedback, String>

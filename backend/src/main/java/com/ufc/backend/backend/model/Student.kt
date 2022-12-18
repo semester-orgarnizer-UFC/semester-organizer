@@ -6,32 +6,29 @@ import com.ufc.backend.backend.commons.model.FeedbackBased
 import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.commons.model.Person
-import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
-import java.beans.ConstructorProperties
-import javax.persistence.Embedded
+import javax.persistence.*
 
-@Document
+@Entity
 class Student
-@ConstructorProperties
     (
-    "person",
-    "password",
-    "course",
-    "semester",
-    "notTakenClasses",
-)
-constructor(
     @Embedded
     override val person: Person = Person(),
+    @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password: String,
     @JsonIgnore
-    @DBRef
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     var course: Course,
     var semester: MutableList<Semester>? = null,
     @JsonIgnore
-    var notTakenClasses: MutableSet<Classes>? = null,
+    @ManyToMany
+    @JoinTable(
+        name = "students_subjects",
+        joinColumns = [JoinColumn(name = "student_id")],
+        inverseJoinColumns = [JoinColumn(name = "subject_id")]
+    )
+    var subjects: MutableSet<Subject>? = null
 ) : PersonBased, FeedbackBased() {
 
     private val newSemesterIndex = semester?.size?.minus(1) ?: 1
@@ -44,20 +41,13 @@ constructor(
 
     fun updateSemester(newSemester: Semester) {
         val oldSemester = getSemester(newSemester.actualSemesterIndex)
-        newSemester.classes?.let { oldSemester.classes?.addAll(it) }
-        notifyTakenClasses(newSemester.classes)
-        notifyNotTakenClasses(newSemester.classes)
+        newSemester.subject?.let { oldSemester.subject?.addAll(it) }
+        notifyTakenClasses(newSemester.subject)
     }
 
-    private fun notifyTakenClasses(classes: Collection<Classes>?) {
-        if (classes != null) {
-            person.classes?.addAll(classes)
-        }
-    }
-
-    private fun notifyNotTakenClasses(classes: Collection<Classes>?) {
-        if (classes != null) {
-            notTakenClasses?.removeAll(classes.toSet())
+    private fun notifyTakenClasses(subject: Collection<Subject>?) {
+        if (subject != null) {
+            subjects?.addAll(subject)
         }
     }
 

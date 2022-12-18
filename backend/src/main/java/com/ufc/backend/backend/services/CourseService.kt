@@ -3,7 +3,7 @@ package com.ufc.backend.backend.services
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Course
 import com.ufc.backend.backend.repositories.ClassRepository
 import com.ufc.backend.backend.repositories.CourseRepository
@@ -38,15 +38,11 @@ class CourseService(
         return courseRepository.findAll()
     }
 
-    fun findMandatory(id: String): Collection<Classes> {
+    fun findMandatory(id: String): Collection<Subject> {
         return findById(id).mandatoryClasses
     }
 
-    fun findOptional(id: String): Collection<Classes> {
-        return findById(id).optionalClasses
-    }
-
-    fun findBySemester(id: String, semester: Int): Collection<Classes> {
+    fun findBySemester(id: String, semester: Int): Collection<Subject> {
         return findById(id).mandatoryClasses.filter { it.semester == semester }
     }
 }

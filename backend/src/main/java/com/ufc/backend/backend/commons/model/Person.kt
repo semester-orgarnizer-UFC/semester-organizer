@@ -1,19 +1,24 @@
 package com.ufc.backend.backend.commons.model
 
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
+import org.hibernate.annotations.GenericGenerator
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.DBRef
-import javax.persistence.Embeddable
+import javax.persistence.*
 
 @Embeddable
 data class Person  (
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column
     override var id: String = "",
+    @Column
     var firstName: String = "",
+    @Column
     var lastName: String = "",
+    @Column
     var email: String = "",
-    @DBRef
-    var classes: MutableSet<Classes>? = null
+
 ) : Identifiable<String>
 
 

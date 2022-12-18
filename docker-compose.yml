@@ -1,13 +1,18 @@
 version: '3'
 
 services: 
-    mongo_db:
-        image: mongo:latest # use the latest image.
-        container_name: "mongo_db"
-        restart: unless-stopped
+    mysql:
+        container_name: mysql
+        build:
+        context: .
+        dockerfile: Dockerfile
+        environment:
+        - admin
+        volumes:
+        - /private/data/mysql:/var/lib/mysql
+        - ./.temp:/.temp
         ports:
-            - 27017:27017
-        command: mongod --quiet --logpath /dev/null             
+        - "3306:3306"
     backend: 
         build:
             context: .
@@ -17,7 +22,7 @@ services:
         ports:
             - 8080:8080
         links:
-            - mongo_db
+            - mysql
     # frontend: 
     #     build:
     #         context: .

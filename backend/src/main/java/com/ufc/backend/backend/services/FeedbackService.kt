@@ -22,13 +22,11 @@ class FeedbackService
     }
 
     fun save(feedback: Feedback, id: String): Feedback {
-        feedback.actualUser = userService.findById(id)
-        feedback.user = feedback.actualUser!!
         repository.save(feedback)
-        val classes = classesService.findById(feedback.classes.id)
+        val classes = classesService.findById(feedback.subject.id)
         classes.addFeedback(feedback)
         classesService.save(classes)
-        feedback.classes = classes
+        feedback.subject = classes
         return repository.save(feedback)
     }
 

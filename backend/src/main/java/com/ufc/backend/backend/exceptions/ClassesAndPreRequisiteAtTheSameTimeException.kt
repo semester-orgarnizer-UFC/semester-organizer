@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.exceptions
 
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 
-class ClassesAndPreRequisiteAtTheSameTimeException(classes: Classes) : RuntimeException(
-    "Você não pode cursar: ${classes.name} e ${classes.preRequisite?.name} ao mesmo tempo"
+class ClassesAndPreRequisiteAtTheSameTimeException(subject: Subject) : RuntimeException(
+    "Você não pode cursar: ${subject.name} e ${subject.preRequisite?.name} ao mesmo tempo"
 )

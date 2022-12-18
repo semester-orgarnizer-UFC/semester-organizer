@@ -2,7 +2,7 @@ package com.ufc.backend.backend.services
 
 import com.ufc.backend.backend.exceptions.EmailAlreadyExists
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.repositories.UserRepository
 import org.springframework.stereotype.Service
@@ -51,36 +51,26 @@ class UserService(
     fun insert(user: Student): Student {
         if (repository.findByPersonEmail(user.person.email) != null)
             throw EmailAlreadyExists(user.person.email)
-        user.notTakenClasses = courseService.findById(user.course).mandatoryClasses.toMutableSet()
         return repository.save(user)
     }
 
     /**
-     * Find all [Classes] that has the given pre-requisite
+     * Find all [Subject] that has the given pre-requisite
      *
      * @param preRequisiteId the id
-     * @return a list of [Classes]
+     * @return a list of [Subject]
      */
-    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Classes> {
+    fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Subject> {
         return findAllTakenClasses(id)?.filter { it.preRequisite?.id == preRequisiteId } ?: throw ObjectNotFoundException(id)
     }
 
     /**
-     * Return all done [Classes] from the [Student]
+     * Return all done [Subject] from the [Student]
      *
-     * @return a list of [Classes]
+     * @return a list of [Subject]
      */
-    fun findAllTakenClasses(id: String): Set<Classes> {
-        return findById(id).person.classes ?: setOf()
-    }
-
-    /**
-     * Return not taken [Classes] from the [Student]
-     *
-     * @return a list of [Classes]
-     */
-    fun findAllNotTakenClasses(id: String): Collection<Classes> {
-        return findById(id).person.classes ?: listOf()
+    fun findAllTakenClasses(id: String): Set<Subject> {
+        return findById(id).subjects ?: setOf()
     }
 
     fun idsOfTheTakenClasses(id: String): Collection<String> {

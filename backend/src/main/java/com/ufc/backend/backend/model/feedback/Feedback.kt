@@ -3,35 +3,29 @@ package com.ufc.backend.backend.model.feedback
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.ufc.backend.backend.commons.model.Identifiable
-import com.ufc.backend.backend.model.Classes
+import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Student
+import org.hibernate.annotations.GenericGenerator
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
-import java.beans.ConstructorProperties
+import javax.persistence.*
 
-@Document
+@Entity
 class Feedback
-@ConstructorProperties(
-    "id",
-    "commentary",
-    "rating",
-    "classes",
-    "user",
-    "actualUser",
-    "isAnonymous",
-)
-constructor(
+(
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column
     override val id: String,
+    @Column
     var commentary: String,
+    @Column
     var rating: Double,
-    @DBRef
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    var classes: Classes,
+    @OneToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    var subject: Subject,
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     var user: Student,
-    @JsonIgnore
-    var actualUser: Student? = null,
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var isAnonymous: Boolean = false,
 ) : Identifiable<String>

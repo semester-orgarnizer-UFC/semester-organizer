@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Configuration
 
 class CachingConfig {
     /*@Bean
-    fun cacheManager() = ConcurrentMapCacheManager("classes")*/
+    fun cacheManager() = ConcurrentMapCacheManager("subject")*/
 }
