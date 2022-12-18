@@ -2,16 +2,15 @@ package com.ufc.backend.backend.model
 
 import com.ufc.backend.backend.commons.model.Identifiable
 import org.hibernate.annotations.GenericGenerator
-import org.springframework.data.annotation.Id
 import javax.persistence.*
 
 @Entity
-data class Course
-(
+class Course
+    (
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column
+    @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
+    @GeneratedValue(generator = "UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
     override val id: String,
     @Column
     var name: String,

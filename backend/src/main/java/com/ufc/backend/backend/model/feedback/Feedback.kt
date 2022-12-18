@@ -1,12 +1,9 @@
 package com.ufc.backend.backend.model.feedback
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.model.Subject
 import com.ufc.backend.backend.model.Student
 import org.hibernate.annotations.GenericGenerator
-import org.springframework.data.annotation.Id
 import javax.persistence.*
 
 @Entity

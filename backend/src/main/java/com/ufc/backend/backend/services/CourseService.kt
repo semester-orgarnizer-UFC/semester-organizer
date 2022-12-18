@@ -43,6 +43,6 @@ class CourseService(
     }
 
     fun findBySemester(id: String, semester: Int): Collection<Subject> {
-        return findById(id).mandatoryClasses.filter { it.semester == semester }
+        return findById(id).mandatoryClasses.filter { it.semesterIndex == semester }
     }
 }

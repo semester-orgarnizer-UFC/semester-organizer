@@ -30,7 +30,7 @@ class UserResource(
             ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/users")
-                .buildAndExpand(user.person.id)
+                .buildAndExpand(user.id)
                 .toUri()
         ).body(service.insert(user))
     }

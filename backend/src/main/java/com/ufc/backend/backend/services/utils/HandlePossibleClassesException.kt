@@ -19,7 +19,7 @@ class HandlePossibleClassesException(
     private val user: Student
 ) {
     fun run() {
-        semester.subject?.forEach {
+        semester.subjects?.forEach {
             classesCantBeDoneAtTheFirstSemester(it.id, semester)
             classesDontHaveThePreRequisite(it.id)
         }
@@ -36,16 +36,16 @@ class HandlePossibleClassesException(
 
     private fun classesCantBeDoneAtTheFirstSemester(classesId: String, semester: Semester) {
         val classes = classesService.findById(classesId)
-        if (semester.index == 1 && classes.semester != 1) throw ClassCantBeDoneAtTheFirstSemester(classes)
+        if (semester.semesterIndex == 1 && classes.semesterIndex != 1) throw ClassCantBeDoneAtTheFirstSemester(classes)
     }
 
     private fun classesAndItsPreRequisiteCantBeDoneAtTheSameTime(semester: Semester) {
-        val currentSemester = user.getSemester(semester.index)
-        semester.subject!!.forEach(Consumer { subject: Subject ->
-            if (semester.subject!!.contains(subject.preRequisite!!)) {
+        val currentSemester = user.getSemester(semester.semesterIndex)
+        semester.subjects!!.forEach(Consumer { subject: Subject ->
+            if (semester.subjects!!.contains(subject.preRequisite!!)) {
                 throw ClassesAndPreRequisiteAtTheSameTimeException(subject)
             }
-            if (currentSemester.subject != null && currentSemester.subject!!.contains(subject.preRequisite)) throw ClassesAndPreRequisiteAtTheSameTimeException(
+            if (currentSemester.subjects != null && currentSemester.subjects!!.contains(subject.preRequisite)) throw ClassesAndPreRequisiteAtTheSameTimeException(
                 subject
             )
         })

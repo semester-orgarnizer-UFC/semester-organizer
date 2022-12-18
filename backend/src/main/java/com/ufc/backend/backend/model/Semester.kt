@@ -1,19 +1,39 @@
 package com.ufc.backend.backend.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.GenericGenerator
+import javax.persistence.*
 
-data class Semester
+
+@Entity
+@Table(name = "semesters")
+class Semester
     (
-    var index: Int,
-    var subject: MutableSet<Subject>? = null
+    @Id
+    @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
+    @GeneratedValue(generator = "UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    val id: String,
+    var semesterIndex: Int,
+    @ManyToMany
+    @JoinTable(
+        name = "semester_subjects",
+        joinColumns = [JoinColumn(name = "semester_id")],
+        inverseJoinColumns = [JoinColumn(name = "subject_id")]
+    )
+    var subjects: MutableSet<Subject>? = null,
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    val student: Student
 ) {
-    val actualSemesterIndex = this.index - 1
     override fun equals(other: Any?): Boolean {
         return if (javaClass != other!!.javaClass) {
             false
-        } else this.index == (other as Semester).index
+        } else this.semesterIndex == (other as Semester).semesterIndex
     }
 
     override fun hashCode(): Int {
-        return index
+        return semesterIndex
     }
 }
