@@ -22,17 +22,10 @@ class FeedbackService
     }
 
     fun save(feedback: Feedback, id: String): Feedback {
-        repository.save(feedback)
-        val classes = classesService.findById(feedback.subject.id)
-        classes.addFeedback(feedback)
-        classesService.save(classes)
-        feedback.subject = classes
         return repository.save(feedback)
     }
 
     fun delete(id: String) {
-        val feedback = findById(id)
-        feedback.user.deleteFeedback(feedback)
-        repository.delete(feedback)
+        repository.deleteById(id)
     }
 }

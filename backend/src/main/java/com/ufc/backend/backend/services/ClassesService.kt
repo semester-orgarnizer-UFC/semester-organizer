@@ -3,7 +3,6 @@ package com.ufc.backend.backend.services
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
 import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.feedback.Feedback
-import com.ufc.backend.backend.model.subject.SubjectMapper
 import com.ufc.backend.backend.repositories.ClassRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -35,7 +34,7 @@ class ClassesService
 
     fun findFeedbacks(id: String): Collection<Feedback> {
         LOGGER.info("Finding feedbacks of the given class: $id")
-        return findById(id).findAllFeedbacks()
+        return findById(id).feedbacks
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.resources
 
 import com.ufc.backend.backend.model.Semester
-import com.ufc.backend.backend.model.Student
+import com.ufc.backend.backend.model.student.Student
 import com.ufc.backend.backend.services.SemesterService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

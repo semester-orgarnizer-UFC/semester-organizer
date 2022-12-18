@@ -5,7 +5,7 @@ import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException
 import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException
 import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Semester
-import com.ufc.backend.backend.model.Student
+import com.ufc.backend.backend.model.student.Student
 import com.ufc.backend.backend.services.ClassesService
 import java.util.function.Consumer
 

@@ -1,7 +1,10 @@
 package com.ufc.backend.backend.resources
 
 import com.ufc.backend.backend.model.subject.Subject
-import com.ufc.backend.backend.model.Student
+import com.ufc.backend.backend.model.student.Student
+import com.ufc.backend.backend.model.student.StudentMapper
+import com.ufc.backend.backend.model.student.dto.StudentDto
+import com.ufc.backend.backend.model.student.dto.StudentInsertDto
 import com.ufc.backend.backend.services.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,7 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 @RequestMapping(value = ["/users"])
 @CrossOrigin
 class UserResource(
-    private val service: UserService
+    private val service: UserService,
+    private val mapper: StudentMapper
 
 ) {
     @GetMapping("/{id}")
@@ -25,14 +29,14 @@ class UserResource(
     }
 
     @PostMapping
-    fun insert(@RequestBody user: Student): ResponseEntity<Student> {
+    fun insert(@RequestBody user: StudentInsertDto): ResponseEntity<StudentDto> {
         return ResponseEntity.created(
             ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/users")
-                .buildAndExpand(user.id)
+                .buildAndExpand(user.email)
                 .toUri()
-        ).body(service.insert(user))
+        ).body(mapper.entityToDto(service.insert(user)))
     }
 /*  @DeleteMapping("/{classId}")
     public ResponseEntity<Boolean> deleteClassFromSemester(@PathVariable String classId) {

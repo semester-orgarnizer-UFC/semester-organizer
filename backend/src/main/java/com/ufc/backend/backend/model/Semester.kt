@@ -1,6 +1,7 @@
 package com.ufc.backend.backend.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.ufc.backend.backend.model.student.Student
 import com.ufc.backend.backend.model.subject.Subject
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*

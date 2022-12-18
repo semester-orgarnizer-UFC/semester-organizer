@@ -5,7 +5,8 @@ import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.commons.model.FeedbackBased
 import com.ufc.backend.backend.model.Course
 import com.ufc.backend.backend.model.Semester
-import com.ufc.backend.backend.model.Student
+import com.ufc.backend.backend.model.student.Student
+import com.ufc.backend.backend.model.feedback.Feedback
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
@@ -34,8 +35,11 @@ class Subject
     var students: Collection<Student>,
     @JsonIgnore
     @ManyToMany(mappedBy = "subjects")
-    var userSemesters: Collection<Semester>
-) : Identifiable<String>, FeedbackBased() {
+    var userSemesters: Collection<Semester>,
+    @JsonIgnore
+    @OneToMany(mappedBy = "subject", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    override val feedbacks: Collection<Feedback>
+) : Identifiable<String>, FeedbackBased {
 
     override fun equals(other: Any?): Boolean {
         return if (javaClass != other!!.javaClass) {

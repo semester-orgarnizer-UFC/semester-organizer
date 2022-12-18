@@ -1,7 +1,5 @@
 package com.ufc.backend.backend.services
 
-import com.ufc.backend.backend.model.Student
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service

@@ -3,14 +3,17 @@ package com.ufc.backend.backend.services
 import com.ufc.backend.backend.exceptions.EmailAlreadyExists
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
 import com.ufc.backend.backend.model.subject.Subject
-import com.ufc.backend.backend.model.Student
+import com.ufc.backend.backend.model.student.Student
+import com.ufc.backend.backend.model.student.dto.StudentInsertDto
+import com.ufc.backend.backend.model.student.StudentMapper
 import com.ufc.backend.backend.repositories.UserRepository
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
     private val repository: UserRepository,
-    private val courseService: CourseService
+    private val courseService: CourseService,
+    private val mapper: StudentMapper
 ) {
 
 
@@ -48,10 +51,12 @@ class UserService(
      * @return [Student]
      * @throws EmailAlreadyExists if the email already exists in the database
      */
-    fun insert(user: Student): Student {
-        if (repository.findByPersonEmail(user.person.email) != null)
-            throw EmailAlreadyExists(user.person.email)
-        return repository.save(user)
+    fun insert(user: StudentInsertDto): Student {
+        if (repository.findByPersonEmail(user.email) != null)
+            throw EmailAlreadyExists(user.email)
+        val course = courseService.findById(user.course)
+        val entity = mapper.insertDtoToEntity(user, course)
+        return repository.save(entity)
     }
 
     /**
@@ -61,7 +66,8 @@ class UserService(
      * @return a list of [Subject]
      */
     fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Subject> {
-        return findAllTakenClasses(id)?.filter { it.preRequisite?.id == preRequisiteId } ?: throw ObjectNotFoundException(id)
+        return findAllTakenClasses(id)?.filter { it.preRequisite?.id == preRequisiteId }
+            ?: throw ObjectNotFoundException(id)
     }
 
     /**
