@@ -1,6 +1,7 @@
 package com.ufc.backend.backend.model
 
 import com.ufc.backend.backend.commons.model.Identifiable
+import com.ufc.backend.backend.model.subject.Subject
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 

@@ -1,8 +1,9 @@
 package com.ufc.backend.backend.services
 
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.feedback.Feedback
+import com.ufc.backend.backend.model.subject.SubjectMapper
 import com.ufc.backend.backend.repositories.ClassRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class ClassesService
     (
-    private val repository: ClassRepository
+    private val repository: ClassRepository,
 ) {
     fun findById(id: String): Subject {
         LOGGER.info("Searching class with the given id: $id")
@@ -29,13 +30,14 @@ class ClassesService
 
     fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String): Collection<Subject> {
         LOGGER.info("Finding subject that has the given pre-requisite: $preRequisiteId")
-        return findAll().filter { it.preRequisite?.id ==  preRequisiteId}
+        return findAll().filter { it.preRequisite?.id == preRequisiteId }
     }
 
     fun findFeedbacks(id: String): Collection<Feedback> {
         LOGGER.info("Finding feedbacks of the given class: $id")
         return findById(id).findAllFeedbacks()
     }
+
     companion object {
         private val LOGGER = LoggerFactory.getLogger(ClassesService::class.java)
     }

@@ -3,7 +3,7 @@ package com.ufc.backend.backend.services
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Course
 import com.ufc.backend.backend.repositories.ClassRepository
 import com.ufc.backend.backend.repositories.CourseRepository

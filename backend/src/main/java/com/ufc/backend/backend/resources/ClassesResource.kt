@@ -1,7 +1,9 @@
 package com.ufc.backend.backend.resources
 
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.feedback.Feedback
+import com.ufc.backend.backend.model.subject.SubjectDto
+import com.ufc.backend.backend.model.subject.SubjectMapper
 import com.ufc.backend.backend.services.ClassesService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -9,13 +11,14 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(value = ["/subject"])
 @CrossOrigin
-class ClassesResource (
-    private val service: ClassesService
-){
+class ClassesResource(
+    private val service: ClassesService,
+    private val mapper: SubjectMapper
+) {
 
     @GetMapping
-    fun findAll(): ResponseEntity<Collection<Subject>> {
-        return ResponseEntity.ok().body(service.findAll())
+    fun findAll(): ResponseEntity<Collection<SubjectDto>> {
+        return ResponseEntity.ok().body(service.findAll().map { mapper.entityToDto(it) })
     }
 
     @GetMapping("/{id}")

@@ -1,7 +1,11 @@
-package com.ufc.backend.backend.model
+package com.ufc.backend.backend.model.subject
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.commons.model.FeedbackBased
+import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.Semester
+import com.ufc.backend.backend.model.Student
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
@@ -22,10 +26,13 @@ class Subject
     var hours: Int,
     @Column
     var semesterIndex: Int,
+    @JsonIgnore
     @ManyToMany(mappedBy = "mandatoryClasses")
     var courses: Collection<Course>,
+    @JsonIgnore
     @ManyToMany(mappedBy = "subjects")
     var students: Collection<Student>,
+    @JsonIgnore
     @ManyToMany(mappedBy = "subjects")
     var userSemesters: Collection<Semester>
 ) : Identifiable<String>, FeedbackBased() {

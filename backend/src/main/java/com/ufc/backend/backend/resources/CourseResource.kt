@@ -1,6 +1,6 @@
 package com.ufc.backend.backend.resources
 
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Course
 import com.ufc.backend.backend.services.CourseService
 import org.springframework.http.ResponseEntity

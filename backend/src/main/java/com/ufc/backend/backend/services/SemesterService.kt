@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.services
 
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.utils.HandlePossibleClassesException

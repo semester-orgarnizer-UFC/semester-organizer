@@ -3,7 +3,7 @@ package com.ufc.backend.backend.services.utils
 import com.ufc.backend.backend.exceptions.ClassCantBeDoneAtTheFirstSemester
 import com.ufc.backend.backend.exceptions.ClassDontHaveThePreRequisiteException
 import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeException
-import com.ufc.backend.backend.model.Subject
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.Student
 import com.ufc.backend.backend.services.ClassesService

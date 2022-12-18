@@ -6,6 +6,7 @@ import com.ufc.backend.backend.commons.model.FeedbackBased
 import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.commons.model.Person
+import com.ufc.backend.backend.model.subject.Subject
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
