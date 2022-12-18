@@ -10,7 +10,7 @@ class FeedbackService
     (
     private val repository: FeedbackRepository,
     private val userService: UserService,
-    private val classesService: ClassesService
+    private val subjectService: SubjectService
 ) {
 
     fun findAll(): Collection<Feedback?> {

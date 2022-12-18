@@ -4,7 +4,7 @@ import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.feedback.Feedback
 import com.ufc.backend.backend.model.subject.SubjectDto
 import com.ufc.backend.backend.model.subject.SubjectMapper
-import com.ufc.backend.backend.services.ClassesService
+import com.ufc.backend.backend.services.SubjectService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(value = ["/subject"])
 @CrossOrigin
 class ClassesResource(
-    private val service: ClassesService,
+    private val service: SubjectService,
     private val mapper: SubjectMapper
 ) {
 

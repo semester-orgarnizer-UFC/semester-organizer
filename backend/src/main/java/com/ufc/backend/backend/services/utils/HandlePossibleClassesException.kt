@@ -6,14 +6,14 @@ import com.ufc.backend.backend.exceptions.ClassesAndPreRequisiteAtTheSameTimeExc
 import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.student.Student
-import com.ufc.backend.backend.services.ClassesService
+import com.ufc.backend.backend.services.SubjectService
 import java.util.function.Consumer
 
 /**
  * Class responsible to throw possible exceptions when you try to create a [Semester] with invalid [Subject]
  */
 class HandlePossibleClassesException(
-    private val classesService: ClassesService,
+    private val subjectService: SubjectService,
     private val idsAlreadyDone: Collection<String>?,
     private val semester: Semester,
     private val user: Student
@@ -27,7 +27,7 @@ class HandlePossibleClassesException(
     }
 
     private fun classesDontHaveThePreRequisite(classesId: String) {
-        val classes = classesService.findById(classesId)
+        val classes = subjectService.findById(classesId)
         if (idsAlreadyDone == null && classes.preRequisite != null) throw ClassDontHaveThePreRequisiteException(classes)
         if (idsAlreadyDone != null && classes.preRequisite != null && !idsAlreadyDone.contains(classes.preRequisite!!.id)) throw ClassDontHaveThePreRequisiteException(
             classes
@@ -35,7 +35,7 @@ class HandlePossibleClassesException(
     }
 
     private fun classesCantBeDoneAtTheFirstSemester(classesId: String, semester: Semester) {
-        val classes = classesService.findById(classesId)
+        val classes = subjectService.findById(classesId)
         if (semester.semesterIndex == 1 && classes.semesterIndex != 1) throw ClassCantBeDoneAtTheFirstSemester(classes)
     }
 

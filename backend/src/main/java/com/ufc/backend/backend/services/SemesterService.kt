@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class SemesterService(
     private val userService: UserService,
-    private val classesService: ClassesService
+    private val subjectService: SubjectService
 ) {
 
     /**
@@ -77,7 +77,7 @@ class SemesterService(
      */
     fun updateSemester(semester: Semester, id: String): Student? {
         val user = userService.findById(id)
-        HandlePossibleClassesException(classesService, userService.idsOfTheTakenClasses(id), semester, user).run()
+        HandlePossibleClassesException(subjectService, userService.idsOfTheTakenClasses(id), semester, user).run()
         semester.subjects?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
         user.updateSemester(semester)
         userService.save(user)

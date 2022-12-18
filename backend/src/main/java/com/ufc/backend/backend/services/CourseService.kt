@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
 import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.Course
-import com.ufc.backend.backend.repositories.ClassRepository
+import com.ufc.backend.backend.repositories.SubjectRepository
 import com.ufc.backend.backend.repositories.CourseRepository
 import org.springframework.stereotype.Service
 import java.io.File
@@ -14,7 +14,7 @@ import java.util.*
 @Service
 class CourseService(
     private val courseRepository: CourseRepository,
-    private val classRepository: ClassRepository
+    private val subjectRepository: SubjectRepository
 ) {
 
     fun populateCourses() {
@@ -23,7 +23,7 @@ class CourseService(
             val mapper = ObjectMapper()
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             val course = mapper.readValue(file, Course::class.java)
-            classRepository.saveAll(course.mandatoryClasses)
+            subjectRepository.saveAll(course.mandatoryClasses)
             courseRepository.save(mapper.readValue(file, Course::class.java))
         } catch (e: Exception) {
             throw e
