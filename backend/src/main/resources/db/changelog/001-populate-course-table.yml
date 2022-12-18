@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-populate-course-table
+      author: rene
+      endDelimiter: ;
+      splitStatements: true
+      changes:
+      - sql:
+          INSERT INTO course 
+          (id, name, short_name)
+          VALUES 
+          ('QXD_CC', 'Ciência da computação', 'CC'),
+          ('QXD_ES', 'Engenharia de software', 'ES'),
+          ('QXD_EC', 'Engenharia da computação', 'EC'),
+          ('QXD_DD', 'Design digital', 'DD'),
+          ('QXD_RC', 'Redes de computadores', 'RC')
