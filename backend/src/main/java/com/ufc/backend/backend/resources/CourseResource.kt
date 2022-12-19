@@ -1,7 +1,8 @@
 package com.ufc.backend.backend.resources
 
 import com.ufc.backend.backend.model.subject.Subject
-import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.course.CourseDto
+import com.ufc.backend.backend.model.course.CourseMapper
 import com.ufc.backend.backend.services.CourseService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -10,17 +11,18 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(value = ["/courses"])
 @CrossOrigin
 class CourseResource(
-    private val service: CourseService
+    private val service: CourseService,
+    private val mapper: CourseMapper
 ) {
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: String): ResponseEntity<Course> {
-        return ResponseEntity.ok().body(service.findById(id))
+    fun findById(@PathVariable id: String): ResponseEntity<CourseDto> {
+        return ResponseEntity.ok().body(mapper.entityToDto(service.findById(id)))
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<Collection<Course>> {
-        return ResponseEntity.ok().body(service.findAll())
+    fun findAll(): ResponseEntity<Collection<CourseDto>> {
+        return ResponseEntity.ok().body(service.findAll().map { mapper.entityToDto(it) })
     }
 
     @GetMapping("/mandatory/{id}")

@@ -3,7 +3,7 @@ package com.ufc.backend.backend.model.subject
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.commons.model.FeedbackBased
-import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.course.Course
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.student.Student
 import com.ufc.backend.backend.model.feedback.Feedback

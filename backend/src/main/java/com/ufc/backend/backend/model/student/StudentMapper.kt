@@ -1,7 +1,7 @@
 package com.ufc.backend.backend.model.student
 
 import com.ufc.backend.backend.commons.model.Person
-import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.course.Course
 import com.ufc.backend.backend.model.student.dto.StudentDto
 import com.ufc.backend.backend.model.student.dto.StudentInsertDto
 import org.springframework.stereotype.Service

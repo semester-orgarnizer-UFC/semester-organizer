@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
 import com.ufc.backend.backend.model.subject.Subject
-import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.course.Course
 import com.ufc.backend.backend.repositories.SubjectRepository
 import com.ufc.backend.backend.repositories.CourseRepository
 import org.springframework.stereotype.Service
@@ -23,7 +23,7 @@ class CourseService(
             val mapper = ObjectMapper()
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             val course = mapper.readValue(file, Course::class.java)
-            subjectRepository.saveAll(course.mandatoryClasses)
+            subjectRepository.saveAll(course.mandatorySubjects)
             courseRepository.save(mapper.readValue(file, Course::class.java))
         } catch (e: Exception) {
             throw e
@@ -39,10 +39,10 @@ class CourseService(
     }
 
     fun findMandatory(id: String): Collection<Subject> {
-        return findById(id).mandatoryClasses
+        return findById(id).mandatorySubjects
     }
 
     fun findBySemester(id: String, semester: Int): Collection<Subject> {
-        return findById(id).mandatoryClasses.filter { it.semesterIndex == semester }
+        return findById(id).mandatorySubjects.filter { it.semesterIndex == semester }
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.ufc.backend.backend.commons.model.PersonBased
 import com.ufc.backend.backend.exceptions.SemesterOutOfBoundsException
 import com.ufc.backend.backend.commons.model.Person
-import com.ufc.backend.backend.model.Course
+import com.ufc.backend.backend.model.course.Course
 import com.ufc.backend.backend.model.Semester
 import com.ufc.backend.backend.model.subject.Subject
 import org.hibernate.annotations.GenericGenerator

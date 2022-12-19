@@ -1,4 +1,4 @@
-package com.ufc.backend.backend.model
+package com.ufc.backend.backend.model.course
 
 import com.ufc.backend.backend.commons.model.Identifiable
 import com.ufc.backend.backend.model.subject.Subject
@@ -23,7 +23,7 @@ class Course
         joinColumns = [JoinColumn(name = "course_id")],
         inverseJoinColumns = [JoinColumn(name = "subject_id")]
     )
-    var mandatoryClasses: Set<Subject>,
+    var mandatorySubjects: Set<Subject>,
 ) : Identifiable<String> {
 
     override fun equals(other: Any?): Boolean {
