@@ -1,7 +1,9 @@
 package com.ufc.backend.backend.model.course
 
 import com.ufc.backend.backend.model.subject.SubjectMapper
+import org.springframework.stereotype.Service
 
+@Service
 class CourseMapper(
     private val mapper: SubjectMapper
 ) {

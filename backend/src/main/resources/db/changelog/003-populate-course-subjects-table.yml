@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-populate-course-table
+      author: rene
+      endDelimiter: ;
+      splitStatements: true
+      changes:
+      - sql:
+          INSERT INTO course_mandatory_subjects VALUES
+          ('QXD_CC', 'QXD0001'),
+          ('QXD_CC', 'QXD0108'),
+          ('QXD_CC', 'QXD0005'),
+          ('QXD_CC', 'QXD0056'),
+          ('QXD_CC', 'QXD0103'),
+          ('QXD_CC', 'QXD0007'),
+          ('QXD_CC', 'QXD0013'),
+          ('QXD_CC', 'QXD0114'),
+          ('QXD_CC', 'QXD0115'),
+          ('QXD_CC', 'QXD0040'),
+          ('QXD_CC', 'QXD0017'),
+          ('QXD_CC', 'QXD0012'),
+          ('QXD_CC', 'QXD0016'),
+          ('QXD_CC', 'QXD0041'),
+          ('QXD_CC', 'QXD0011'),
+          ('QXD_CC', 'QXD0014'),
+          ('QXD_CC', 'QXD0116'),
+          ('QXD_CC', 'QXD0020'),
+          ('QXD_CC', 'QXD0119'),
+          ('QXD_CC', 'QXD0120'),
+          ('QXD_CC', 'QXD0025'),
+          ('QXD_CC', 'QXD0021')

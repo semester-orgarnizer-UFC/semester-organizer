@@ -1,0 +1,162 @@
+
+   [
+    {
+      "id": "QXD0001",
+      "name": "Fundamentos de programação",
+      "hours": 96,
+      "semester_index": 1
+    },
+    {
+      "id": "QXD0108",
+      "name": "Introdução à ciência da computação",
+      "hours": 64,
+      "semester_index": 1
+    },
+    {
+      "id": "QXD0005",
+      "name": "Arquitetura de computadores",
+      "hours": 64,
+      "semester_index": 1
+    },
+    {
+      "id": "QXD0056",
+      "name": "Matemática básica",
+      "hours": 64,
+      "semester_index": 1
+    },
+    {
+      "id": "QXD0103",
+      "name": "Ética, direto e legislação",
+      "hours": 32,
+      "semester_index": 1
+    },
+    {
+      "id": "QXD0007",
+      "name": "Programção orientada a objetos",
+      "hours": 64,
+      "semester_index": 2,
+      "pre_requisite_id": "QXD0001"
+    },
+    {
+      "id": "QXD0010",
+      "name": "Estrutura de dados",
+      "hours": 64,
+      "semester_index": 2,
+      "pre_requisite_id": "QXD0001"
+    },
+    {
+      "id": "QXD0008",
+      "name": "Matemática discreta",
+      "hours": 64,
+      "semester_index": 2,
+      "pre_requisite_id": "QXD0056"
+    },
+    {
+      "id": "QXD0013",
+      "name": "Sistemas operacionais",
+      "hours": 64,
+      "semester_index": 2,
+      "pre_requisite_id": "QXD0005"
+    },
+    {
+      "id": "QXD0114",
+      "name": "Programação funcional",
+      "hours": 64,
+      "semester_index": 3
+    },
+    {
+      "id": "QXD0115",
+      "name": "Estrutura de dados avançada",
+      "hours": 64,
+      "semester_index": 3,
+      "pre_requisite_id": "QXD0010"
+    },
+    {
+      "id": "QXD0040",
+      "name": "Linguagens formais e automâtos",
+      "hours": 64,
+      "semester_index": 3,
+      "pre_requisite_id": "QXD0008"
+    },
+    {
+      "id": "QXD0017",
+      "name": "Lógica para computação",
+      "hours": 64,
+      "semester_index": 3,
+      "pre_requisite_id": "QXD0008"
+    },
+    {
+      "id": "QXD0012",
+      "name": "Probabilidade e estatística",
+      "hours": 64,
+      "semester_index": 3,
+      "pre_requisite_id": "QXD0056"
+    },
+    {
+      "id": "QXD0016",
+      "name": "Linguagens de programação",
+      "hours": 64,
+      "semester_index": 4,
+      "pre_requisite_id": "QXD0007"
+    },
+    {
+      "id": "QXD0041",
+      "name": "Projeto e análise de algoritmos",
+      "hours": 64,
+      "semester_index": 4,
+      "pre_requisite_id": "QXD0010"
+    },
+    {
+      "id": "QXD0011",
+      "name": "Fundamento de banco de dados",
+      "hours": 64,
+      "semester_index": 4
+    },
+    {
+      "id": "QXD0014",
+      "name": "Análise e projeto de sistemas",
+      "hours": 64,
+      "semester_index": 4,
+      "pre_requisite_id": "QXD0007"
+    },
+    {
+      "id": "QXD0116",
+      "name": "Álgrebra linear",
+      "hours": 64,
+      "semester_index": 4
+    },
+    {
+      "id": "QXD0020",
+      "name": "Desenvolvimento de software para web",
+      "hours": 64,
+      "semester_index": 5,
+      "pre_requisite_id": "QXD0007"
+    },
+    {
+      "id": "QXD0119",
+      "name": "Computação gráfica",
+      "hours": 64,
+      "semester_index": 5,
+      "pre_requisite_id": "QXD0116"
+    },
+    {
+      "id": "QXD0120",
+      "name": "Matemática computacional",
+      "hours": 64,
+      "semester_index": 5,
+      "pre_requisite_id": "QXD0116"
+    },
+    {
+      "id": "QXD0025",
+      "name": "Compiladores",
+      "hours": 64,
+      "semester_index": 5,
+      "pre_requisite_id": "QXD0040"
+    },
+    {
+      "id": "QXD0021",
+      "name": "Redes de computadores",
+      "hours": 64,
+      "semester_index": 5
+    }
+  ]

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-populate-subject-table
+      author: rene
+      endDelimiter: ;
+      splitStatements: true
+      changes:
+      - sql:
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0001','Fundamentos de programação',96,1,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0108','Introdução à ciência da computação',64,1,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0005','Arquitetura de computadores',64,1,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0056','Matemática básica',64,1,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0103','Ética, direto e legislação',32,1,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0007','Programção orientada a objetos',64,2,'QXD0001');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0010','Estrutura de dados',64,2,'QXD0001');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0008','Matemática discreta',64,2,'QXD0056');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0013','Sistemas operacionais',64,2,'QXD0005');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0114','Programação funcional',64,3,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0115','Estrutura de dados avançada',64,3,'QXD0010');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0040','Linguagens formais e automâtos',64,3,'QXD0008');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0017','Lógica para computação',64,3,'QXD0008');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0012','Probabilidade e estatística',64,3,'QXD0056');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0016','Linguagens de programação',64,4,'QXD0007');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0041','Projeto e análise de algoritmos',64,4,'QXD0010');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0011','Fundamento de banco de dados',64,4,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0014','Análise e projeto de sistemas',64,4,'QXD0007');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0116','Álgrebra linear',64,4,NULL);
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0020','Desenvolvimento de software para web',64,5,'QXD0007');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0119','Computação gráfica',64,5,'QXD0116');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0120','Matemática computacional',64,5,'QXD0116');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0025','Compiladores',64,5,'QXD0040');
+            INSERT INTO subjects(id,name,hours,semester_index,pre_requisite_id) VALUES ('QXD0021','Redes de computadores',64,5,NULL);

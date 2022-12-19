@@ -28,7 +28,7 @@ class Subject
     @Column
     var semesterIndex: Int,
     @JsonIgnore
-    @ManyToMany(mappedBy = "mandatoryClasses")
+    @ManyToMany(mappedBy = "mandatorySubjects")
     var courses: Collection<Course>,
     @JsonIgnore
     @ManyToMany(mappedBy = "subjects")

@@ -1,4 +1,7 @@
 databaseChangeLog:
   - include:
       - file: /db/changelog/001-populate-course-table.yml
-
+  - include:
+      - file: /db/changelog/002-populate-subject-table.yml
+  - include:
+      - file: /db/changelog/003-populate-course-subjects-table.yml
