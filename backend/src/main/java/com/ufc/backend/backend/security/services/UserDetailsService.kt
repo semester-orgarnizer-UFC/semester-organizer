@@ -15,7 +15,6 @@ class UserDetailsService(
     override fun loadUserByUsername(username: String): UserDetails {
         val user = repository.findByPersonEmail(username) ?: throw UsernameNotFoundException("$username not found")
         return UserSecurity(
-            user.id,
             user.person.email,
             user.password,
             Collections.singleton(SimpleGrantedAuthority("user"))

@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class UserSecurity
     (
-    val id: String,
     val email: String,
     private val uPassword: String,
     private val uAuthorities: MutableCollection<GrantedAuthority>

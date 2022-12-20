@@ -16,10 +16,8 @@ class JwtTokenUtil {
             .signWith(SignatureAlgorithm.HS512, secret.toByteArray()).compact()
     }
 
-
     private fun getClaims(token: String) =
         Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(token).body
-
 
     fun getEmail(token: String): String {
         val claims = getClaims(token)
@@ -32,5 +30,4 @@ class JwtTokenUtil {
         val now = Date(System.currentTimeMillis())
         return now.before(expirationDate)
     }
-
 }

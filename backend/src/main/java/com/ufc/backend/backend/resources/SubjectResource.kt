@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(value = ["/subject"])
 @CrossOrigin
-class ClassesResource(
+class SubjectResource(
     private val service: SubjectService,
     private val mapper: SubjectMapper
 ) {
