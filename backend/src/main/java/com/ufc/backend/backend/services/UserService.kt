@@ -7,13 +7,15 @@ import com.ufc.backend.backend.model.student.Student
 import com.ufc.backend.backend.model.student.dto.StudentInsertDto
 import com.ufc.backend.backend.model.student.StudentMapper
 import com.ufc.backend.backend.repositories.UserRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
     private val repository: UserRepository,
     private val courseService: CourseService,
-    private val mapper: StudentMapper
+    private val mapper: StudentMapper,
+    private val passwordEncoder: BCryptPasswordEncoder
 ) {
 
 
@@ -52,6 +54,7 @@ class UserService(
      * @throws EmailAlreadyExists if the email already exists in the database
      */
     fun insert(user: StudentInsertDto): Student {
+        user.password = passwordEncoder.encode(user.password)
         if (repository.findByPersonEmail(user.email) != null)
             throw EmailAlreadyExists(user.email)
         val course = courseService.findById(user.course)
@@ -66,7 +69,7 @@ class UserService(
      * @return a list of [Subject]
      */
     fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Subject> {
-        return findAllTakenClasses(id)?.filter { it.preRequisite?.id == preRequisiteId }
+        return findAllTakenClasses(id).filter { it.preRequisite?.id == preRequisiteId }
             ?: throw ObjectNotFoundException(id)
     }
 
