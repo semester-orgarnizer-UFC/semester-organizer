@@ -24,12 +24,12 @@ class JwtAuthenticationFilter(
 
     override fun attemptAuthentication(req: HttpServletRequest, response: HttpServletResponse): Authentication {
         val credentials = ObjectMapper().readValue(req.inputStream, LoginDto::class.java)
-        val authToken = UsernamePasswordAuthenticationToken(
+        val auth = UsernamePasswordAuthenticationToken(
             credentials.email,
             credentials.password,
             Collections.singleton(SimpleGrantedAuthority("user"))
         )
-        return authenticationManager.authenticate(authToken)
+        return authenticationManager.authenticate(auth)
     }
 
     override fun successfulAuthentication(
