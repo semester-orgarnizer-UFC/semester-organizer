@@ -12,11 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 
-
 @Configuration
 open class SecurityConfig(
     private val userDetailsService: UserDetailsService,
 ) {
+    private val jwtToken = JwtTokenUtil()
+
     private fun authManager(http: HttpSecurity): AuthenticationManager {
         val authenticationManagerBuilder = http.getSharedObject(
             AuthenticationManagerBuilder::class.java
@@ -28,13 +29,14 @@ open class SecurityConfig(
     @Bean
     open fun filterChain(http: HttpSecurity): SecurityFilterChain {
         val authenticationManager = authManager(http)
-
+        // Put your endpoint to create/sign, otherwise spring will secure it as
+        // well you won't be able to do any request
         http.authorizeRequests().antMatchers("/users")
             .permitAll().anyRequest().authenticated().and().csrf().disable()
             .authenticationManager(authenticationManager)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .addFilter(JwtAuthenticationFilter(JwtTokenUtil(), authenticationManager))
-            .addFilter(JwtAuthorizationFilter(JwtTokenUtil(), userDetailsService, authenticationManager))
+            .addFilter(JwtAuthenticationFilter(jwtToken, authenticationManager))
+            .addFilter(JwtAuthorizationFilter(jwtToken, userDetailsService, authenticationManager))
 
         return http.build()
     }

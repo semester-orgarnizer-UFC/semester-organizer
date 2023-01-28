@@ -54,6 +54,8 @@ function Login() {
             value={email}
             onChange={handleEmailChange}
             required
+            minLength={4}
+            maxLength={4}
           ></TextField>
           <TextField
             fullWidth

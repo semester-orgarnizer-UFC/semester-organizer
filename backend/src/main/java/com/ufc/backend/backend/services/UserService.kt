@@ -14,10 +14,8 @@ import org.springframework.stereotype.Service
 class UserService(
     private val repository: UserRepository,
     private val courseService: CourseService,
-    private val mapper: StudentMapper,
-    private val passwordEncoder: BCryptPasswordEncoder
+    private val passwordEncoder: BCryptPasswordEncoder,
 ) {
-
 
     /**
      * @return all users in the system
@@ -34,7 +32,7 @@ class UserService(
      * @throws ObjectNotFoundException if the id was not found in the database
      */
     fun findById(id: String): Student {
-        return repository.findById(id).orElseThrow { ObjectNotFoundException(id) }!!
+        return repository.findById(id).orElseThrow { ObjectNotFoundException(id) }
     }
 
     /**
@@ -58,7 +56,7 @@ class UserService(
         if (repository.findByPersonEmail(user.email) != null)
             throw EmailAlreadyExists(user.email)
         val course = courseService.findById(user.course)
-        val entity = mapper.insertDtoToEntity(user, course)
+        val entity = StudentMapper.insertDtoToEntity(user, course)
         return repository.save(entity)
     }
 
@@ -70,7 +68,6 @@ class UserService(
      */
     fun findAllClassesThatHasTheGivenPreRequisite(preRequisiteId: String, id: String): Collection<Subject> {
         return findAllTakenClasses(id).filter { it.preRequisite?.id == preRequisiteId }
-            ?: throw ObjectNotFoundException(id)
     }
 
     /**

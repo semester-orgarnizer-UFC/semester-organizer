@@ -1,9 +1,8 @@
 package com.ufc.backend.backend.security.filters
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.ufc.backend.backend.security.model.LoginDto
-import com.ufc.backend.backend.resources.exceptions.GenericError
 import com.ufc.backend.backend.security.JwtTokenUtil
+import com.ufc.backend.backend.security.model.LoginDto
 import com.ufc.backend.backend.security.model.UserSecurity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -47,15 +46,19 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         failed: AuthenticationException
     ) {
-        val error = GenericError(
-            Date().time,
-            401, "Bad credentials",
-            "Email ou senha incorretos",
-            "/login"
-        )
+        val error = BadCredentialsError()
         response.status = error.status
         response.contentType = "application/json"
         response.writer.append(error.toString())
     }
 
+}
+private data class BadCredentialsError(
+    val timestamp: Long = Date().time,
+    val status: Int = 401,
+    val message: String = "Email or password incorrect",
+) {
+    override fun toString(): String {
+        return ObjectMapper().writeValueAsString(this)
+    }
 }

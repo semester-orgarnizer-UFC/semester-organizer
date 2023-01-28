@@ -1,17 +1,20 @@
 package com.ufc.backend.backend.services
 
+import com.ufc.backend.backend.commons.model.SecurityUtils
 import com.ufc.backend.backend.exceptions.ObjectNotFoundException
-import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.model.feedback.Feedback
+import com.ufc.backend.backend.model.subject.Subject
 import com.ufc.backend.backend.repositories.SubjectRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+
 
 @Service
 class SubjectService
     (
     private val repository: SubjectRepository,
 ) {
+
     fun findById(id: String): Subject {
         LOGGER.info("Searching class with the given id: $id")
         return repository.findById(id).orElseThrow { ObjectNotFoundException(id) }
@@ -23,7 +26,7 @@ class SubjectService
     }
 
     fun findAll(): Collection<Subject> {
-        LOGGER.info("Finding all subject")
+        println(SecurityUtils.authenticatedUser)
         return repository.findAll()
     }
 

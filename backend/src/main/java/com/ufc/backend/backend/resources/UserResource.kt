@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 @CrossOrigin
 class UserResource(
     private val service: UserService,
-    private val mapper: StudentMapper
 
 ) {
     @GetMapping("/{id}")
@@ -36,6 +35,6 @@ class UserResource(
                 .path("/users")
                 .buildAndExpand(user.email)
                 .toUri()
-        ).body(mapper.entityToDto(service.insert(user)))
+        ).body(StudentMapper.entityToDto(service.insert(user)))
     }
 }

@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin
 class SubjectResource(
     private val service: SubjectService,
-    private val mapper: SubjectMapper
 ) {
 
     @GetMapping
     fun findAll(): ResponseEntity<Collection<SubjectDto>> {
-        return ResponseEntity.ok().body(service.findAll().map { mapper.entityToDto(it) })
+        return ResponseEntity.ok().body(service.findAll().map { SubjectMapper.entityToDto(it) })
     }
 
     @GetMapping("/{id}")

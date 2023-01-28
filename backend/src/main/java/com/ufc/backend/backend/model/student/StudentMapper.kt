@@ -7,8 +7,7 @@ import com.ufc.backend.backend.model.student.dto.StudentInsertDto
 import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
-class StudentMapper {
+object StudentMapper {
 
     fun entityToDto(student: Student) =
         StudentDto(

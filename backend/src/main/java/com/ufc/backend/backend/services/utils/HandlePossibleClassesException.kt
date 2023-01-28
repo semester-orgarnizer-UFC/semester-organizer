@@ -12,6 +12,8 @@ import java.util.function.Consumer
 /**
  * Class responsible to throw possible exceptions when you try to create a [Semester] with invalid [Subject]
  */
+
+// TODO: REFATORAR ISSO INTEIRO
 class HandlePossibleClassesException(
     private val subjectService: SubjectService,
     private val idsAlreadyDone: Collection<String>?,

@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin
 class CourseResource(
     private val service: CourseService,
-    private val mapper: CourseMapper
 ) {
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: String): ResponseEntity<CourseDto> {
-        return ResponseEntity.ok().body(mapper.entityToDto(service.findById(id)))
+        return ResponseEntity.ok().body(CourseMapper.entityToDto(service.findById(id)))
     }
 
     @GetMapping
     fun findAll(): ResponseEntity<Collection<CourseDto>> {
-        return ResponseEntity.ok().body(service.findAll().map { mapper.entityToDto(it) })
+        return ResponseEntity.ok().body(service.findAll().map { CourseMapper.entityToDto(it) })
     }
 
     @GetMapping("/mandatory/{id}")
