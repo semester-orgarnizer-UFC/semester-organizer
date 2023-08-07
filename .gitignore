@@ -60,3 +60,5 @@ yarn-error.log*
 .env
 /.m2
 /.temp
+*.log
+__pycache__/
