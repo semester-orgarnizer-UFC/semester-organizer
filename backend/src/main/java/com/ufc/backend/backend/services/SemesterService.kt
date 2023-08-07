@@ -75,7 +75,7 @@ class SemesterService(
      * @param semester a given [Semester]
      * @return [Student] with an updated [Semester]
      */
-    fun updateSemester(semester: Semester, id: String): Student? {
+    fun updateSemester(semester: Semester, id: String): Student {
         val user = userService.findById(id)
         HandlePossibleClassesException(subjectService, userService.idsOfTheTakenClasses(id), semester, user).run()
         semester.subjects?.let { deleteAClassesWhenInsertIfAlreadyExists(it, user) }
