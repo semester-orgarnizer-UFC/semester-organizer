@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.post("/scraping")
 async def create_item(loginDto: LoginDto):
-    return scraping(loginDto.login, loginDto.password)
+    return scraping(loginDto)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8888)
