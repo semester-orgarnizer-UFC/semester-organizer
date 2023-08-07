@@ -31,15 +31,15 @@ def scraping(loginInput, passwordInput):
     driver.find_element(
         By.XPATH, "//td[contains(text(),'Progresso no Curso')]").click()
 
-    cursados = driver.find_elements(By.CLASS_NAME, "cursado")
+    finishedSubjects = driver.find_elements(By.CLASS_NAME, "cursado")
 
-    disciplinas = []
+    subjects = []
 
-    for cursado in cursados:
+    for cursado in finishedSubjects:
         id = cursado.get_attribute("id")
         query = id.replace("rect", "text")
         element = driver.find_element(By.ID, query)
-        disciplinas.append(element.text)
+        subjects.append(element.text)
 
     driver.close()
-    return disciplinas
+    return subjects

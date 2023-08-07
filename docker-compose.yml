@@ -1,7 +1,5 @@
 version: '3'
 
-version: "3"
-
 services:
   mysqldb:
     image: mysql:5.7
@@ -14,6 +12,14 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+  scrapping: 
+      build:
+          context: .
+          dockerfile: docker/Dockerfile.scrapping.dockerfile
+      image: semester/scrapping
+      container_name: semesterScrapping
+      ports:
+            - 8888:8888
   backend:
     depends_on:
       - mysqldb
